@@ -1,12 +1,12 @@
 {
-  "name": "expenses",
-  "version": "0.1.0",
+  "name": "expenses-front",
+  "version": "0.0.0",
   "private": true,
   "devDependencies": {
     "autoprefixer": "6.5.1",
     "babel-core": "6.17.0",
     "babel-eslint": "7.0.0",
-    "babel-jest": "17.0.2",
+    "babel-jest": "17.0.0",
     "babel-loader": "6.2.7",
     "babel-preset-react-app": "^2.0.0",
     "case-sensitive-paths-webpack-plugin": "1.1.4",
@@ -16,13 +16,16 @@
     "css-loader": "0.26.0",
     "detect-port": "1.0.1",
     "dotenv": "2.0.0",
-    "eslint": "3.8.1",
-    "eslint-config-react-app": "^0.4.0",
+    "enzyme": "^2.6.0",
+    "eslint": "3.9.1",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-import-resolver-webpack": "^0.7.0",
     "eslint-loader": "1.6.0",
-    "eslint-plugin-flowtype": "2.21.0",
-    "eslint-plugin-import": "2.0.1",
+    "eslint-plugin-import": "2.1.0",
     "eslint-plugin-jsx-a11y": "2.2.3",
-    "eslint-plugin-react": "6.4.1",
+    "eslint-plugin-react": "6.6.0",
+    "eslint-plugin-redux-saga": "^0.2.0",
+    "expect": "^1.20.2",
     "extract-text-webpack-plugin": "1.0.1",
     "file-loader": "0.9.0",
     "filesize": "3.3.0",
@@ -37,37 +40,69 @@
     "postcss-loader": "1.0.0",
     "promise": "7.1.1",
     "react-dev-utils": "^0.4.0",
-    "recursive-readdir": "2.1.0",
     "strip-ansi": "3.0.1",
     "style-loader": "0.13.1",
     "url-loader": "0.5.7",
     "webpack": "1.13.2",
     "webpack-dev-server": "1.16.2",
-    "webpack-manifest-plugin": "1.1.0",
-    "whatwg-fetch": "1.0.0"
+    "webpack-manifest-plugin": "1.1.0"
   },
   "dependencies": {
+    "babel-polyfill": "^6.16.0",
+    "immutable": "^3.8.1",
+    "invariant": "^2.2.1",
+    "lodash": "^4.17.2",
+    "material-ui": "^0.16.2",
+    "pushstate-server": "^2.1.0",
     "react": "^15.4.1",
-    "react-dom": "^15.4.1"
+    "react-dom": "^15.4.1",
+    "react-redux": "^4.4.6",
+    "react-router": "^3.0.0",
+    "react-router-redux": "4.0.7",
+    "react-router-scroll": "^0.4.1",
+    "react-tap-event-plugin": "^2.0.1",
+    "recursive-readdir": "^2.1.0",
+    "redux": "^3.6.0",
+    "redux-form": "^6.2.1",
+    "redux-immutable": "^3.0.8",
+    "redux-saga": "^0.13.0",
+    "reselect": "^2.5.4",
+    "sanitize.css": "^4.1.0",
+    "superagent": "^3.1.0",
+    "validator": "^6.1.0",
+    "warning": "^3.0.0"
   },
   "scripts": {
     "start": "node scripts/start.js",
+    "start:production": "pushstate-server build 3000",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom"
   },
   "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx}"
+    "moduleFileExtensions": [
+      "jsx",
+      "js",
+      "json"
+    ],
+    "modulePaths": [
+      "<rootDir>/src/"
+    ],
+    "coverageReporters": [
+      "text",
+      "text-summary"
     ],
     "moduleNameMapper": {
-      "^.+\\.(ico|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/config/jest/FileStub.js",
+      "^.+\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/config/jest/FileStub.js",
       "^.+\\.css$": "<rootDir>/config/jest/CSSStub.js"
     },
     "setupFiles": [
       "<rootDir>/config/polyfills.js"
     ],
     "testPathIgnorePatterns": [
-      "<rootDir>/(build|docs|node_modules)/"
+      "<rootDir>/(build|docs|node_modules|config)/"
+    ],
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/(build|docs|node_modules|config)/"
     ],
     "testEnvironment": "node"
   },
@@ -75,8 +110,5 @@
     "presets": [
       "react-app"
     ]
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   }
 }
