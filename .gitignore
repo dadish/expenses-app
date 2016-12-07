@@ -1,0 +1,19 @@
+# dependencies
+front/node_modules
+back/node_modules
+
+# testing
+front/coverage
+back/coverage
+
+# production
+front/build
+back/build
+
+# misc
+front/.DS_Store
+front/.env
+front/npm-debug.log
+back/.DS_Store
+back/.env
+back/npm-debug.log
