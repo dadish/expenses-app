@@ -2,15 +2,19 @@ import 'babel-polyfill'; // for generators support
 import co from 'co';
 import pify from 'pify';
 import server from './server';
+import auth from './auth';
 import routes from './routes';
 import swagger from './swagger';
+import { sync as syncDB } from './db';
 
 const start = app => pify(app.start.bind(app))()
   .then(() => console.log(`Serving at: ${server.info.uri}`)); // eslint-disable-line no-console
 
 co(function* gen() {
+  yield auth(server);
   yield swagger(server);
   server.route(routes);
+  yield syncDB();
   yield start(server);
 }).catch((err) => {
   throw err;

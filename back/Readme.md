@@ -1,6 +1,9 @@
 Expenses Back
 =============
 
+## TODO
+- Log errors into disk file at `arc/db/utils.js`
+
 ## Stack
 The main technology stack that are used in this app is:
 - Hapi
@@ -54,5 +57,35 @@ your browser via http://localhost:3001/docs
 
 The documentation spec is based on [Open Api Specification][openapi] (aka Swagger).
 There you can test API with the tools provided by the Swagger Spec.
+
+### Authentication
+Most of the API requests require you to be authenticated first. You can do that
+via `POST /login` API. There are three user's with different permissions that
+you can get authenticated as:
+- Admin
+  - email: `admin@expenses.com`
+  - password: `admin-expenses`
+- User Manager
+  - email: `manager@expenses.com`
+  - password: `manager-expenses`
+- Regular User
+  - email: `user@expenses.com`
+  - password: `user-expenses`
+
+You can check if you have been authenticated via `GET /login` API. It should
+return the user credentials of the current authenticated user. E.g.:
+```
+{
+  "id": 25,
+  "email": "user@expenses.com",
+  "role": 100,
+  "confirmed": 1
+}
+```
+
+### Logout
+If you want to logout from the app and authenticate under another user you can
+do it via `GET /logout` API. It should return the message `Logout Successful!`
+
 
 [openapi]: https://www.openapis.org/
