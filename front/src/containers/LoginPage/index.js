@@ -62,10 +62,11 @@ LoginPage.propTypes = {
 
 export const mapDispatchToProps = (dispatch, props) => ({
   onSubmit: values => new Promise((resolve, reject) => {
+    const nextPathname = props.location.state && props.location.state.nextPathname;
     dispatch(submit(values.merge({
       res: resolve,
       rej: reject,
-      nextPathname: props.location.state.nextPathname,
+      nextPathname,
     })));
   }),
   onCookieLogin: dispatch(cookieLogin(props.location.state && props.location.state.nextPathname)),
