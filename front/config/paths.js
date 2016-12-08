@@ -19,7 +19,7 @@ function resolveApp(relativePath) {
 // It will then be used by Webpack configs.
 // Jest doesn’t need this because it already handles `NODE_PATH` out of the box.
 
-var nodePaths = (process.env.NODE_PATH || '')
+var nodePaths = (process.env.NODE_PATH || './src')
   .split(process.platform === 'win32' ? ';' : ':')
   .filter(Boolean)
   .map(resolveApp);
