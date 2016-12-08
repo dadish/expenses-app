@@ -68,7 +68,7 @@ export const mapDispatchToProps = (dispatch, props) => ({
       nextPathname: props.location.state.nextPathname,
     })));
   }),
-  onCookieLogin: dispatch(cookieLogin(props.location.state.nextPathname)),
+  onCookieLogin: dispatch(cookieLogin(props.location.state && props.location.state.nextPathname)),
 });
 
 // Wrap the component with reduxForm

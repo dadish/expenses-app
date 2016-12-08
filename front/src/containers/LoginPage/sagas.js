@@ -56,7 +56,7 @@ export function* cookieLogin(action) {
   if (!data.err && data.res) {
     yield put(setUser(data.res.body));
     if (auth.loggedIn()) {
-      yield put(replace(action.payload));
+      yield put(replace(action.payload || '/'));
     }
   }
 }
