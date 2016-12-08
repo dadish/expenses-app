@@ -6,12 +6,14 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 
 export const HomePage = () => (
-  <div>
+  <div
+    style={{
+      textAlign: 'center',
+    }}
+  >
     <h1>HomePage</h1>
-    <Link to="/login">Login</Link>
   </div>
 );
 
