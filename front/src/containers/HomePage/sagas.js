@@ -5,7 +5,7 @@
 import { call } from 'redux-saga/effects';
 
 function* defaultSaga() {
-  yield call(console.log, 'hello HomePage Saga!');
+  yield call(console.log, 'hello HomePage Saga!'); // eslint-disable-line no-console
 }
 
 // Bootstrap sagas

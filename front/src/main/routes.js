@@ -34,12 +34,10 @@ export default function createRoutes(store) {
       getComponent(nextState, cb) {
         require.ensure([
           'containers/HomePage/reducer',
-          'containers/HomePage/sagas',
           'containers/HomePage',
         ], (require) => {
           const renderRoute = loadModule(cb);
           injectReducer('home', require('containers/HomePage/reducer').default);
-          injectSagas(require('containers/HomePage/sagas').default);
           renderRoute(require('containers/HomePage').default);
         });
       },
