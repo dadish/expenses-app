@@ -55,6 +55,19 @@ export default function createRoutes(store) {
         });
       },
     }, {
+      path: '/register',
+      name: 'register',
+      getComponent(nextState, cb) {
+        require.ensure([
+          'containers/RegisterPage/sagas',
+          'containers/RegisterPage',
+        ], (require) => {
+          const renderRoute = loadModule(cb);
+          injectSagas(require('containers/RegisterPage/sagas').default);
+          renderRoute(require('containers/RegisterPage').default);
+        });
+      },
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {

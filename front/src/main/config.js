@@ -5,7 +5,7 @@ export const api = {
     login: '/login',
     logout: '/logout',
     register: '/register',
-    runs: '/runs',
+    expenses: '/expenses',
     users: '/users',
   },
 };
