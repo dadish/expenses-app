@@ -11,6 +11,7 @@ front/build
 back/build
 
 # misc
+npm-debug.log
 front/.DS_Store
 front/.env
 front/npm-debug.log
