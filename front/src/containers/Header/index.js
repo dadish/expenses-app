@@ -22,7 +22,7 @@ export const Header = ({ handleLogout, goToRuns, goToUsers }) => (
     <Logo />
     <div>
       <FlatButton
-        label="Runs"
+        label="Expenses"
         hoverColor={blue500}
         rippleColor={blue700}
         onClick={goToRuns}
