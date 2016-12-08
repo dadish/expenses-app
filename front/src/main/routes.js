@@ -6,9 +6,18 @@
 // TODO handle loading errors when webpack v2 is stable
 
 import { getAsyncInjectors } from 'utils/asyncInjectors';
-// const errorLoading = (err) => {
-//   console.error('Dynamic page loading failed', err); // eslint-disable-line no-console
-// };
+import auth from 'auth';
+
+export const redirectToLogin = (nextState, replace) => {
+  if (nextState.location.pathname === '/login') return;
+  if (nextState.location.pathname === '/register') return;
+  if (!auth.loggedIn()) {
+    replace({
+      pathname: '/login',
+      state: { nextPathname: nextState.location.pathname },
+    });
+  }
+};
 
 const loadModule = cb => (componentModule) => {
   cb(null, componentModule);
@@ -32,6 +41,19 @@ export default function createRoutes(store) {
           injectReducer('home', require('containers/HomePage/reducer').default);
           injectSagas(require('containers/HomePage/sagas').default);
           renderRoute(require('containers/HomePage').default);
+        });
+      },
+    }, {
+      path: '/login',
+      name: 'login',
+      getComponent(nextState, cb) {
+        require.ensure([
+          'containers/LoginPage/sagas',
+          'containers/LoginPage',
+        ], (require) => {
+          const renderRoute = loadModule(cb);
+          injectSagas(require('containers/LoginPage/sagas').default);
+          renderRoute(require('containers/LoginPage').default);
         });
       },
     }, {
