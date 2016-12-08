@@ -1,8 +1,8 @@
 /**
  * Gets the repositories of the user from Github
  */
-import { takeLatest } from 'redux-saga';
-import { fork, take, cancel, call, put } from 'redux-saga/effects';
+import { takeEvery } from 'redux-saga';
+import { fork, cancel, call, put } from 'redux-saga/effects';
 import { LOCATION_CHANGE, replace } from 'react-router-redux';
 import { SubmissionError, change } from 'redux-form/immutable';
 import { api } from 'main/config';
@@ -18,13 +18,14 @@ import {
   COOKIE_LOGIN,
 } from './constants';
 
+let watcher = null;
 const url = `${api.url}${api.path.login}`;
 
 export function* submit(action) {
   const { payload } = action;
   const resolve = payload.get('res');
   const reject = payload.get('rej');
-  const nextPathname = payload.get('nextPathname');
+  const nextPathname = payload.get('nextPathname') || '/';
   const body = {
     email: payload.get('email'),
     password: payload.get('password'),
@@ -61,29 +62,25 @@ export function* cookieLogin(action) {
   }
 }
 
-export function* submitWatcher() {
-  yield fork(takeLatest, SUBMIT, submit);
-  yield fork(takeLatest, COOKIE_LOGIN, cookieLogin);
+function* onLocationChange(action) {
+  if (action.payload.pathname !== '/login') {
+    yield cancel(watcher);
+    watcher = null;
+  }
+}
+
+export function* actionsWatcher() {
+  yield fork(takeEvery, SUBMIT, submit);
+  yield fork(takeEvery, COOKIE_LOGIN, cookieLogin);
+  yield fork(takeEvery, LOCATION_CHANGE, onLocationChange);
 }
 
 export function* main() {
-  // start the SUBMIT action watcher
-  const watcher = yield fork(submitWatcher);
+  // Do not execute any code if watcher is already is running
+  if (watcher) return;
 
-  // continue watching until the LOCATION_CHANGE
-  // action is dispatched with pathname other than
-  // login
-  let action = false;
-  while (!action || (action.payload.pathname && action.payload.pathname !== 'login')) {
-    action = yield take(LOCATION_CHANGE);
-  }
-
-  // If react-router-redux dispatched the LOCATION_CHANGE
-  // action then the LoginPage container no longer relevant
-  // and SUBMIT actions from it will not dispatched
-  // thus stop watching for SUBMIT actions from LoginPage
-  // container
-  yield cancel(watcher);
+  // start the SAVE action watcher
+  watcher = yield fork(actionsWatcher);
 }
 
 // Bootstrap sagas
