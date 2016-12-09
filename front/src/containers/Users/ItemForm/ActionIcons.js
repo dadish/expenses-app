@@ -1,17 +1,25 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { Map } from 'immutable';
 import CircularProgress from 'material-ui/CircularProgress';
 import DoneIcon from 'components/DoneIcon';
+import CancelIcon from 'components/CancelIcon';
 import { green400 } from 'material-ui/styles/colors';
-import { save } from '../Item/actions';
+import { save, editModeOff } from 'containers/Users/Item/actions';
 
-export const handleClick = (values, dispatch) =>
-  new Promise((resolve, reject) => {
-    dispatch(save(values.set('rej', reject).set('res', resolve)));
-  });
+const style = {
+  display: 'flex',
+  justifyContent: 'space-around',
+};
 
-
-const ActionIcons = ({ saving, handleSubmit }) => {
-  if (saving) {
+export const ActionIcons = (props) => {
+  const {
+    user,
+    handleSubmit,
+    handleCancel,
+    handleDone,
+  } = props;
+  if (user.get('saving')) {
     return (
       <CircularProgress
         size={32}
@@ -25,18 +33,35 @@ const ActionIcons = ({ saving, handleSubmit }) => {
   }
 
   return (
-    <DoneIcon
-      style={{
-        height: '48px',
-      }}
-      onClick={handleSubmit(handleClick)}
-    />
+    <div style={style}>
+      <DoneIcon
+        style={{
+          height: '48px',
+        }}
+        onClick={handleSubmit(handleDone)}
+      />
+      <CancelIcon
+        style={{
+          height: '48px',
+        }}
+        onClick={handleCancel}
+      />
+    </div>
   );
 };
 
 ActionIcons.propTypes = {
-  saving: PropTypes.bool,
+  user: PropTypes.instanceOf(Map).isRequired,
   handleSubmit: PropTypes.func.isRequired,
+  handleDone: PropTypes.func.isRequired,
+  handleCancel: PropTypes.func.isRequired,
 };
 
-export default ActionIcons;
+export const mapDispatchToProps = (dispatch, { user }) => ({
+  handleCancel: () => dispatch(editModeOff(user)),
+  handleDone: values => new Promise((resolve, reject) => {
+    dispatch(save(values.set('rej', reject).set('res', resolve)));
+  }),
+});
+
+export default connect(null, mapDispatchToProps)(ActionIcons);

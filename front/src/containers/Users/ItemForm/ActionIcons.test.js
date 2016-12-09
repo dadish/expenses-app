@@ -2,14 +2,19 @@ import React from 'react';
 import expect, { createSpy } from 'expect';
 import { fromJS } from 'immutable';
 import { shallow } from 'enzyme';
-import { save } from 'containers/Users/Item/actions';
-import ActionIcons, {
-  handleClick,
+import { save, editModeOff } from 'containers/Users/Item/actions';
+import {
+  ActionIcons,
+  mapDispatchToProps,
 } from './ActionIcons';
+
+const user = fromJS({ saving: false });
 
 const props = {
   handleSubmit: () => {},
-  saving: false,
+  handleCancel: () => {},
+  handleDone: () => {},
+  user,
 };
 
 describe('ActionIcons()', () => {
@@ -19,24 +24,29 @@ describe('ActionIcons()', () => {
   it('renders without errors when saving=true', () => {
     const modifiedProps = {
       ...props,
-      saving: true,
+      user: user.set('saving', true),
     };
     shallow(<ActionIcons {...modifiedProps} />);
   });
 });
 
-describe('handleClick()', () => {
-  it('returns a promise', () => {
-    expect(handleClick()).toBeA(Promise);
+describe('mapDispatchToProps()', () => {
+  const dispatch = createSpy();
+  const { handleDone, handleCancel } = mapDispatchToProps(dispatch, props);
+  describe('handleDone()', () => {
+    it('returns promise', () => {
+      expect(handleDone(user)).toBeA(Promise);
+    });
+    it('dispatches a save action', () => {
+      expect(dispatch).toHaveBeenCalled();
+      expect(dispatch.calls[0].arguments[0].type).toBe(save().type);
+    });
   });
-  it('dispatches save() action', () => {
-    const dispatch = createSpy();
-    const values = fromJS({ foo: 'bar' });
-    handleClick(values, dispatch);
-    expect(dispatch).toHaveBeenCalled();
-    expect(dispatch.calls[0].arguments[0].type).toBe(save().type);
-    expect(dispatch.calls[0].arguments[0].payload.get('foo')).toBe('bar');
-    expect(dispatch.calls[0].arguments[0].payload.get('res')).toExist();
-    expect(dispatch.calls[0].arguments[0].payload.get('rej')).toExist();
+  describe('handleCancel()', () => {
+    it('dispatches a editModeOff action', () => {
+      handleCancel();
+      expect(dispatch).toHaveBeenCalled();
+      expect(dispatch.calls[1].arguments[0].type).toBe(editModeOff().type);
+    });
   });
 });

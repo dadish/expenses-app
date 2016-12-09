@@ -43,7 +43,7 @@ const UsersItemForm = ({ handleSubmit, initialValues, userRoleLabels }) => (
       />
     </UsersItemColumnRole>
     <UsersItemColumnEdit>
-      <ActionIcons saving={initialValues.get('saving')} handleSubmit={handleSubmit} />
+      <ActionIcons user={initialValues} handleSubmit={handleSubmit} />
     </UsersItemColumnEdit>
   </UsersItemRow>
 );
