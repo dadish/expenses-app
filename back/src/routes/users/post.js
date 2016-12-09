@@ -14,19 +14,26 @@ const route = {
       const client = request.auth.credentials;
       const { role } = client;
       if ([200, 300].indexOf(role) === -1) {
-        return reply(Boom.unauthorized());
+        reply(Boom.unauthorized());
+        return;
       }
 
       const { payload } = request;
       const { email } = payload;
       const items = yield User.find({ email });
-      if (items.length) return reply(Boom.conflict('Email is already registred.'));
+      if (items.length) {
+        reply(Boom.conflict('Email is already registred.'));
+        return;
+      }
 
       // make sure user administrator cannot create an admin user`
-      if (payload.role === 300) payload.role = 100;
+      if (client.role === 200 && payload.role === 300) {
+        reply(Boom.unauthorized('Manager cannot create an administrator account.'));
+        return;
+      }
 
       const user = yield User.create({ ...payload });
-      return reply(user);
+      reply(user);
     }).catch((err) => {
       handleInternalError(err);
       reply(Boom.internal());
