@@ -8,7 +8,7 @@ test('The Logo renders without errors', () => {
   shallow(<Logo />);
 });
 
-test('The Logo renders directions-run SVG icon from material-ui', () => {
+test('The Logo renders account-balance SVG icon from material-ui', () => {
   const wrapper = shallow(<Logo />);
   expect(wrapper.find(Icon).length).toBe(1);
 });

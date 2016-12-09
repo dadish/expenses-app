@@ -8,7 +8,7 @@ import Logo from 'components/Logo';
 import { logout } from 'containers/App/actions';
 
 
-export const Header = ({ handleLogout, goToRuns, goToUsers }) => (
+export const Header = ({ handleLogout, goToExpenses, goToUsers }) => (
   <Paper
     style={{
       backgroundColor: blue400,
@@ -25,7 +25,7 @@ export const Header = ({ handleLogout, goToRuns, goToUsers }) => (
         label="Expenses"
         hoverColor={blue500}
         rippleColor={blue700}
-        onClick={goToRuns}
+        onClick={goToExpenses}
         labelStyle={{ color: '#fff' }}
       />
       <FlatButton
@@ -48,13 +48,13 @@ export const Header = ({ handleLogout, goToRuns, goToUsers }) => (
 
 Header.propTypes = {
   handleLogout: PropTypes.func.isRequired,
-  goToRuns: PropTypes.func.isRequired,
+  goToExpenses: PropTypes.func.isRequired,
   goToUsers: PropTypes.func.isRequired,
 };
 
 export const mapDispatchToProps = dispatch => ({
   handleLogout: () => dispatch(logout()),
-  goToRuns: () => dispatch(push('/runs')),
+  goToExpenses: () => dispatch(push('/expenses')),
   goToUsers: () => dispatch(push('/users')),
 });
 

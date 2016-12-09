@@ -68,6 +68,21 @@ export default function createRoutes(store) {
         });
       },
     }, {
+      path: '/users',
+      name: 'users',
+      getComponent(nextState, cb) {
+        require.ensure([
+          'containers/Users/sagas',
+          'containers/Users/reducer',
+          'containers/Users',
+        ], (require) => {
+          const renderRoute = loadModule(cb);
+          injectSagas(require('containers/Users/sagas').default);
+          injectReducer('users', require('containers/Users/reducer').default);
+          renderRoute(require('containers/Users').default);
+        });
+      },
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {

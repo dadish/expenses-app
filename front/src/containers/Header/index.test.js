@@ -7,7 +7,7 @@ import { Header, mapDispatchToProps } from './';
 
 const props = {
   handleLogout: () => {},
-  goToRuns: () => {},
+  goToExpenses: () => {},
   goToUsers: () => {},
 };
 
@@ -17,16 +17,16 @@ test('Header renders without errors', () => {
 
 describe('mapDispatchToProps()', () => {
   const dispatch = createSpy();
-  const { handleLogout, goToRuns, goToUsers } = mapDispatchToProps(dispatch);
+  const { handleLogout, goToExpenses, goToUsers } = mapDispatchToProps(dispatch);
 
   it('handleLogout() dispatches a logout action', () => {
     handleLogout();
     expect(dispatch).toHaveBeenCalledWith(logout());
   });
 
-  it('goToRuns() dispatches a react-router-redux`s push with `/runs`', () => {
-    goToRuns();
-    expect(dispatch).toHaveBeenCalledWith(push('/runs'));
+  it('goToExpenses() dispatches a react-router-redux`s push with `/expenses`', () => {
+    goToExpenses();
+    expect(dispatch).toHaveBeenCalledWith(push('/expenses'));
   });
 
   it('goToUsers() dispatches a react-router-redux`s push with `/users`', () => {

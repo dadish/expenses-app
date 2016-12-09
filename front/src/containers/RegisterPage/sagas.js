@@ -55,7 +55,7 @@ export function* actionsWatcher() {
 }
 
 export function* main() {
-  // Do not execute any code if watcher is already is running
+  // Do not execute any code if watcher is already is expensening
   if (watcher) return;
 
   // start the SAVE action watcher

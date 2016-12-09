@@ -1,8 +1,8 @@
 import React from 'react';
-import RunIcon from 'material-ui/svg-icons/action/account-balance';
+import ExpenseIcon from 'material-ui/svg-icons/action/account-balance';
 
 const Logo = () => (
-  <RunIcon
+  <ExpenseIcon
     style={{
       width: '40px',
       height: '40px',
