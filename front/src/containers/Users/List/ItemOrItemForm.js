@@ -1,17 +1,14 @@
 import React, { PropTypes, PureComponent } from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import { Map } from 'immutable';
+import { selectUserRoleLabels } from '../selectors';
 import ExpensesItem from '../Item';
 import { createForm } from '../ItemForm';
 
-const labels = [
-  [100, 'User'],
-  [200, 'Manager'],
-  [300, 'Admin'],
-];
-
 class ItemRenderer extends PureComponent {
   render() {
-    const { user } = this.props;
+    const { user, labels } = this.props;
     let item;
     if (user.get('edit')) {
       const Form = createForm(user.get('cid'));
@@ -23,8 +20,13 @@ class ItemRenderer extends PureComponent {
   }
 }
 
+export const mapStateToProps = createStructuredSelector({
+  labels: selectUserRoleLabels(),
+});
+
 ItemRenderer.propTypes = {
   user: PropTypes.instanceOf(Map),
+  labels: PropTypes.array.isRequired,
 };
 
-export default ItemRenderer;
+export default connect(mapStateToProps, null)(ItemRenderer);
