@@ -8,4 +8,6 @@ export default [
   require('./register/post.js').default,
   require('./users/get.js').default,
   require('./users/post.js').default,
+  require('./users/put.id.js').default,
+  require('./users/delete.id.js').default,
 ];
