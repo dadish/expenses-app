@@ -44,11 +44,8 @@ export function* submit(action) {
   } else if (data.res) {
     yield put(setUser(data.res.body));
     yield call(resolve, data.res.body);
-    if (auth.loggedIn()) {
-      yield put(replace(nextPathname));
-    } else {
-      yield put(change(FORM_NAME, FORM_FIELD_SUBMIT, SUBMIT_END));
-    }
+    yield put(replace(auth.allowedPath(nextPathname)));
+    yield put(change(FORM_NAME, FORM_FIELD_SUBMIT, SUBMIT_END));
   }
 }
 
@@ -57,7 +54,9 @@ export function* cookieLogin(action) {
   if (!data.err && data.res) {
     yield put(setUser(data.res.body));
     if (auth.loggedIn()) {
-      yield put(replace(action.payload || '/'));
+      const user = auth.getUser();
+      if ([200, 300].indexOf(user.role) === -1) yield put(replace('/expenses'));
+      else yield put(replace(action.payload || '/'));
     }
   }
 }

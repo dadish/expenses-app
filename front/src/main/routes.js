@@ -9,14 +9,13 @@ import { getAsyncInjectors } from 'utils/asyncInjectors';
 import auth from 'auth';
 
 export const redirectToLogin = (nextState, replace) => {
-  if (nextState.location.pathname === '/login') return;
-  if (nextState.location.pathname === '/register') return;
-  if (!auth.loggedIn()) {
-    replace({
-      pathname: '/login',
-      state: { nextPathname: nextState.location.pathname },
-    });
-  }
+  const nextPathname = nextState.location.pathname;
+  const nextAllowedPath = auth.allowedPath(nextPathname);
+  if (nextAllowedPath === nextPathname) return;
+  replace({
+    pathname: nextAllowedPath,
+    state: { nextPathname },
+  });
 };
 
 const loadModule = cb => (componentModule) => {
