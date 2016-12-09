@@ -38,7 +38,7 @@ function* saveItem(action) {
 
   if (data.err) {
     if (data.err.status === 401) {
-      yield call(reject, new SubmissionError({ _error: data.err.response.body.message }));
+      yield call(alert, data.err.response.body.message);
     } else if (data.err.status === 400) {
       yield call(reject, boomToReduxForm(data.err.response.body));
     } else {
