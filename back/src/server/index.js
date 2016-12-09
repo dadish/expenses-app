@@ -1,4 +1,5 @@
 import Hapi from 'hapi';
+import Boom from 'boom';
 import config from '../config';
 
 const server = new Hapi.Server();
@@ -9,6 +10,11 @@ server.connection({
     cors: {
       origin: ['http://localhost:3000'],
       credentials: true,
+    },
+    validate: {
+      failAction: (request, reply, source, error) => {
+        reply(Boom.badRequest(JSON.stringify(error.data.details)));
+      },
     },
   },
 });
