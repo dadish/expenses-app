@@ -15,6 +15,7 @@ const selectUserRole = () => state => state.getIn(['global', 'user', 'role']);
 export const selectUserRoleLabels = () => createSelector(
   selectUserRole(),
   (role) => {
+    if (role === 0) return [];
     if (role === 300) return userRoleLabels;
     return userRoleLabels.filter(label => label[0] !== 300);
   },
