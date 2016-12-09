@@ -12,7 +12,7 @@ const style = {
   justifyContent: 'space-around',
 };
 
-export const ActionIcons = (props) => {
+export const Icons = (props) => {
   const {
     user,
     handleSubmit,
@@ -50,7 +50,7 @@ export const ActionIcons = (props) => {
   );
 };
 
-ActionIcons.propTypes = {
+Icons.propTypes = {
   user: PropTypes.instanceOf(Map).isRequired,
   handleSubmit: PropTypes.func.isRequired,
   handleDone: PropTypes.func.isRequired,
@@ -64,4 +64,4 @@ export const mapDispatchToProps = (dispatch, { user }) => ({
   }),
 });
 
-export default connect(null, mapDispatchToProps)(ActionIcons);
+export default connect(null, mapDispatchToProps)(Icons);

@@ -4,7 +4,7 @@ import { fromJS } from 'immutable';
 import { shallow } from 'enzyme';
 import { save, editModeOff } from 'containers/Users/Item/actions';
 import {
-  ActionIcons,
+  Icons,
   mapDispatchToProps,
 } from './ActionIcons';
 
@@ -19,14 +19,14 @@ const props = {
 
 describe('ActionIcons()', () => {
   it('renders without errors when saving=false', () => {
-    shallow(<ActionIcons {...props} />);
+    shallow(<Icons {...props} />);
   });
   it('renders without errors when saving=true', () => {
     const modifiedProps = {
       ...props,
       user: user.set('saving', true),
     };
-    shallow(<ActionIcons {...modifiedProps} />);
+    shallow(<Icons {...modifiedProps} />);
   });
 });
 
