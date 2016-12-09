@@ -10,13 +10,21 @@ const route = {
 
   handler: (request, reply) => co(function* gen() {
     const client = request.auth.credentials;
-    const { role } = client;
     let items;
-    if ([200, 300].indexOf(role) === -1) {
-      items = [];
-    } else {
-      items = yield User.find();
+    // make sure user is allowed to crud users
+    if ([200, 300].indexOf(client.role) === -1) {
+      reply(Boom.unauthorized('You are not authorised for this action.'));
+      return;
     }
+
+    // get the users
+    items = yield User.find();
+
+    // make sure manager does not see the administrators
+    if (client.role === 200) {
+      items = items.filter(item => item.role !== 300);
+    }
+
     reply(items);
   }).catch((err) => {
     handleInternalError(err);
