@@ -28,7 +28,7 @@ const appReducer = (state = initialState, action) => {
     case SET_USER:
       return state.set('user', state.get('user').merge(payload));
     case UNSET_USER:
-      return state.set('user', initialState);
+      return state.set('user', initialState.get('user'));
     default:
       return state;
   }
