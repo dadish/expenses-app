@@ -18,4 +18,5 @@ export default [
 
   // expenses API
   require('./expenses/get.js').default,
+  require('./expenses/post.js').default,
 ];
