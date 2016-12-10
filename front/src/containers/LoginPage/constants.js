@@ -9,8 +9,8 @@
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
 
-export const SUBMIT = 'joggy/LoginPage/SUBMIT';
-export const COOKIE_LOGIN = 'joggy/LoginPage/COOKIE_LOGIN';
+export const SUBMIT = 'app/LoginPage/SUBMIT';
+export const COOKIE_LOGIN = 'app/LoginPage/COOKIE_LOGIN';
 
 // Form constants
 export const FORM_NAME = 'login';

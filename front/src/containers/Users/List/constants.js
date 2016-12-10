@@ -2,4 +2,4 @@
  * Users constants
  */
 
-export const RESET_LIST = 'joggy/Users/RESET_LIST';
+export const RESET_LIST = 'app/Users/RESET_LIST';

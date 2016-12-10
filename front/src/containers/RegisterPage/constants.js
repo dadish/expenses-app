@@ -9,4 +9,4 @@
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
 
-export const SUBMIT = 'joggy/RegisterPage/SUBMIT';
+export const SUBMIT = 'app/RegisterPage/SUBMIT';
