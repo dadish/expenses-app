@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import { selectUserRole } from 'containers/App/selectors';
 
 const rootSelector = () => state => state.get('users');
 
@@ -9,8 +10,6 @@ const userRoleLabels = [
   [200, 'Manager'],
   [300, 'Admin'],
 ];
-
-const selectUserRole = () => state => state.getIn(['global', 'user', 'role']);
 
 export const selectUserRoleLabels = () => createSelector(
   selectUserRole(),

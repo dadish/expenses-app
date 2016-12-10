@@ -1,56 +1,81 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import FlatButton from 'material-ui/FlatButton';
 import Paper from 'material-ui/Paper';
-import { blue400, blue500, blue700 } from 'material-ui/styles/colors';
+import { blue400 } from 'material-ui/styles/colors';
 import Logo from 'components/Logo';
 import { logout } from 'containers/App/actions';
+import { createStructuredSelector } from 'reselect';
+import { selectUserRole } from 'containers/App/selectors';
+import Expenses from './Middle/Expenses';
+import Users from './Middle/Users';
+import Logout from './Logout';
 
+const style = {
+  backgroundColor: blue400,
+  height: '56px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  padding: '8px',
+};
 
-export const Header = ({ handleLogout, goToExpenses, goToUsers }) => (
-  <Paper
-    style={{
-      backgroundColor: blue400,
-      height: '56px',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      padding: '8px',
-    }}
-  >
-    <Logo />
-    <div>
-      <FlatButton
-        label="Expenses"
-        hoverColor={blue500}
-        rippleColor={blue700}
-        onClick={goToExpenses}
-        labelStyle={{ color: '#fff' }}
-      />
-      <FlatButton
-        label="Users"
-        hoverColor={blue500}
-        rippleColor={blue700}
-        onClick={goToUsers}
-        labelStyle={{ color: '#fff' }}
-      />
-    </div>
-    <FlatButton
-      label="Logout"
-      onClick={handleLogout}
-      hoverColor={blue500}
-      rippleColor={blue700}
-      labelStyle={{ color: '#fff' }}
+export const Header = (props) => {
+  const {
+    handleLogout,
+    goToExpenses,
+    goToUsers,
+    userRole,
+  } = props;
+  const headerItems = [];
+  const headerMiddleItems = [];
+  const headerLogo = (
+    <Logo
+      key="header-logo"
     />
-  </Paper>
-);
+  );
+  const headerMiddleExpenses = (
+    <Expenses
+      key="header-middle-expenses"
+      handleClick={goToExpenses}
+    />
+  );
+  const headerMiddleUsers = (
+    <Users
+      key="header-middle-users"
+      handleClick={goToUsers}
+    />
+  );
+  const headerLogout = (
+    <Logout
+      key="header-logout
+      " handleClick={handleLogout}
+    />
+  );
+
+  headerItems.push(headerLogo);
+  if (userRole >= 100) headerMiddleItems.push(headerMiddleExpenses);
+  if (userRole >= 200) headerMiddleItems.push(headerMiddleUsers);
+  headerItems.push(<div key="header-middle">{headerMiddleItems}</div>);
+  if (userRole >= 100) headerItems.push(headerLogout);
+
+  return (
+    <Paper style={style} >
+      {headerItems}
+    </Paper>
+  );
+};
 
 Header.propTypes = {
   handleLogout: PropTypes.func.isRequired,
   goToExpenses: PropTypes.func.isRequired,
   goToUsers: PropTypes.func.isRequired,
+  userRole: PropTypes.number.isRequired,
 };
+
+export const mapStateToProps = createStructuredSelector({
+  userRole: selectUserRole(),
+});
 
 export const mapDispatchToProps = dispatch => ({
   handleLogout: () => dispatch(logout()),
@@ -58,4 +83,4 @@ export const mapDispatchToProps = dispatch => ({
   goToUsers: () => dispatch(push('/users')),
 });
 
-export default connect(null, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
