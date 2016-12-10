@@ -18,7 +18,7 @@ const route = {
 
     // everybody else gets their own expenses
     } else {
-      items = yield Expense.find({ id: client.id });
+      items = yield Expense.find({ user: client.id });
     }
     reply(items);
   }).catch((err) => {
