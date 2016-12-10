@@ -86,9 +86,13 @@ export default function createRoutes(store) {
       name: 'expenses',
       getComponent(nextState, cb) {
         require.ensure([
+          'containers/Expenses/sagas',
+          'containers/Expenses/reducer',
           'containers/Expenses',
         ], (require) => {
           const renderRoute = loadModule(cb);
+          injectSagas(require('containers/Expenses/sagas').default);
+          injectReducer('expenses', require('containers/Expenses/reducer').default);
           renderRoute(require('containers/Expenses').default);
         });
       },
