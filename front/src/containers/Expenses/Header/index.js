@@ -1,24 +1,30 @@
 import React from 'react';
 import { grey200 } from 'material-ui/styles/colors';
-import ItemRow from 'components/ItemRow';
+import ExpensesItemRow from 'components/ExpensesItemRow';
 import {
   ExpensesItemColumnId,
-  ExpensesItemColumnEmail,
-  ExpensesItemColumnRole,
+  ExpensesItemColumnUser,
+  ExpensesItemColumnAmount,
+  ExpensesItemColumnDate,
+  ExpensesItemColumnComment,
+  ExpensesItemColumnDescription,
   ExpensesItemColumnEdit,
 } from 'components/ExpensesItemColumn';
 
 const ExpensesHeader = () => (
-  <ItemRow
+  <ExpensesItemRow
     style={{
       borderTop: `1px solid ${grey200}`,
     }}
   >
     <ExpensesItemColumnId>Id</ExpensesItemColumnId>
-    <ExpensesItemColumnEmail>Email</ExpensesItemColumnEmail>
-    <ExpensesItemColumnRole>Role</ExpensesItemColumnRole>
+    <ExpensesItemColumnUser>User</ExpensesItemColumnUser>
+    <ExpensesItemColumnAmount>Amount</ExpensesItemColumnAmount>
+    <ExpensesItemColumnDate>Date</ExpensesItemColumnDate>
+    <ExpensesItemColumnComment>Comment</ExpensesItemColumnComment>
+    <ExpensesItemColumnDescription>Description</ExpensesItemColumnDescription>
     <ExpensesItemColumnEdit>Edit</ExpensesItemColumnEdit>
-  </ItemRow>
+  </ExpensesItemRow>
 );
 
 export default ExpensesHeader;

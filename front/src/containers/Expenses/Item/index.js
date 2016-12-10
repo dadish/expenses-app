@@ -1,10 +1,13 @@
 import React, { PropTypes } from 'react';
 import { Map } from 'immutable';
-import ItemRow from 'components/ItemRow';
+import ExpensesItemRow from 'components/ExpensesItemRow';
 import {
   ExpensesItemColumnId,
-  ExpensesItemColumnEmail,
-  ExpensesItemColumnRole,
+  ExpensesItemColumnUser,
+  ExpensesItemColumnAmount,
+  ExpensesItemColumnDate,
+  ExpensesItemColumnComment,
+  ExpensesItemColumnDescription,
   ExpensesItemColumnEdit,
 } from 'components/ExpensesItemColumn';
 import ActionIcons from './ActionIcons';
@@ -14,25 +17,33 @@ export const roleToRoleLabel = (role, labels) => {
   return '';
 };
 
-const ExpensesItem = ({ expense, expenseRoleLabels }) => (
-  <ItemRow>
+const ExpensesItem = ({ expense }) => (
+  <ExpensesItemRow>
     <ExpensesItemColumnId>
       {expense.get('id')}
     </ExpensesItemColumnId>
-    <ExpensesItemColumnEmail>
-      {expense.get('email')}
-    </ExpensesItemColumnEmail>
-    <ExpensesItemColumnRole>
-      {roleToRoleLabel(expense.get('role'), expenseRoleLabels)}
-    </ExpensesItemColumnRole>
+    <ExpensesItemColumnUser>
+      {expense.get('userEmail')}
+    </ExpensesItemColumnUser>
+    <ExpensesItemColumnAmount>
+      {expense.get('amount') / 100}
+    </ExpensesItemColumnAmount>
+    <ExpensesItemColumnDate>
+      {expense.get('date')}
+    </ExpensesItemColumnDate>
+    <ExpensesItemColumnComment>
+      {expense.get('comment')}
+    </ExpensesItemColumnComment>
+    <ExpensesItemColumnDescription>
+      {expense.get('description')}
+    </ExpensesItemColumnDescription>
     <ExpensesItemColumnEdit>
       <ActionIcons expense={expense} />
     </ExpensesItemColumnEdit>
-  </ItemRow>
+  </ExpensesItemRow>
 );
 
 ExpensesItem.propTypes = {
-  expenseRoleLabels: PropTypes.array.isRequired,
   expense: PropTypes.instanceOf(Map),
 };
 

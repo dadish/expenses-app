@@ -4,20 +4,24 @@ import { reduxForm, Field } from 'redux-form/immutable';
 import ExpensesItemRow from 'components/ExpensesItemRow';
 import {
   ExpensesItemColumnId,
-  ExpensesItemColumnEmail,
-  ExpensesItemColumnRole,
+  ExpensesItemColumnUser,
+  ExpensesItemColumnAmount,
+  ExpensesItemColumnDate,
+  ExpensesItemColumnComment,
+  ExpensesItemColumnDescription,
   ExpensesItemColumnEdit,
 } from 'components/ExpensesItemColumn';
 import InputEmail from 'components/InputEmail';
 import InputText from 'components/InputText';
-import InputSelect from 'components/InputSelect';
+import InputDate from 'components/InputDate';
+import InputTime from 'components/InputTime';
 import ActionIcons from './ActionIcons';
 
 const fieldStyle = {
   width: '100%',
 };
 
-const ExpensesItemForm = ({ handleSubmit, initialValues, expenseRoleLabels }) => (
+const ExpensesItemForm = ({ handleSubmit, initialValues }) => (
   <ExpensesItemRow>
     <ExpensesItemColumnId>
       <Field
@@ -27,21 +31,53 @@ const ExpensesItemForm = ({ handleSubmit, initialValues, expenseRoleLabels }) =>
         style={fieldStyle}
       />
     </ExpensesItemColumnId>
-    <ExpensesItemColumnEmail>
+    <ExpensesItemColumnUser>
       <Field
-        name="email"
+        name="userEmail"
         component={InputEmail}
-        autofocus
         style={fieldStyle}
       />
-    </ExpensesItemColumnEmail>
-    <ExpensesItemColumnRole>
+    </ExpensesItemColumnUser>
+    <ExpensesItemColumnAmount>
       <Field
-        name="role"
-        component={InputSelect}
-        choices={expenseRoleLabels}
+        name="amount"
+        component={InputText}
+        style={fieldStyle}
       />
-    </ExpensesItemColumnRole>
+    </ExpensesItemColumnAmount>
+    <ExpensesItemColumnDate>
+      <Field
+        name="date"
+        component={InputDate}
+        style={{
+          width: '90px',
+          display: 'inline-block',
+          marginRight: '20px',
+        }}
+      />
+      <Field
+        name="date"
+        component={InputTime}
+        style={{
+          width: '70px',
+          display: 'inline-block',
+        }}
+      />
+    </ExpensesItemColumnDate>
+    <ExpensesItemColumnComment>
+      <Field
+        name="comment"
+        component={InputText}
+        style={fieldStyle}
+      />
+    </ExpensesItemColumnComment>
+    <ExpensesItemColumnDescription>
+      <Field
+        name="description"
+        component={InputText}
+        style={fieldStyle}
+      />
+    </ExpensesItemColumnDescription>
     <ExpensesItemColumnEdit>
       <ActionIcons expense={initialValues} handleSubmit={handleSubmit} />
     </ExpensesItemColumnEdit>
@@ -49,7 +85,6 @@ const ExpensesItemForm = ({ handleSubmit, initialValues, expenseRoleLabels }) =>
 );
 
 ExpensesItemForm.propTypes = {
-  expenseRoleLabels: PropTypes.array.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   initialValues: PropTypes.instanceOf(Map).isRequired,
 };

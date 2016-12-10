@@ -6,7 +6,6 @@ import Controls from './Controls';
 
 const style = {
   width: '90%',
-  maxWidth: '800px',
   margin: '32px auto',
   padding: '16px',
 };

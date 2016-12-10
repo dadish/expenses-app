@@ -17,7 +17,7 @@ import {
 } from './Item/actions';
 
 let watcher = null;
-const url = `${api.url}${api.path.users}`;
+const url = `${api.url}${api.path.expenses}`;
 
 function* saveItem(action) {
   const { payload } = action;
@@ -25,8 +25,11 @@ function* saveItem(action) {
   const reject = payload.get('rej');
   let expense = payload;
   const body = {
-    email: expense.get('email'),
-    role: expense.get('role'),
+    user: expense.get('user'),
+    amount: expense.get('amount'),
+    date: expense.get('date'),
+    description: expense.get('description'),
+    comment: expense.get('comment'),
   };
 
   let data;
