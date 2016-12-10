@@ -9,13 +9,9 @@ import { LOGOUT } from './constants';
 const logoutUrl = `${api.url}${api.path.logout}`;
 
 export function* logoutSaga() {
-  const data = yield call(request, logoutUrl);
-  if (data.err) {
-    alert(data); // eslint-disable-line no-alert
-  } else {
-    yield put(unsetUser());
-    yield put(push('/login'));
-  }
+  yield put(unsetUser());
+  yield put(push('/login'));
+  yield call(request, logoutUrl);
 }
 
 export function* watcherSaga() {
