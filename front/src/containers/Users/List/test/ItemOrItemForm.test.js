@@ -2,7 +2,7 @@ import React from 'react';
 import uniqueId from 'lodash/uniqueId';
 import { fromJS } from 'immutable';
 import { shallow } from 'enzyme';
-import ItemOrItemForm from '../ItemOrItemForm';
+import { ItemOrItemForm } from '../ItemOrItemForm';
 
 const props = {
   user: fromJS({
@@ -14,6 +14,7 @@ const props = {
     saving: false,
     deleting: false,
   }),
+  labels: [],
 };
 
 describe('ItemOrItemForm', () => {

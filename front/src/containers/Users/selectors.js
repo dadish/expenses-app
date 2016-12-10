@@ -5,7 +5,7 @@ const rootSelector = () => state => state.get('users');
 
 export default rootSelector;
 
-const userRoleLabels = [
+export const userRoleLabels = [
   [100, 'User'],
   [200, 'Manager'],
   [300, 'Admin'],

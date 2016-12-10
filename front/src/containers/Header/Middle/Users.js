@@ -4,7 +4,6 @@ import { blue500, blue700 } from 'material-ui/styles/colors';
 
 const Users = ({ handleClick }) => (
   <FlatButton
-    key="header-middle-users"
     label="Users"
     hoverColor={blue500}
     rippleColor={blue700}

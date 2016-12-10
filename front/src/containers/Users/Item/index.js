@@ -9,7 +9,7 @@ import {
 } from 'components/UsersItemColumn';
 import ActionIcons from './ActionIcons';
 
-const roleToRoleLabel = (role, labels) => {
+export const roleToRoleLabel = (role, labels) => {
   if (labels.length) return labels.find(label => label[0] === role)[1];
   return '';
 };

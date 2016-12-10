@@ -1,7 +1,7 @@
 import React from 'react';
 import expect from 'expect';
 import { shallow } from 'enzyme';
-import App from './';
+import App from '../';
 
 const renderComponent = () => shallow(<App />);
 

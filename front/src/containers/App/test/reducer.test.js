@@ -1,7 +1,7 @@
 import expect from 'expect';
 import { fromJS } from 'immutable';
-import appReducer, { initialState } from './reducer';
-import { setUser, unsetUser } from './actions';
+import appReducer, { initialState } from '../reducer';
+import { setUser, unsetUser } from '../actions';
 
 const payload = fromJS({
   id: 1,
@@ -25,8 +25,8 @@ describe('appReducer()', () => {
     expect(state).toExist();
     expect(state.get('user')).toEqual(payload);
     state = appReducer(state, unsetUser());
-    expect(state.getIn(['user', 'id'])).toBe(initialState.get('id'));
-    expect(state.getIn(['user', 'email'])).toBe(initialState.get('email'));
-    expect(state.getIn(['user', 'role'])).toBe(initialState.get('role'));
+    expect(state.getIn(['user', 'id'])).toBe(initialState.getIn(['user', 'id']));
+    expect(state.getIn(['user', 'email'])).toBe(initialState.getIn(['user', 'email']));
+    expect(state.getIn(['user', 'role'])).toBe(initialState.getIn(['user', 'role']));
   });
 });

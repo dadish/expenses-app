@@ -6,7 +6,7 @@ import { selectUserRoleLabels } from '../selectors';
 import ExpensesItem from '../Item';
 import { createForm } from '../ItemForm';
 
-class ItemRenderer extends PureComponent {
+export class ItemOrItemForm extends PureComponent {
   render() {
     const { user, labels } = this.props;
     let item;
@@ -24,9 +24,9 @@ export const mapStateToProps = createStructuredSelector({
   labels: selectUserRoleLabels(),
 });
 
-ItemRenderer.propTypes = {
+ItemOrItemForm.propTypes = {
   user: PropTypes.instanceOf(Map),
   labels: PropTypes.array.isRequired,
 };
 
-export default connect(mapStateToProps, null)(ItemRenderer);
+export default connect(mapStateToProps, null)(ItemOrItemForm);

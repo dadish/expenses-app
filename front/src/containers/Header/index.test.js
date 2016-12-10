@@ -9,10 +9,19 @@ const props = {
   handleLogout: () => {},
   goToExpenses: () => {},
   goToUsers: () => {},
+  userRole: 200,
 };
 
-test('Header renders without errors', () => {
-  shallow(<Header {...props} />);
+describe('Header', () => {
+  it('renders without errors with role=100', () => {
+    shallow(<Header {...props} userRole={100} />);
+  });
+  it('renders without errors with role=200', () => {
+    shallow(<Header {...props} />);
+  });
+  it('renders without errors with role=0', () => {
+    shallow(<Header {...props} userRole={0} />);
+  });
 });
 
 describe('mapDispatchToProps()', () => {

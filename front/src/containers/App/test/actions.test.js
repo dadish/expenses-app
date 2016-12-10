@@ -3,12 +3,12 @@ import {
   setUser,
   unsetUser,
   logout,
-} from './actions';
+} from '../actions';
 import {
   SET_USER,
   UNSET_USER,
   LOGOUT,
-} from './constants';
+} from '../constants';
 
 const actionsMap = {
   setUser: { constant: SET_USER, method: setUser },
