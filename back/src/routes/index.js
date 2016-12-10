@@ -19,4 +19,6 @@ export default [
   // expenses API
   require('./expenses/get.js').default,
   require('./expenses/post.js').default,
+  require('./expenses/delete.id.js').default,
+  require('./expenses/put.id.js').default,
 ];
