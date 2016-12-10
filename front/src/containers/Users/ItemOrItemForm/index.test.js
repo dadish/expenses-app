@@ -2,7 +2,7 @@ import React from 'react';
 import uniqueId from 'lodash/uniqueId';
 import { fromJS } from 'immutable';
 import { shallow } from 'enzyme';
-import { ItemOrItemForm } from '../ItemOrItemForm';
+import { ItemOrItemForm } from './';
 
 const props = {
   user: fromJS({
