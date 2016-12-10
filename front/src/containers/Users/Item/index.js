@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Map } from 'immutable';
-import ItemRow from 'components/ItemRow';
+import UsersItemRow from 'components/UsersItemRow';
 import {
   UsersItemColumnId,
   UsersItemColumnEmail,
@@ -15,7 +15,7 @@ export const roleToRoleLabel = (role, labels) => {
 };
 
 const UsersItem = ({ user, userRoleLabels }) => (
-  <ItemRow>
+  <UsersItemRow>
     <UsersItemColumnId>
       {user.get('id')}
     </UsersItemColumnId>
@@ -28,7 +28,7 @@ const UsersItem = ({ user, userRoleLabels }) => (
     <UsersItemColumnEdit>
       <ActionIcons user={user} />
     </UsersItemColumnEdit>
-  </ItemRow>
+  </UsersItemRow>
 );
 
 UsersItem.propTypes = {
