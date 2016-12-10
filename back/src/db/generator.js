@@ -1,5 +1,6 @@
 import faker from 'faker';
 import range from 'lodash/range';
+import random from 'lodash/random';
 
 export const generateAdminUsers = () => [{
   email: 'admin@expenses.com',
@@ -39,3 +40,11 @@ export const generateRegularUsers = () => {
   });
   return items;
 };
+
+export const generateExpenses = () => range(60).map(() => ({
+  user: random(1, 25),
+  amount: random(1, 50000),
+  date: `2016-12-${random(1, 31)} ${random(9, 21)}:${random(1, 59)}`,
+  description: faker.lorem.sentence(),
+  comment: faker.lorem.sentence(),
+}));
