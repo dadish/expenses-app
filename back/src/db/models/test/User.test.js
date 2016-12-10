@@ -318,7 +318,7 @@ describe('User module', () => {
     it('returns 0 if could not delete', () => del(1230).then((rows) => {
       expect(rows).toBe(0);
     }));
-    it('returns id of the deleted run when successful', () => {
+    it('returns id of the deleted user when successful', () => {
       const id = createdIds.pop();
       return del(id).then((deletedId) => {
         expect(deletedId).toBe(id);

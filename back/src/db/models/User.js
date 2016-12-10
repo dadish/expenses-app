@@ -142,7 +142,7 @@ const update = (id, attributes) => co(function* gen() {
   if (validation.error) yield Promise.reject(validation.error);
   const sleepAttributes = yield attributesToSleep(attributes);
   const rows = yield knex(tableName).where({ id }).update(sleepAttributes);
-  if (!rows) yield Promise.reject(new Error(`Could not update the run with id:${id}`));
+  if (!rows) yield Promise.reject(new Error(`Could not update the user with id:${id}`));
   return findById(id);
 });
 
