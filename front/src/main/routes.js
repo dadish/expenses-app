@@ -82,6 +82,17 @@ export default function createRoutes(store) {
         });
       },
     }, {
+      path: '/expenses',
+      name: 'expenses',
+      getComponent(nextState, cb) {
+        require.ensure([
+          'containers/Expenses',
+        ], (require) => {
+          const renderRoute = loadModule(cb);
+          renderRoute(require('containers/Expenses').default);
+        });
+      },
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {
