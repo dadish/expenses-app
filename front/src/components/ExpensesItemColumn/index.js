@@ -1,51 +1,94 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { grey200 } from 'material-ui/styles/colors';
-import ItemColumn from 'components/ItemColumn';
 
-const ExpensesItemColumn = props => (
-  <ItemColumn {...props} />
+const ExpensesItemColumn = ({ children, style }) => (
+  <div
+    style={{
+      padding: '8px',
+      textAlign: 'left',
+      borderLeft: `1px solid ${grey200}`,
+      overflow: 'hidden',
+      ...style,
+    }}
+  >
+    {children}
+  </div>
 );
+
+ExpensesItemColumn.propTypes = {
+  style: PropTypes.object,
+};
 
 export const ExpensesItemColumnId = ({ children }) => (
-  <ItemColumn
+  <ExpensesItemColumn
     style={{
-      width: '10%',
+      width: '5%',
     }}
   >
     {children}
-  </ItemColumn>
+  </ExpensesItemColumn>
 );
 
-export const ExpensesItemColumnEmail = ({ children }) => (
-  <ItemColumn
+export const ExpensesItemColumnUser = ({ children }) => (
+  <ExpensesItemColumn
     style={{
-      width: '40%',
+      width: '18%',
+      fontSize: '14px',
     }}
   >
     {children}
-  </ItemColumn>
+  </ExpensesItemColumn>
 );
 
-export const ExpensesItemColumnRole = ({ children }) => (
-  <ItemColumn
+export const ExpensesItemColumnAmount = ({ children }) => (
+  <ExpensesItemColumn
     style={{
-      width: '30%',
+      width: '7%',
     }}
   >
     {children}
-  </ItemColumn>
+  </ExpensesItemColumn>
 );
 
-
-export const ExpensesItemColumnEdit = ({ children }) => (
-  <ItemColumn
+export const ExpensesItemColumnDate = ({ children }) => (
+  <ExpensesItemColumn
     style={{
       width: '20%',
+    }}
+  >
+    {children}
+  </ExpensesItemColumn>
+);
+
+export const ExpensesItemColumnDescription = ({ children }) => (
+  <ExpensesItemColumn
+    style={{
+      width: '20%',
+    }}
+  >
+    {children}
+  </ExpensesItemColumn>
+);
+
+export const ExpensesItemColumnComment = ({ children }) => (
+  <ExpensesItemColumn
+    style={{
+      width: '22%',
+    }}
+  >
+    {children}
+  </ExpensesItemColumn>
+);
+
+export const ExpensesItemColumnEdit = ({ children }) => (
+  <ExpensesItemColumn
+    style={{
+      width: '8%',
       borderRight: `1px solid ${grey200}`,
     }}
   >
     {children}
-  </ItemColumn>
+  </ExpensesItemColumn>
 );
 
 export default ExpensesItemColumn;

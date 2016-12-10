@@ -1,51 +1,64 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { grey200 } from 'material-ui/styles/colors';
-import ItemColumn from 'components/ItemColumn';
 
-const UsersItemColumn = props => (
-  <ItemColumn {...props} />
+const UsersItemColumn = ({ children, style }) => (
+  <div
+    style={{
+      padding: '8px',
+      textAlign: 'left',
+      borderLeft: `1px solid ${grey200}`,
+      overflow: 'hidden',
+      ...style,
+    }}
+  >
+    {children}
+  </div>
 );
 
+UsersItemColumn.propTypes = {
+  style: PropTypes.object,
+};
+
 export const UsersItemColumnId = ({ children }) => (
-  <ItemColumn
+  <UsersItemColumn
     style={{
       width: '10%',
     }}
   >
     {children}
-  </ItemColumn>
+  </UsersItemColumn>
 );
 
 export const UsersItemColumnEmail = ({ children }) => (
-  <ItemColumn
+  <UsersItemColumn
     style={{
       width: '40%',
     }}
   >
     {children}
-  </ItemColumn>
+  </UsersItemColumn>
 );
 
 export const UsersItemColumnRole = ({ children }) => (
-  <ItemColumn
+  <UsersItemColumn
     style={{
       width: '30%',
     }}
   >
     {children}
-  </ItemColumn>
+  </UsersItemColumn>
 );
 
 
 export const UsersItemColumnEdit = ({ children }) => (
-  <ItemColumn
+  <UsersItemColumn
     style={{
       width: '20%',
       borderRight: `1px solid ${grey200}`,
     }}
   >
     {children}
-  </ItemColumn>
+  </UsersItemColumn>
 );
 
 export default UsersItemColumn;
