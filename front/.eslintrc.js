@@ -4,7 +4,7 @@ module.exports = {
   "env": {
     "browser": true,
     "mocha": true,
-    "es6": true
+    "es6": true,
   },
   "plugins": [
     "import",
@@ -16,8 +16,8 @@ module.exports = {
     "ecmaVersion": 6,
     "sourceType": "module",
     "ecmaFeatures": {
-      "jsx": true
-    }
+      "jsx": true,
+    },
   },
   "rules": {
     "import/extensions": 0,
@@ -30,5 +30,12 @@ module.exports = {
     "redux-saga/yield-effects": 2,
     "redux-saga/no-yield-in-race": 2,
     "redux-saga/no-unhandled-errors": 0,
-  }
+    "comma-dangle": [2, {
+      "arrays": "always-multiline",
+      "objects": "always-multiline",
+      "imports": "always-multiline",
+      "exports": "always-multiline",
+      "functions": "ignore",
+    }],
+  },
 };
