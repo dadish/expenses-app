@@ -41,7 +41,7 @@ export const generateRegularUsers = () => {
   return items;
 };
 
-export const generateExpenses = () => range(60).map(() => ({
+export const generateExpenses = () => range(120).map(() => ({
   user: random(1, 25),
   amount: random(1, 50000),
   date: `2016-12-${random(1, 31)} ${random(9, 21)}:${random(1, 59)}`,
