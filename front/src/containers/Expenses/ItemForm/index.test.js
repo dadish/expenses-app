@@ -1,18 +1,36 @@
 import React from 'react';
+import uniqueId from 'lodash/uniqueId';
 import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 import ExpensesItemForm, { createForm } from './';
+
+const user = fromJS({
+  cid: uniqueId('user_'),
+  id: 0,
+  email: '',
+  role: 100,
+  edit: false,
+  saving: false,
+  deleting: false,
+});
+
+const widths = {
+  id: 5,
+  user: 18,
+  amount: 7,
+  date: 20,
+  description: 20,
+  comment: 22,
+  edit: 8,
+};
 
 const props = {
   handleSubmit: () => {},
   initialValues: fromJS({
     saving: true,
   }),
-  expenseRoleLabels: [
-    [100, 'Expense'],
-    [200, 'Manager'],
-    [300, 'Admin'],
-  ],
+  user,
+  widths,
 };
 
 describe('ExpensesItemForm', () => {
@@ -22,8 +40,7 @@ describe('ExpensesItemForm', () => {
 });
 
 describe('createForm()', () => {
-  it('returns a React renderable component', () => {
-    const Component = createForm('formName');
-    shallow(<Component />);
+  it('returns without errors', () => {
+    createForm('formName');
   });
 });

@@ -1,9 +1,28 @@
 import React from 'react';
-import expect from 'expect';
 import { fromJS } from 'immutable';
 import uniqueId from 'lodash/uniqueId';
 import { shallow } from 'enzyme';
-import ExpensesItem, { roleToRoleLabel } from '../';
+import { ExpensesItem } from '../';
+
+const user = fromJS({
+  cid: uniqueId('user_'),
+  id: 0,
+  email: '',
+  role: 100,
+  edit: false,
+  saving: false,
+  deleting: false,
+});
+
+const widths = {
+  id: 5,
+  user: 18,
+  amount: 7,
+  date: 20,
+  description: 20,
+  comment: 22,
+  edit: 8,
+};
 
 const expense = fromJS({
   cid: uniqueId('expense_'),
@@ -17,28 +36,12 @@ const expense = fromJS({
 
 const props = {
   expense,
-  expenseRoleLabels: [
-    [100, 'Expense'],
-    [200, 'Manager'],
-    [300, 'Admin'],
-  ],
+  widths,
+  user,
 };
 
 describe('ExpensesItem', () => {
   it('renders without errors', () => {
     shallow(<ExpensesItem {...props} />);
-  });
-});
-
-describe('roleToRoleLabel', () => {
-  it('returns an empty string if labels is an empty array', () => {
-    expect(roleToRoleLabel(200, [])).toBe('');
-  });
-  it('returns a label that corrsponds to the role', () => {
-    expect(roleToRoleLabel(200, [
-      [100, 'foo'],
-      [200, 'bar'],
-      [300, 'baz'],
-    ])).toBe('bar');
   });
 });

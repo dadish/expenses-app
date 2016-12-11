@@ -15,7 +15,7 @@ import {
   ExpensesItemColumnEdit,
 } from 'components/ExpensesItemColumn';
 
-const ExpensesHeader = ({ role, widths }) => {
+export const ExpensesHeader = ({ role, widths }) => {
   const columns = [];
   columns.push(
     <ExpensesItemColumnId key="id" width={widths.id} >

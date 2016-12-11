@@ -4,17 +4,29 @@ import { fromJS } from 'immutable';
 import { shallow } from 'enzyme';
 import { ItemOrItemForm } from './';
 
+const user = fromJS({
+  cid: uniqueId('user_'),
+  id: 0,
+  email: '',
+  role: 100,
+  edit: false,
+  saving: false,
+  deleting: false,
+});
+
+const expense = fromJS({
+  cid: uniqueId('expense_'),
+  id: 0,
+  email: '',
+  role: 100,
+  edit: false,
+  saving: false,
+  deleting: false,
+});
+
 const props = {
-  expense: fromJS({
-    cid: uniqueId('expense_'),
-    id: 0,
-    email: '',
-    role: 100,
-    edit: false,
-    saving: false,
-    deleting: false,
-  }),
-  labels: [],
+  expense,
+  user,
 };
 
 describe('ItemOrItemForm', () => {
