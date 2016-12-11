@@ -161,6 +161,7 @@ const tableCreation = (table) => {
   table.unique(['email']); // email is unique
   table.index(['email']); // email is indexed
   table.engine('InnoDB');
+  table.collate('utf8_unicode_ci');
 };
 
 export default {

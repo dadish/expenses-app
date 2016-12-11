@@ -146,6 +146,7 @@ const tableCreation = (table) => {
   table.index(['user', 'date']);
   table.foreign('user').references('users.id').onDelete('RESTRICT');
   table.engine('InnoDB');
+  table.collate('utf8_unicode_ci');
 };
 
 export default {
