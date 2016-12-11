@@ -19,3 +19,19 @@ export const selectExpenseRoleLabels = () => createSelector(
     return expenseRoleLabels.filter(label => label[0] !== 300);
   },
 );
+
+export const selectColumnWidths = () => createSelector(
+  selectUserRole(),
+  (role) => {
+    const admin = role === 300;
+    return ({
+      id: admin ? 5 : 6,
+      user: admin ? 18 : 0,
+      amount: admin ? 7 : 8,
+      date: admin ? 20 : 24,
+      description: admin ? 20 : 24,
+      comment: admin ? 22 : 26,
+      edit: admin ? 8 : 12,
+    });
+  },
+);

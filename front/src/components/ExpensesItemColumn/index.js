@@ -15,80 +15,95 @@ const ExpensesItemColumn = ({ children, style }) => (
   </div>
 );
 
+
 ExpensesItemColumn.propTypes = {
   style: PropTypes.object,
 };
 
-export const ExpensesItemColumnId = ({ children }) => (
+export const ExpensesItemColumnId = ({ children, width }) => (
   <ExpensesItemColumn
     style={{
-      width: '5%',
+      width: `${width || 5}%`,
     }}
   >
     {children}
   </ExpensesItemColumn>
 );
+ExpensesItemColumnId.propTypes = { width: PropTypes.number };
 
-export const ExpensesItemColumnUser = ({ children }) => (
+
+export const ExpensesItemColumnUser = ({ children, width }) => (
   <ExpensesItemColumn
     style={{
-      width: '18%',
+      width: `${width || 18}%`,
       fontSize: '14px',
     }}
   >
     {children}
   </ExpensesItemColumn>
 );
+ExpensesItemColumnUser.propTypes = { width: PropTypes.number };
 
-export const ExpensesItemColumnAmount = ({ children }) => (
+
+export const ExpensesItemColumnAmount = ({ children, width }) => (
   <ExpensesItemColumn
     style={{
-      width: '7%',
+      width: `${width || 7}%`,
     }}
   >
     {children}
   </ExpensesItemColumn>
 );
+ExpensesItemColumnAmount.propTypes = { width: PropTypes.number };
 
-export const ExpensesItemColumnDate = ({ children }) => (
+
+export const ExpensesItemColumnDate = ({ children, width }) => (
   <ExpensesItemColumn
     style={{
-      width: '20%',
+      width: `${width || 20}%`,
     }}
   >
     {children}
   </ExpensesItemColumn>
 );
+ExpensesItemColumnDate.propTypes = { width: PropTypes.number };
 
-export const ExpensesItemColumnDescription = ({ children }) => (
+
+export const ExpensesItemColumnDescription = ({ children, width }) => (
   <ExpensesItemColumn
     style={{
-      width: '20%',
+      width: `${width || 20}%`,
     }}
   >
     {children}
   </ExpensesItemColumn>
 );
+ExpensesItemColumnDescription.propTypes = { width: PropTypes.number };
 
-export const ExpensesItemColumnComment = ({ children }) => (
+
+export const ExpensesItemColumnComment = ({ children, width }) => (
   <ExpensesItemColumn
     style={{
-      width: '22%',
+      width: `${width || 22}%`,
     }}
   >
     {children}
   </ExpensesItemColumn>
 );
+ExpensesItemColumnComment.propTypes = { width: PropTypes.number };
 
-export const ExpensesItemColumnEdit = ({ children }) => (
+
+export const ExpensesItemColumnEdit = ({ children, width }) => (
   <ExpensesItemColumn
     style={{
-      width: '8%',
+      width: `${width || 8}%`,
       borderRight: `1px solid ${grey200}`,
     }}
   >
     {children}
   </ExpensesItemColumn>
 );
+ExpensesItemColumnEdit.propTypes = { width: PropTypes.number };
+
 
 export default ExpensesItemColumn;

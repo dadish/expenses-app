@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import { Map } from 'immutable';
 import ExpensesItemRow from 'components/ExpensesItemRow';
 import {
@@ -10,41 +11,75 @@ import {
   ExpensesItemColumnDescription,
   ExpensesItemColumnEdit,
 } from 'components/ExpensesItemColumn';
+import { selectUser } from 'containers/App/selectors';
+import { selectColumnWidths } from 'containers/Expenses/selectors';
+import { createStructuredSelector } from 'reselect';
 import ActionIcons from './ActionIcons';
 
-export const roleToRoleLabel = (role, labels) => {
-  if (labels.length) return labels.find(label => label[0] === role)[1];
-  return '';
-};
+export const ExpensesItem = (props) => {
+  const { expense, user, widths } = props;
+  const columns = [];
 
-const ExpensesItem = ({ expense }) => (
-  <ExpensesItemRow>
-    <ExpensesItemColumnId>
+  columns.push(
+    <ExpensesItemColumnId key="id" width={widths.id} >
       {expense.get('id')}
     </ExpensesItemColumnId>
-    <ExpensesItemColumnUser>
-      {expense.get('userEmail')}
-    </ExpensesItemColumnUser>
-    <ExpensesItemColumnAmount>
+  );
+
+  if (user.get('role') === 300) {
+    columns.push(
+      <ExpensesItemColumnUser key="user" width={widths.user}>
+        {expense.get('userEmail')}
+      </ExpensesItemColumnUser>
+    );
+  }
+
+  columns.push(
+    <ExpensesItemColumnAmount key="amount" width={widths.amount} >
       {expense.get('amount') / 100}
     </ExpensesItemColumnAmount>
-    <ExpensesItemColumnDate>
+  );
+
+  columns.push(
+    <ExpensesItemColumnDate key="date" width={widths.date} >
       {expense.get('date')}
     </ExpensesItemColumnDate>
-    <ExpensesItemColumnComment>
+  );
+
+  columns.push(
+    <ExpensesItemColumnComment key="comment" width={widths.comment} >
       {expense.get('comment')}
     </ExpensesItemColumnComment>
-    <ExpensesItemColumnDescription>
+  );
+
+  columns.push(
+    <ExpensesItemColumnDescription key="description" width={widths.description} >
       {expense.get('description')}
     </ExpensesItemColumnDescription>
-    <ExpensesItemColumnEdit>
+  );
+
+  columns.push(
+    <ExpensesItemColumnEdit key="edit" width={widths.edit} >
       <ActionIcons expense={expense} />
     </ExpensesItemColumnEdit>
-  </ExpensesItemRow>
-);
+  );
 
-ExpensesItem.propTypes = {
-  expense: PropTypes.instanceOf(Map),
+  return (
+    <ExpensesItemRow>
+      {columns}
+    </ExpensesItemRow>
+  );
 };
 
-export default ExpensesItem;
+export const mapStateToProps = createStructuredSelector({
+  user: selectUser(),
+  widths: selectColumnWidths(),
+});
+
+ExpensesItem.propTypes = {
+  widths: PropTypes.object.isRequired,
+  expense: PropTypes.instanceOf(Map),
+  user: PropTypes.instanceOf(Map),
+};
+
+export default connect(mapStateToProps)(ExpensesItem);
