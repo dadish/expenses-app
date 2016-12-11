@@ -43,7 +43,17 @@ export const ExpensesItem = (props) => {
 
   columns.push(
     <ExpensesItemColumnDate key="date" width={widths.date} >
-      {format(expense.get('date'), 'D-MMM-YYYY h:m a')}
+      <span>
+        {format(expense.get('date'), 'D-MMM-YYYY')}
+      </span>
+      {' '}
+      <span
+        style={{
+          fontSize: '12px',
+        }}
+      >
+        {format(expense.get('date'), 'h:m a')}
+      </span>
     </ExpensesItemColumnDate>
   );
 
