@@ -11,8 +11,8 @@ export class ItemOrItemForm extends PureComponent {
     const { expense, labels } = this.props;
     let item;
     if (expense.get('edit')) {
-      const Form = createForm(expense.get('cid'));
-      item = (<Form initialValues={expense} expenseRoleLabels={labels} />);
+      const ExpensesForm = createForm(expense.get('cid'));
+      item = (<ExpensesForm initialValues={expense} expenseRoleLabels={labels} />);
     } else {
       item = (<ExpensesItem expense={expense} expenseRoleLabels={labels} />);
     }
