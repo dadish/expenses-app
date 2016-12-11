@@ -48,4 +48,11 @@ describe('listReducer()', () => {
     listReducer(list, del(fromJS({ id: 1 })));
     listReducer(list, deleteError(fromJS({ id: 1 })));
   });
+
+  it('removes item from the list editModeOff() if item does have a falsy `id` attribute', () => {
+    const newItem = fromJS({ cid: 'bar' });
+    const listWithNewItem = list.push(newItem);
+    const listWithoutNewItem = listReducer(listWithNewItem, editModeOff(newItem));
+    expect(listWithNewItem.size - 1).toBe(listWithoutNewItem.size);
+  });
 });
