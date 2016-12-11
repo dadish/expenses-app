@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import format from 'date-fns/format';
 import { Map } from 'immutable';
 import ExpensesItemRow from 'components/ExpensesItemRow';
 import {
@@ -42,7 +43,7 @@ export const ExpensesItem = (props) => {
 
   columns.push(
     <ExpensesItemColumnDate key="date" width={widths.date} >
-      {expense.get('date')}
+      {format(expense.get('date'), 'D-MMM-YYYY h:m a')}
     </ExpensesItemColumnDate>
   );
 
