@@ -3,16 +3,22 @@ import expect from 'expect';
 import { shallow } from 'enzyme';
 import ExpenseItemColumn, {
   ExpensesItemColumnId,
-  ExpensesItemColumnEmail,
-  ExpensesItemColumnRole,
+  ExpensesItemColumnUser,
+  ExpensesItemColumnAmount,
+  ExpensesItemColumnDate,
+  ExpensesItemColumnDescription,
+  ExpensesItemColumnComment,
   ExpensesItemColumnEdit,
 } from './';
 
 const components = {
   ExpenseItemColumn,
   ExpensesItemColumnId,
-  ExpensesItemColumnEmail,
-  ExpensesItemColumnRole,
+  ExpensesItemColumnUser,
+  ExpensesItemColumnAmount,
+  ExpensesItemColumnDate,
+  ExpensesItemColumnDescription,
+  ExpensesItemColumnComment,
   ExpensesItemColumnEdit,
 };
 

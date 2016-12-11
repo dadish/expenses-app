@@ -1,6 +1,5 @@
 import { fromJS } from 'immutable';
 import uniqueId from 'lodash/uniqueId';
-import auth from 'auth';
 import {
   CREATE,
   EDIT_MODE_ON,
@@ -16,7 +15,7 @@ import {
 export const initialState = () => fromJS({
   cid: uniqueId('expense_'),
   id: 0,
-  user: auth.getUser().get('id'),
+  user: 0,
   amount: 0,
   date: new Date().toISOString(),
   comment: '',

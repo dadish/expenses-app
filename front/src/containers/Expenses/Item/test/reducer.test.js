@@ -18,7 +18,7 @@ const payload = fromJS({});
 describe('itemReducer', () => {
   it('returns default initialState if state is not given', () => {
     const state = itemReducer(undefined, { payload });
-    expect(state.delete('cid')).toEqual(initialState().delete('cid'));
+    expect(state.delete('cid').delete('date')).toEqual(initialState().delete('cid').delete('date'));
   });
   it('returns default initialState if state is given but type is unknown', () => {
     const initial = initialState();
@@ -84,16 +84,17 @@ describe('itemReducer', () => {
   });
   it('returns defualt initialState for create() action if not state provided', () => {
     const state = itemReducer(undefined, create());
-    expect(state.delete('cid')).toEqual(initialState().delete('cid'));
+    expect(state.delete('cid').delete('date')).toEqual(initialState().delete('cid').delete('date'));
   });
   it('merges payload with initialState for create() action', () => {
-    const email = 'adkvmhfbnda';
-    const role = 21454213;
-    const initial = initialState().merge({
-      email,
-      role,
+    const comment = 'adkvmhfbnda';
+    const amount = 21454213;
+    const initial = initialState();
+    const modified = initial.merge({
+      comment,
+      amount,
     });
-    const state = itemReducer(undefined, create(initial));
-    expect(state).toEqual(initial);
+    const state = itemReducer(initial, create(modified));
+    expect(state).toEqual(modified);
   });
 });

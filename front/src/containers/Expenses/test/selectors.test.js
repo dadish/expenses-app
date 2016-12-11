@@ -6,11 +6,11 @@ import rootSelector, {
 } from '../selectors';
 
 const role = 300;
-const expense = fromJS({
+const user = fromJS({
   role,
 });
 const globalState = fromJS({
-  expense,
+  user,
 });
 const expenses = fromJS({});
 const state = fromJS({
@@ -27,12 +27,12 @@ describe('selectExpenseRoleLabels()', () => {
     expect(selectExpenseRoleLabels()(state)).toEqual(expenseRoleLabels);
   });
   it('returns only two options without Admin if expenseRole is 200', () => {
-    const newState = state.setIn(['global', 'expense', 'role'], 200);
+    const newState = state.setIn(['global', 'user', 'role'], 200);
     const newExpenseRoleLabels = expenseRoleLabels.filter(label => label[0] !== 300);
     expect(selectExpenseRoleLabels()(newState)).toEqual(newExpenseRoleLabels);
   });
-  it('returns an empty array if expenseRole is 200', () => {
-    const newState = state.setIn(['global', 'expense', 'role'], 0);
+  it('returns an empty array if expenseRole is 0', () => {
+    const newState = state.setIn(['global', 'user', 'role'], 0);
     expect(selectExpenseRoleLabels()(newState)).toEqual([]);
   });
 });
