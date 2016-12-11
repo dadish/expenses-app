@@ -41,7 +41,14 @@ const props = {
 };
 
 describe('ExpensesItem', () => {
-  it('renders without errors', () => {
+  it('renders without errors with user.role!=300', () => {
     shallow(<ExpensesItem {...props} />);
+  });
+  it('renders without errors with user.role=300', () => {
+    const newProps = {
+      ...props,
+      user: user.set('role', 300),
+    };
+    shallow(<ExpensesItem {...newProps} />);
   });
 });

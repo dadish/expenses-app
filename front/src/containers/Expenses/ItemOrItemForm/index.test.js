@@ -37,4 +37,8 @@ describe('ItemOrItemForm', () => {
     props.expense = props.expense.set('edit', true);
     shallow(<ItemOrItemForm {...props} />);
   });
+  it('renders without erros when role=300', () => {
+    props.user = props.user.set('role', 300);
+    shallow(<ItemOrItemForm {...props} />);
+  });
 });

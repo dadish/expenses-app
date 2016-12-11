@@ -19,7 +19,14 @@ const props = {
 };
 
 describe('ExpensesHeader', () => {
-  it('renders without errors', () => {
+  it('renders without errors with role!=300', () => {
     shallow(<ExpensesHeader {...props} />);
+  });
+  it('renders without errors with role=300', () => {
+    const newProps = {
+      ...props,
+      role: 300,
+    };
+    shallow(<ExpensesHeader {...newProps} />);
   });
 });

@@ -34,8 +34,15 @@ const props = {
 };
 
 describe('ExpensesItemForm', () => {
-  it('renders without errors', () => {
+  it('renders without errors with user.role!=300', () => {
     shallow(<ExpensesItemForm {...props} />);
+  });
+  it('renders without errors with user.role=300', () => {
+    const newProps = {
+      ...props,
+      user: user.set('role', 300),
+    };
+    shallow(<ExpensesItemForm {...newProps} />);
   });
 });
 

@@ -1,8 +1,7 @@
 import expect from 'expect';
 import { fromJS } from 'immutable';
 import rootSelector, {
-  selectExpenseRoleLabels,
-  expenseRoleLabels,
+  selectColumnWidths,
 } from '../selectors';
 
 const role = 300;
@@ -22,17 +21,18 @@ test('rootSelector selects the `expenses` from the root state', () => {
   expect(rootSelector()(state)).toBe(expenses);
 });
 
-describe('selectExpenseRoleLabels()', () => {
-  it('returns all the options if the expenseRole is 300', () => {
-    expect(selectExpenseRoleLabels()(state)).toEqual(expenseRoleLabels);
+describe('selectColumnWidths()', () => {
+  it('selects object widths when role=300', () => {
+    expect(selectColumnWidths()(state)).toBeAn(Object);
   });
-  it('returns only two options without Admin if expenseRole is 200', () => {
-    const newState = state.setIn(['global', 'user', 'role'], 200);
-    const newExpenseRoleLabels = expenseRoleLabels.filter(label => label[0] !== 300);
-    expect(selectExpenseRoleLabels()(newState)).toEqual(newExpenseRoleLabels);
+  it('selects object of widths with user=18 when role=300', () => {
+    const widths = selectColumnWidths()(state);
+    expect(widths).toBeAn(Object);
+    expect(widths.user).toBe(18);
   });
-  it('returns an empty array if expenseRole is 0', () => {
-    const newState = state.setIn(['global', 'user', 'role'], 0);
-    expect(selectExpenseRoleLabels()(newState)).toEqual([]);
+  it('selects object of widths with user=0 when role!=300', () => {
+    const widths = selectColumnWidths()(state.setIn(['global', 'user', 'role'], 200));
+    expect(widths).toBeAn(Object);
+    expect(widths.user).toBe(0);
   });
 });
