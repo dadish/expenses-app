@@ -8,7 +8,15 @@ const selectGlobal = () => state => state.get('global');
 
 const selectRoute = () => state => state.get('route');
 
-const selectUserRole = () => state => state.getIn(['global', 'user', 'role']);
+const selectUser = () => createSelector(
+  selectGlobal(),
+  glbl => glbl.get('user'),
+);
+
+const selectUserRole = () => createSelector(
+  selectUser(),
+  user => user.get('role'),
+);
 
 const selectLocationState = () => {
   let prevRoutingState;
@@ -32,6 +40,7 @@ const selectNextLocationPathname = () => createSelector(
 
 export {
   selectGlobal,
+  selectUser,
   selectUserRole,
   selectLocationState,
   selectNextLocationPathname,

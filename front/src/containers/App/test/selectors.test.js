@@ -2,6 +2,7 @@ import expect from 'expect';
 import { fromJS } from 'immutable';
 import {
   selectGlobal,
+  selectUser,
   selectUserRole,
   selectLocationState,
   selectNextLocationPathname,
@@ -19,10 +20,10 @@ const route = fromJS({
   },
 });
 
+const user = fromJS({ role });
+
 const globalState = fromJS({
-  user: {
-    role,
-  },
+  user,
 });
 
 const state = fromJS({
@@ -32,6 +33,10 @@ const state = fromJS({
 
 test('selectGlobal() returns state.global', () => {
   expect(selectGlobal()(state)).toBe(globalState);
+});
+
+test('selectUser() returns state.global.user', () => {
+  expect(selectUser()(state)).toBe(user);
 });
 
 test('selectUserRole() returns state.global.user.role', () => {
