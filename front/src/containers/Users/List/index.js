@@ -7,7 +7,7 @@ import Item from '../ItemOrItemForm';
 
 export const UsersList = ({ list }) => (
   <div>
-    {list.map(user => <Item user={user} key={user.get('cid')} />)}
+    {list.map(user => <Item user={user} key={user.get('id') || user.get('cid')} />)}
   </div>
 );
 

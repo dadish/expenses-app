@@ -7,7 +7,7 @@ import Item from '../ItemOrItemForm';
 
 export const ExpensesList = ({ list }) => (
   <div>
-    {list.map(expense => <Item expense={expense} key={expense.get('cid')} />)}
+    {list.map(expense => <Item expense={expense} key={expense.get('id') || expense.get('cid')} />)}
   </div>
 );
 
