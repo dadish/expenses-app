@@ -1,32 +1,24 @@
 import React, { PropTypes, PureComponent } from 'react';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 import { Map } from 'immutable';
-import { selectExpenseRoleLabels } from '../selectors';
-import ExpensesItem from '../Item';
+import Item from '../Item';
 import { createForm } from '../ItemForm';
 
 export class ItemOrItemForm extends PureComponent {
   render() {
-    const { expense, labels } = this.props;
+    const { expense } = this.props;
     let item;
     if (expense.get('edit')) {
-      const ExpensesForm = createForm(expense.get('cid'));
-      item = (<ExpensesForm initialValues={expense} expenseRoleLabels={labels} />);
+      const Form = createForm(expense.get('cid'));
+      item = (<Form initialValues={expense} />);
     } else {
-      item = (<ExpensesItem expense={expense} expenseRoleLabels={labels} />);
+      item = (<Item expense={expense} />);
     }
     return item;
   }
 }
 
-export const mapStateToProps = createStructuredSelector({
-  labels: selectExpenseRoleLabels(),
-});
-
 ItemOrItemForm.propTypes = {
   expense: PropTypes.instanceOf(Map),
-  labels: PropTypes.array.isRequired,
 };
 
-export default connect(mapStateToProps, null)(ItemOrItemForm);
+export default ItemOrItemForm;
