@@ -13,6 +13,7 @@ import {
 } from 'components/ExpensesItemColumn';
 import InputEmail from 'components/InputEmail';
 import InputText from 'components/InputText';
+import InputTextarea from 'components/InputTextarea';
 import InputDate from 'components/InputDate';
 import InputTime from 'components/InputTime';
 import ActionIcons from './ActionIcons';
@@ -67,14 +68,14 @@ const ExpensesItemForm = ({ handleSubmit, initialValues }) => (
     <ExpensesItemColumnComment>
       <Field
         name="comment"
-        component={InputText}
+        component={InputTextarea}
         style={fieldStyle}
       />
     </ExpensesItemColumnComment>
     <ExpensesItemColumnDescription>
       <Field
         name="description"
-        component={InputText}
+        component={InputTextarea}
         style={fieldStyle}
       />
     </ExpensesItemColumnDescription>
