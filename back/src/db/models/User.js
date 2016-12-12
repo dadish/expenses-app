@@ -86,6 +86,23 @@ const find = (selector = {}, clean = true) => co(function* gen() {
 });
 
 /**
+ * Find users with string match SQL LIKE operator
+ * @param  {string}  field        The name of the field
+ * @param  {string}  matchStr     The string againts the field will be matched.
+ *                                Only fields that contain a matchStr will be
+ *                                returned.
+ * @param  {Boolean} [clean=true] If you want the user data cleaned or not.
+ *                                See #cleanUser
+ * @return {array}                Returns an array of matched users or empty array
+ *                                if nothing found.
+ */
+const findMatch = (field, matchStr, clean = true) => co(function* gen() {
+  const items = yield knex(tableName).where(field, 'like', `%${matchStr}%`);
+  if (clean) return items.map(cleanUser);
+  return items;
+});
+
+/**
  * Find user by id
  * @param  {integer} id The user id
  * @return {object}    The user json object or null if not found
@@ -175,6 +192,7 @@ export default {
   update,
   del,
   find,
+  findMatch,
   findById,
   findAndValidate,
   tableCreation,

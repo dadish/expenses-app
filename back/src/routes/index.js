@@ -15,6 +15,7 @@ export default [
   require('./users/post.js').default,
   require('./users/put.id.js').default,
   require('./users/delete.id.js').default,
+  require('./users/match.email.js').default,
 
   // expenses API
   require('./expenses/get.js').default,

@@ -15,6 +15,7 @@ const {
   update,
   del,
   find,
+  findMatch,
   findById,
   findAndValidate,
 } = User;
@@ -251,6 +252,29 @@ describe('User module', () => {
     it('returns raw user json data if second argument `clean` set to false', () => find({}, false)
     .then((items) => {
       expect(items[0].email).toExist();
+      expect(items[0].password).toExist();
+    }));
+  });
+
+  describe('findMatch', () => {
+    it('resolves to an array', () => findMatch('email', 'man')
+    .then((items) => {
+      expect(items).toBeAn(Array);
+      expect(items.length).toBeGreaterThan(0);
+    }));
+    it('resolves to an emoty array if nothing found', () => findMatch('email', 'boblibob')
+    .then((items) => {
+      expect(items).toBeAn(Array);
+      expect(items.length).toBe(0);
+    }));
+    it('returns cleaned user objects by default', () => findMatch('email', 'man')
+    .then((items) => {
+      expect(items).toBeAn(Array);
+      expect(items[0].password).toNotExist();
+    }));
+    it('returns raw, uncleaned user objects if third argument is false', () => findMatch('email', 'man', false)
+    .then((items) => {
+      expect(items).toBeAn(Array);
       expect(items[0].password).toExist();
     }));
   });
