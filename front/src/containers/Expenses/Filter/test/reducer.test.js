@@ -1,5 +1,5 @@
 import filterReducer, { initialState } from '../reducer';
-import { toggleFilter } from '../actions';
+import { toggleFilter, updateFilter } from '../actions';
 
 test('filterReducer sets the filter.on to false when it is true for toggleFilter action', () => {
   const filterOffState = initialState().set('on', false);
@@ -22,4 +22,11 @@ test('filterReducer returns state back unchanged for unknown action', () => {
 test('filterReducer returns initialState when no state was provided', () => {
   const state = filterReducer(undefined, { type: 'unknown' });
   expect(state).toEqual(initialState());
+});
+
+test('filterReducer updates the filter.{field} for updateFilter action', () => {
+  const field = 'user';
+  const value = 'value';
+  const state = filterReducer(undefined, updateFilter({ field, value }));
+  expect(state.getIn(['fields', field])).toBe(value);
 });
