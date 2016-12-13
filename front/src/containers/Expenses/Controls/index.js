@@ -8,7 +8,7 @@ export const ExpensesControls = ({ handleAdd }) => (
   <div
     style={{
       textAlign: 'right',
-      marginTop: '16px',
+      marginBottom: '16px',
     }}
   >
     <FlatButton

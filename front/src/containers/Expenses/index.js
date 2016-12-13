@@ -12,9 +12,9 @@ const style = {
 
 const Expenses = () => (
   <Paper style={style} >
+    <Controls />
     <Header />
     <List />
-    <Controls />
   </Paper>
 );
 
