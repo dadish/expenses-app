@@ -8,7 +8,7 @@ export default rootSelector;
 export const selectColumnWidths = () => createSelector(
   selectUserRole(),
   (role) => {
-    const admin = role === 300;
+    const admin = Boolean(role === 300);
     return ({
       id: admin ? 5 : 6,
       user: admin ? 18 : 0,

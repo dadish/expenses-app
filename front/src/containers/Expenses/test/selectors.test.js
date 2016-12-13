@@ -1,4 +1,3 @@
-import expect from 'expect';
 import { fromJS } from 'immutable';
 import rootSelector, {
   selectColumnWidths,
@@ -23,16 +22,16 @@ test('rootSelector selects the `expenses` from the root state', () => {
 
 describe('selectColumnWidths()', () => {
   it('selects object widths when role=300', () => {
-    expect(selectColumnWidths()(state)).toBeAn(Object);
+    expect(selectColumnWidths()(state)).toBeInstanceOf(Object);
   });
   it('selects object of widths with user=18 when role=300', () => {
     const widths = selectColumnWidths()(state);
-    expect(widths).toBeAn(Object);
+    expect(widths).toBeInstanceOf(Object);
     expect(widths.user).toBe(18);
   });
   it('selects object of widths with user=0 when role!=300', () => {
     const widths = selectColumnWidths()(state.setIn(['global', 'user', 'role'], 200));
-    expect(widths).toBeAn(Object);
+    expect(widths).toBeInstanceOf(Object);
     expect(widths.user).toBe(0);
   });
 });

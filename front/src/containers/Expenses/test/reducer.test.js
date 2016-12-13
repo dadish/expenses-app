@@ -1,6 +1,7 @@
 import expect from 'expect';
 import { List, Map } from 'immutable';
 import { resetList } from 'containers/Expenses/List/actions';
+import { toggle as toggleFilter } from 'containers/Expenses/filter/actions';
 import {
   editModeOn,
   editModeOff,
@@ -31,6 +32,7 @@ describe('ExpensesReducer', () => {
       del,
       deleteSuccess,
       deleteError,
+      toggleFilter,
     };
     Object.keys(actions).forEach((methodName) => {
       it(`${methodName} action without errors`, () => {

@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import Paper from 'material-ui/Paper';
-import List from './List';
-import Header from './Header';
+import { createStructuredSelector } from 'reselect';
+import { selectFilterOn } from './Filter/selectors';
 import Controls from './Controls';
+import Filter from './Filter';
+import Header from './Header';
+import List from './List';
 
 const style = {
   width: '90%',
@@ -10,12 +14,25 @@ const style = {
   padding: '16px',
 };
 
-const Expenses = () => (
-  <Paper style={style} >
-    <Controls />
-    <Header />
-    <List />
-  </Paper>
-);
+export const Expenses = ({ filterOn }) => {
+  const items = [];
+  items.push(<Controls key="Controls" />);
+  if (filterOn) items.push(<Filter key="Filter" />);
+  items.push(<Header key="Header" />);
+  items.push(<List key="List" />);
+  return (
+    <Paper style={style} >
+      {items}
+    </Paper>
+  );
+};
 
-export default Expenses;
+Expenses.propTypes = {
+  filterOn: PropTypes.bool.isRequired,
+};
+
+export const mapStateToProps = createStructuredSelector({
+  filterOn: selectFilterOn(),
+});
+
+export default connect(mapStateToProps)(Expenses);

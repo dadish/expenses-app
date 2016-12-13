@@ -1,11 +1,12 @@
 import React from 'react';
-import expect, { createSpy } from 'expect';
 import { shallow } from 'enzyme';
 import { create } from '../Item/actions';
+import { toggle } from '../Filter/actions';
 import { ExpensesControls, mapDispatchToProps } from './';
 
 const props = {
   handleAdd: () => {},
+  handleFilter: () => {},
 };
 
 test('it renders without errors', () => {
@@ -13,12 +14,15 @@ test('it renders without errors', () => {
 });
 
 describe('mapDispatchToProps()', () => {
-  const returnObject = {};
-  const dispatch = createSpy().andReturn(returnObject);
-  const { handleAdd } = mapDispatchToProps(dispatch);
-  it('produces a handleAdd() method that dispatches a create action creator', () => {
-    const action = create({ edit: true }); // we set edit to true when created via ADD button
-    expect(handleAdd()).toEqual(returnObject);
-    expect(dispatch).toHaveBeenCalledWith(action);
+  const dispatch = jest.fn();
+  const { handleAdd, handleFilter } = mapDispatchToProps(dispatch);
+  it('produces a handleAdd() method that dispatches a create({ edit: true }) action', () => {
+    handleAdd();
+    expect(dispatch.mock.calls[0][0]).toEqual(create({ edit: true }));
+  });
+
+  it('produces a handleAdd() method that dispatches a toggle action creator', () => {
+    handleFilter();
+    expect(dispatch.mock.calls[1][0]).toEqual(toggle());
   });
 });
