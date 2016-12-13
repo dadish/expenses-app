@@ -10,6 +10,7 @@ const {
   create,
   update,
   find,
+  findFilter,
   findById,
   del,
   delForUser,
@@ -86,6 +87,30 @@ describe('Expense Model', () => {
       expect(items).toExist();
       expect(items).toBeAn(Array);
       expect(items.length).toBe(0);
+    }));
+  });
+
+  describe('findFilter()', () => {
+    it('returns propmise', (done) => {
+      expect(findFilter()).toBeA(Promise);
+      done();
+    });
+    it('resolves to an array of expense objects', () => findFilter()
+    .then((items) => {
+      expect(items).toBeAn(Array);
+      expect(items.length).toBeGreaterThan(0);
+    }));
+    it('can filter results by `user` field', () => findFilter({ user: 'man' })
+    .then((items) => {
+      expect(items).toBeAn(Array);
+      expect(items.length).toBeGreaterThan(0);
+    }));
+    it('can filter results by multiple fields', () => findFilter({
+      user: 'expense',
+      comment: 'qu',
+    }).then((items) => {
+      expect(items).toBeAn(Array);
+      expect(items.length).toBeGreaterThan(0);
     }));
   });
 

@@ -50,6 +50,19 @@ const find = (selector = {}) => co(function* gen() {
   return items;
 });
 
+const findFilter = (filters = {}) => co(function* gen() {
+  const query = knex(tableName)
+                  .select(`${tableName}.*`, `${User.tableName}.email AS userEmail`)
+                  .leftJoin(`${User.tableName}`, `${tableName}.user`, `${User.tableName}.id`);
+  Object.keys(filters).forEach((key, index) => {
+    const whereMethod = index === 0 ? 'where' : 'andWhere';
+    const field = key === 'user' ? `${User.tableName}.email` : `${tableName}.${key}`;
+    query[whereMethod](field, 'like', `%${filters[key]}%`);
+  });
+  const items = yield query;
+  return items;
+});
+
 /**
  * Find a expense by id
  * @param  {integer} id The id of the expense you are looking for.
@@ -155,6 +168,7 @@ export default {
   rules,
   validate,
   find,
+  findFilter,
   findById,
   create,
   update,
