@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { create } from '../Item/actions';
-import { toggle } from '../Filter/actions';
+import { toggleFilter } from '../Filter/actions';
 import { ExpensesControls, mapDispatchToProps } from './';
 
 const props = {
@@ -21,8 +21,8 @@ describe('mapDispatchToProps()', () => {
     expect(dispatch.mock.calls[0][0]).toEqual(create({ edit: true }));
   });
 
-  it('produces a handleAdd() method that dispatches a toggle action creator', () => {
+  it('produces a handleAdd() method that dispatches a toggleFilter action creator', () => {
     handleFilter();
-    expect(dispatch.mock.calls[1][0]).toEqual(toggle());
+    expect(dispatch.mock.calls[1][0]).toEqual(toggleFilter());
   });
 });

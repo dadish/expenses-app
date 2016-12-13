@@ -1,15 +1,15 @@
 import filterReducer, { initialState } from '../reducer';
-import { toggle } from '../actions';
+import { toggleFilter } from '../actions';
 
-test('filterReducer sets the filter.on to false when it is true for toggle action', () => {
+test('filterReducer sets the filter.on to false when it is true for toggleFilter action', () => {
   const filterOffState = initialState().set('on', false);
-  const state = filterReducer(filterOffState, toggle());
+  const state = filterReducer(filterOffState, toggleFilter());
   expect(state.get('on')).toBe(true);
 });
 
-test('filterReducer sets the filter.on to true when it is false for toggle action', () => {
+test('filterReducer sets the filter.on to true when it is false for toggleFilter action', () => {
   const filterOffState = initialState().set('on', true);
-  const state = filterReducer(filterOffState, toggle());
+  const state = filterReducer(filterOffState, toggleFilter());
   expect(state.get('on')).toBe(false);
 });
 

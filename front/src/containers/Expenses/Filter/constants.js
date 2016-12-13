@@ -1,4 +1,4 @@
 /**
  * Expenses Filter constants
  */
-export const TOGGLE = 'app/Expenses/Filter/TOGGLE';
+export const TOGGLE_FILTER = 'app/Expenses/Filter/TOGGLE_FILTER';

@@ -17,8 +17,8 @@ const style = {
 export const Expenses = ({ filterOn }) => {
   const items = [];
   items.push(<Controls key="Controls" />);
-  if (filterOn) items.push(<Filter key="Filter" />);
   items.push(<Header key="Header" />);
+  if (filterOn) items.push(<Filter key="Filter" />);
   items.push(<List key="List" />);
   return (
     <Paper style={style} >

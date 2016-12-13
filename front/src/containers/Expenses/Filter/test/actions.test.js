@@ -1,12 +1,12 @@
-import { toggle } from '../actions';
-import { TOGGLE } from '../constants';
+import { toggleFilter } from '../actions';
+import { TOGGLE_FILTER } from '../constants';
 
-describe('toggle()', () => {
+describe('toggleFilter()', () => {
   it('creates the correct type', () => {
-    expect(toggle().type).toBe(TOGGLE);
+    expect(toggleFilter().type).toBe(TOGGLE_FILTER);
   });
   it('sets the first argument as a payload of the action', () => {
     const target = {};
-    expect(toggle(target).payload).toBe(target);
+    expect(toggleFilter(target).payload).toBe(target);
   });
 });

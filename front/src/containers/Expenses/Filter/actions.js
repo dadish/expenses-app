@@ -3,9 +3,9 @@
  */
 
 import {
-  TOGGLE,
+  TOGGLE_FILTER,
 } from './constants';
 
 const action = type => payload => ({ type, payload });
 
-export const toggle = action(TOGGLE);
+export const toggleFilter = action(TOGGLE_FILTER);

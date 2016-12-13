@@ -3,7 +3,7 @@
  */
 import { fromJS } from 'immutable';
 import {
-  TOGGLE,
+  TOGGLE_FILTER,
 } from './constants';
 
 export const initialState = () => fromJS({
@@ -13,7 +13,7 @@ export const initialState = () => fromJS({
 const reducer = (state = initialState(), action) => {
   const { type } = action;
   switch (type) {
-    case TOGGLE:
+    case TOGGLE_FILTER:
       return state.set('on', !state.get('on'));
     default:
       return state;

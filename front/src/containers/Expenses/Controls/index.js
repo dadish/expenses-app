@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import FlatButton from 'material-ui/FlatButton';
 import { blue400 } from 'material-ui/styles/colors';
 import { create } from '../Item/actions';
-import { toggle as toggleFilter } from '../Filter/actions';
+import { toggleFilter } from '../Filter/actions';
 
 export const ExpensesControls = ({ handleAdd, handleFilter }) => (
   <div
