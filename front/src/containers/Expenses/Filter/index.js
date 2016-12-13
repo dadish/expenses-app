@@ -14,12 +14,13 @@ import {
   ExpensesItemColumnDescription,
   ExpensesItemColumnEdit,
 } from 'components/ExpensesItemColumn';
+import { updateFilter } from './actions';
 
 const fieldStyle = {
   width: '100%',
 };
 
-export const ExpensesFilter = ({ role, widths }) => {
+export const ExpensesFilter = ({ role, widths, handleUpdate }) => {
   const columns = [];
   columns.push(
     <ExpensesItemColumnId key="id" width={widths.id} />
@@ -31,6 +32,7 @@ export const ExpensesFilter = ({ role, widths }) => {
         <TextField
           name="user"
           style={fieldStyle}
+          onChange={handleUpdate('user')}
         />
       </ExpensesItemColumnUser>
     );
@@ -41,6 +43,7 @@ export const ExpensesFilter = ({ role, widths }) => {
       <TextField
         name="amount"
         style={fieldStyle}
+        onChange={handleUpdate('amount')}
       />
     </ExpensesItemColumnAmount>
   );
@@ -52,6 +55,7 @@ export const ExpensesFilter = ({ role, widths }) => {
       <TextField
         name="comment"
         style={fieldStyle}
+        onChange={handleUpdate('comment')}
       />
     </ExpensesItemColumnComment>
   );
@@ -60,6 +64,7 @@ export const ExpensesFilter = ({ role, widths }) => {
       <TextField
         name="description"
         style={fieldStyle}
+        onChange={handleUpdate('description')}
       />
     </ExpensesItemColumnDescription>
   );
@@ -79,9 +84,14 @@ export const mapStateToProps = createStructuredSelector({
   widths: selectColumnWidths(),
 });
 
+export const mapDispatchToProps = dispatch => ({
+  handleUpdate: field => ev => dispatch(updateFilter({ field, value: ev.target.value })),
+});
+
 ExpensesFilter.propTypes = {
   role: PropTypes.number.isRequired,
   widths: PropTypes.object.isRequired,
+  handleUpdate: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(ExpensesFilter);
+export default connect(mapStateToProps, mapDispatchToProps)(ExpensesFilter);
