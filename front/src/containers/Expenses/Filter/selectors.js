@@ -10,3 +10,13 @@ export const selectFilterOn = () => createSelector(
   selectFilter(),
   filter => filter.get('on'),
 );
+
+export const selectFilterUpdating = () => createSelector(
+  selectFilter(),
+  filter => filter.get('updating'),
+);
+
+export const selectFilterFields = () => createSelector(
+  selectFilter(),
+  filter => filter.get('fields'),
+);

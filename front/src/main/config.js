@@ -6,6 +6,7 @@ export const api = {
     logout: '/logout',
     register: '/register',
     expenses: '/expenses',
+    expensesFilter: '/expenses/filter',
     users: '/users',
     usersEmailMatch: '/users/email',
   },

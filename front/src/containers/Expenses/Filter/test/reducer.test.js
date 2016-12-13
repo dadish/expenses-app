@@ -1,5 +1,10 @@
 import filterReducer, { initialState } from '../reducer';
-import { toggleFilter, updateFilter } from '../actions';
+import {
+  toggleFilter,
+  updateFilter,
+  startUpdateFilter,
+  endUpdateFilter,
+} from '../actions';
 
 test('filterReducer sets the filter.on to false when it is true for toggleFilter action', () => {
   const filterOffState = initialState().set('on', false);
@@ -29,4 +34,16 @@ test('filterReducer updates the filter.{field} for updateFilter action', () => {
   const value = 'value';
   const state = filterReducer(undefined, updateFilter({ field, value }));
   expect(state.getIn(['fields', field])).toBe(value);
+});
+
+test('filterReducer sets the updating to true for startUpdateFilter action', () => {
+  const initial = initialState();
+  expect(initial.get('updating')).toBe(false);
+  expect(filterReducer(initial, startUpdateFilter()).get('updating')).toBe(true);
+});
+
+test('filterReducer sets the updating to true for startUpdateFilter action', () => {
+  const initial = initialState().set('updating', true);
+  expect(initial.get('updating')).toBe(true);
+  expect(filterReducer(initial, endUpdateFilter()).get('updating')).toBe(false);
 });

@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Paper from 'material-ui/Paper';
+import InProgress from 'components/InProgress';
 import { createStructuredSelector } from 'reselect';
-import { selectFilterOn } from './Filter/selectors';
+import { selectFilterOn, selectFilterUpdating } from './Filter/selectors';
 import Controls from './Controls';
 import Filter from './Filter';
 import Header from './Header';
@@ -14,12 +15,13 @@ const style = {
   padding: '16px',
 };
 
-export const Expenses = ({ filterOn }) => {
+export const Expenses = ({ filterOn, filterUpdating }) => {
   const items = [];
   items.push(<Controls key="Controls" />);
   items.push(<Header key="Header" />);
   if (filterOn) items.push(<Filter key="Filter" />);
-  items.push(<List key="List" />);
+  if (filterUpdating) items.push(<InProgress key="Progress" />);
+  else items.push(<List key="List" />);
   return (
     <Paper style={style} >
       {items}
@@ -29,10 +31,12 @@ export const Expenses = ({ filterOn }) => {
 
 Expenses.propTypes = {
   filterOn: PropTypes.bool.isRequired,
+  filterUpdating: PropTypes.bool.isRequired,
 };
 
 export const mapStateToProps = createStructuredSelector({
   filterOn: selectFilterOn(),
+  filterUpdating: selectFilterUpdating(),
 });
 
 export default connect(mapStateToProps)(Expenses);

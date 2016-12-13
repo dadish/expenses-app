@@ -1,10 +1,21 @@
 import { fromJS } from 'immutable';
-import { selectFilter, selectFilterOn } from '../selectors';
+import {
+  selectFilter,
+  selectFilterOn,
+  selectFilterUpdating,
+  selectFilterFields,
+} from '../selectors';
 
-const on = false;
+const on = 'qalsdfjas,';
+
+const updating = 'aksdfgnqkal';
+
+const fields = fromJS({});
 
 const filter = fromJS({
   on,
+  updating,
+  fields,
 });
 
 const state = fromJS({
@@ -18,7 +29,13 @@ test('selectFilter selects state.expenses.filter', () => {
 });
 
 test('selectFilterOn selects state.expenses.filter.on', () => {
-  expect(selectFilterOn()(state)).toBe(false);
-  const newState = state.setIn(['expenses', 'filter', 'on'], true);
-  expect(selectFilterOn()(newState)).toBe(true);
+  expect(selectFilterOn()(state)).toBe(on);
+});
+
+test('selectFilterUpdating selects state.expenses.filter.updating', () => {
+  expect(selectFilterUpdating()(state)).toBe(updating);
+});
+
+test('selectFilterFields selects state.expenses.filter.fields', () => {
+  expect(selectFilterFields()(state)).toBe(fields);
 });

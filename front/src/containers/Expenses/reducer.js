@@ -1,7 +1,12 @@
 import { fromJS } from 'immutable';
 import { RESET_LIST } from './List/constants';
 import listReducer from './List/reducer';
-import { TOGGLE_FILTER, UPDATE_FILTER } from './Filter/constants';
+import {
+  TOGGLE_FILTER,
+  UPDATE_FILTER,
+  START_UPDATE_FILTER,
+  END_UPDATE_FILTER,
+} from './Filter/constants';
 import filterReducer, {
   initialState as initialFilterState,
 } from './Filter/reducer';
@@ -38,6 +43,8 @@ const reducer = (state = initialState, action) => {
       return state.set('list', listReducer(state.get('list'), action));
     case TOGGLE_FILTER:
     case UPDATE_FILTER:
+    case START_UPDATE_FILTER:
+    case END_UPDATE_FILTER:
       return state.set('filter', filterReducer(state.get('filter'), action));
     default:
       return state;
