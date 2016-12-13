@@ -19,7 +19,7 @@ const fieldStyle = {
   width: '100%',
 };
 
-const ExpensesFilter = ({ role, widths }) => {
+export const ExpensesFilter = ({ role, widths }) => {
   const columns = [];
   columns.push(
     <ExpensesItemColumnId key="id" width={widths.id} />
