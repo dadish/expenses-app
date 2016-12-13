@@ -7,6 +7,7 @@ export const api = {
     register: '/register',
     expenses: '/expenses',
     users: '/users',
+    usersEmailMatch: '/users/email',
   },
 };
 

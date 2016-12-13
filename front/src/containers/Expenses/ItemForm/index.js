@@ -12,15 +12,15 @@ import {
   ExpensesItemColumnDescription,
   ExpensesItemColumnEdit,
 } from 'components/ExpensesItemColumn';
-import InputEmail from 'components/InputEmail';
 import InputText from 'components/InputText';
 import InputTextarea from 'components/InputTextarea';
 import InputDate from 'components/InputDate';
 import InputTime from 'components/InputTime';
-import { selectUser } from 'containers/App/selectors';
+import { selectUserRole } from 'containers/App/selectors';
 import { selectColumnWidths } from 'containers/Expenses/selectors';
 import { createStructuredSelector } from 'reselect';
 
+import UserAutoComplete from './UserAutoComplete';
 import ActionIcons from './ActionIcons';
 
 const fieldStyle = {
@@ -31,8 +31,9 @@ const ExpensesItemForm = (props) => {
   const {
     handleSubmit,
     initialValues,
-    user,
+    userRole,
     widths,
+    form,
   } = props;
   const fields = [];
 
@@ -46,12 +47,13 @@ const ExpensesItemForm = (props) => {
       />
     </ExpensesItemColumnId>
   );
-  if (user.get('role') === 300) {
+  if (userRole === 300) {
     fields.push(
       <ExpensesItemColumnUser key="user" width={widths.user} >
         <Field
-          name="userEmail"
-          component={InputEmail}
+          name="user"
+          formId={form}
+          component={UserAutoComplete}
           style={fieldStyle}
         />
       </ExpensesItemColumnUser>
@@ -119,12 +121,13 @@ const ExpensesItemForm = (props) => {
 };
 
 const mapStateToProps = createStructuredSelector({
-  user: selectUser(),
+  userRole: selectUserRole(),
   widths: selectColumnWidths(),
 });
 
 ExpensesItemForm.propTypes = {
-  user: PropTypes.instanceOf(Map).isRequired,
+  form: PropTypes.string.isRequired,
+  userRole: PropTypes.number.isRequired,
   widths: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   initialValues: PropTypes.instanceOf(Map).isRequired,

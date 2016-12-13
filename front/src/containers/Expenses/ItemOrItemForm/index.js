@@ -9,14 +9,15 @@ import { selectUser } from 'containers/App/selectors';
 export class ItemOrItemForm extends PureComponent {
   render() {
     const { expense, user } = this.props;
+    const cid = expense.get('cid');
     let item;
     if (expense.get('edit')) {
       const values = expense.merge({
         user: user.get('id'),
         userEmail: user.get('email'),
       });
-      const Form = createForm(expense.get('cid'));
-      item = (<Form initialValues={values} />);
+      const Form = createForm(cid);
+      item = (<Form initialValues={values} cid={cid} />);
     } else {
       item = (<Item expense={expense} />);
     }
