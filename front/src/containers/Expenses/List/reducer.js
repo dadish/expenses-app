@@ -42,7 +42,7 @@ const reducer = (state = initialState, action) => {
       index = state.findIndex(item => item.get('cid') === payload.get('cid'));
       return state.remove(index);
     case CREATE:
-      return state.push(itemReducer(undefined, action));
+      return state.unshift(itemReducer(undefined, action));
     default:
       return state;
   }
