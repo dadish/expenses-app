@@ -112,6 +112,15 @@ describe('Expense Model', () => {
       expect(items).toBeAn(Array);
       expect(items.length).toBeGreaterThan(0);
     }));
+    it('can filter results by amountMax & amountMin fields', () => findFilter({
+      user: 'expense',
+      comment: 'qu',
+      amountMax: 20000,
+      amountMin: 10000,
+    }).then((items) => {
+      expect(items).toBeAn(Array);
+      expect(items.length).toBeGreaterThan(0);
+    }));
   });
 
   describe('findById()', () => {

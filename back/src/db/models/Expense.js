@@ -56,8 +56,17 @@ const findFilter = (filters = {}) => co(function* gen() {
                   .leftJoin(`${User.tableName}`, `${tableName}.user`, `${User.tableName}.id`);
   Object.keys(filters).forEach((key, index) => {
     const whereMethod = index === 0 ? 'where' : 'andWhere';
-    const field = key === 'user' ? `${User.tableName}.email` : `${tableName}.${key}`;
-    query[whereMethod](field, 'like', `%${filters[key]}%`);
+    let field = `${tableName}.${key}`;
+    let operator = 'like';
+    let value = `%${filters[key]}%`;
+    if (key === 'user') field = `${User.tableName}.email`;
+    if (key === 'amountMin' || key === 'amountMax') {
+      field = `${tableName}.amount`;
+      if (key === 'amountMax') operator = '<=';
+      if (key === 'amountMin') operator = '>=';
+      value = filters[key];
+    }
+    query[whereMethod](field, operator, value);
   });
   const items = yield query;
   return items;

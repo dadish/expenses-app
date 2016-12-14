@@ -17,6 +17,8 @@ const route = {
         user: Joi.string().optional().description('String that is present in user`s email'),
         comment: Joi.string().optional().description('String that is present in comment of the expense'),
         description: Joi.string().optional().description('String that is present in description of the expense'),
+        amountMax: Joi.number().optional().description('The maximum amount spent'),
+        amountMin: Joi.number().optional().description('The minimum amount spent'),
       },
     },
 
