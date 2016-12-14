@@ -1,9 +1,10 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { reduxForm, Field } from 'redux-form/immutable';
 import { createStructuredSelector } from 'reselect';
 import { selectUserRole } from 'containers/App/selectors';
 import { selectColumnWidths } from 'containers/Expenses/selectors';
-import TextField from 'material-ui/TextField';
+import InputText from 'components/InputText';
 import ExpensesItemRow from 'components/ExpensesItemRow';
 import {
   ExpensesItemColumnId,
@@ -14,13 +15,13 @@ import {
   ExpensesItemColumnDescription,
   ExpensesItemColumnEdit,
 } from 'components/ExpensesItemColumn';
-import { updateFilter } from './actions';
+import { FORM_NAME } from './constants';
 
 const fieldStyle = {
   width: '100%',
 };
 
-export const ExpensesFilter = ({ role, widths, handleUpdate }) => {
+export const ExpensesFilter = ({ role, widths }) => {
   const columns = [];
   columns.push(
     <ExpensesItemColumnId key="id" width={widths.id} />
@@ -29,10 +30,10 @@ export const ExpensesFilter = ({ role, widths, handleUpdate }) => {
   if (role === 300) {
     columns.push(
       <ExpensesItemColumnUser key="user" width={widths.user} >
-        <TextField
+        <Field
           name="user"
+          component={InputText}
           style={fieldStyle}
-          onChange={handleUpdate('user')}
         />
       </ExpensesItemColumnUser>
     );
@@ -40,10 +41,10 @@ export const ExpensesFilter = ({ role, widths, handleUpdate }) => {
 
   columns.push(
     <ExpensesItemColumnAmount key="amount" width={widths.amount} >
-      <TextField
+      <Field
         name="amount"
+        component={InputText}
         style={fieldStyle}
-        onChange={handleUpdate('amount')}
       />
     </ExpensesItemColumnAmount>
   );
@@ -52,19 +53,19 @@ export const ExpensesFilter = ({ role, widths, handleUpdate }) => {
   );
   columns.push(
     <ExpensesItemColumnComment key="comment" width={widths.comment} >
-      <TextField
+      <Field
         name="comment"
+        component={InputText}
         style={fieldStyle}
-        onChange={handleUpdate('comment')}
       />
     </ExpensesItemColumnComment>
   );
   columns.push(
     <ExpensesItemColumnDescription key="description" width={widths.description} >
-      <TextField
+      <Field
         name="description"
+        component={InputText}
         style={fieldStyle}
-        onChange={handleUpdate('description')}
       />
     </ExpensesItemColumnDescription>
   );
@@ -84,14 +85,9 @@ export const mapStateToProps = createStructuredSelector({
   widths: selectColumnWidths(),
 });
 
-export const mapDispatchToProps = dispatch => ({
-  handleUpdate: field => ev => dispatch(updateFilter({ field, value: ev.target.value })),
-});
-
 ExpensesFilter.propTypes = {
   role: PropTypes.number.isRequired,
   widths: PropTypes.object.isRequired,
-  handleUpdate: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ExpensesFilter);
+export default connect(mapStateToProps)(reduxForm({ form: FORM_NAME })(ExpensesFilter));

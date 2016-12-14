@@ -3,7 +3,6 @@ import {
   selectFilter,
   selectFilterOn,
   selectFilterUpdating,
-  selectFilterFields,
 } from '../selectors';
 
 const on = 'qalsdfjas,';
@@ -34,8 +33,4 @@ test('selectFilterOn selects state.expenses.filter.on', () => {
 
 test('selectFilterUpdating selects state.expenses.filter.updating', () => {
   expect(selectFilterUpdating()(state)).toBe(updating);
-});
-
-test('selectFilterFields selects state.expenses.filter.fields', () => {
-  expect(selectFilterFields()(state)).toBe(fields);
 });
