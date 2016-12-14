@@ -1,10 +1,12 @@
+import toNumber from 'lodash/toNumber';
+import isNaN from 'lodash/isNaN';
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form/immutable';
 import { createStructuredSelector } from 'reselect';
 import { selectUserRole } from 'containers/App/selectors';
 import { selectColumnWidths } from 'containers/Expenses/selectors';
-import InputText from 'components/InputText';
+import { grey300 } from 'material-ui/styles/colors';
 import ExpensesItemRow from 'components/ExpensesItemRow';
 import {
   ExpensesItemColumnId,
@@ -19,6 +21,13 @@ import { FORM_NAME } from './constants';
 
 const fieldStyle = {
   width: '100%',
+  borderBottom: `1px solid ${grey300}`,
+};
+
+export const normalizeAmount = (value) => {
+  const number = toNumber(value);
+  if (isNaN(number)) return 0;
+  return number;
 };
 
 export const ExpensesFilter = ({ role, widths }) => {
@@ -32,8 +41,9 @@ export const ExpensesFilter = ({ role, widths }) => {
       <ExpensesItemColumnUser key="user" width={widths.user} >
         <Field
           name="user"
-          component={InputText}
+          component="input"
           style={fieldStyle}
+          autoFocus
         />
       </ExpensesItemColumnUser>
     );
@@ -42,9 +52,18 @@ export const ExpensesFilter = ({ role, widths }) => {
   columns.push(
     <ExpensesItemColumnAmount key="amount" width={widths.amount} >
       <Field
-        name="amount"
-        component={InputText}
+        name="amount.min"
+        component="input"
         style={fieldStyle}
+        placeholder="min"
+        normalize={normalizeAmount}
+      />
+      <Field
+        name="amount.max"
+        component="input"
+        style={fieldStyle}
+        placeholder="max"
+        normalize={normalizeAmount}
       />
     </ExpensesItemColumnAmount>
   );
@@ -55,7 +74,7 @@ export const ExpensesFilter = ({ role, widths }) => {
     <ExpensesItemColumnComment key="comment" width={widths.comment} >
       <Field
         name="comment"
-        component={InputText}
+        component="input"
         style={fieldStyle}
       />
     </ExpensesItemColumnComment>
@@ -64,7 +83,7 @@ export const ExpensesFilter = ({ role, widths }) => {
     <ExpensesItemColumnDescription key="description" width={widths.description} >
       <Field
         name="description"
-        component={InputText}
+        component="input"
         style={fieldStyle}
       />
     </ExpensesItemColumnDescription>

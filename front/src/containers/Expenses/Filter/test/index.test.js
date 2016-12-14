@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { ExpensesFilter } from '../';
+import { ExpensesFilter, normalizeAmount } from '../';
 
 const role = 200;
 const widths = {
@@ -29,5 +29,14 @@ describe('ExpensesFilter', () => {
       role: 300,
     };
     shallow(<ExpensesFilter {...newProps} />);
+  });
+});
+
+describe('normalizeAmount()', () => {
+  it('converts input into a number', () => {
+    expect(normalizeAmount('234')).toBe(234);
+  });
+  it('returns 0 if cannot convert to number', () => {
+    expect(normalizeAmount('strng')).toBe(0);
   });
 });

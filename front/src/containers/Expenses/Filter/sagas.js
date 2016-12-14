@@ -18,12 +18,17 @@ export function* filterExpenses(action) {
   yield delay(500); // this is how debounce the actions that occur when user types
   if (meta.form !== FORM_NAME) return;
   yield put(startFiltering());
-  const values = yield select(selectFormValue, 'user', 'comment', 'description');
+  const values = yield select(selectFormValue, 'user', 'comment', 'description', 'amount.min', 'amount.max');
   let urlWithQuery = `${url}?`;
-  urlWithQuery = Object.keys(values).reduce((result, key) => {
+  urlWithQuery = Object.keys(values).reduce((memo, key) => {
+    let result = memo;
     const value = values[key];
-    if (value) return `${result}${key}=${value}&`;
-    return result;
+    if (key === 'amount') {
+      if (value.min) result += `${key}Min=${value.min * 100}&`;
+      if (value.max) result += `${key}Max=${value.max * 100}&`;
+      return result;
+    }
+    return `${result}${key}=${value}&`;
   }, urlWithQuery);
   urlWithQuery = trimEnd(urlWithQuery, '&');
   const data = yield call(request, urlWithQuery);
