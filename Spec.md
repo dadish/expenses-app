@@ -2,8 +2,8 @@
 ✔ The user must be able to create an account and log in.
 ✔ When logged in, a user can see, edit and delete expenses he entered.
 ✔ Implement at least three roles with different permission levels: a regular user would only be able to CRUD on their owned records, a user manager would be able to CRUD users, and an admin would be able to CRUD all records and users.
-✔ When an expense record is entered, each one has: date, time, description, amount, comment.
-❌ User can filter expenses.
+❌ When an expense record is entered, each one has: date, time, description, amount, comment.
+✔ User can filter expenses.
 ❌ User can print expenses per week with the total amount and average day spending.
 ✔ Minimal UI/UX design is needed.
 ✔ I need every client operation done using JavaScript, reloading the page is not an option.
