@@ -18,8 +18,8 @@ const style = {
 export const Expenses = ({ filterOn, filterUpdating }) => {
   const items = [];
   items.push(<Controls key="Controls" />);
-  items.push(<Header key="Header" />);
   if (filterOn) items.push(<Filter key="Filter" />);
+  items.push(<Header key="Header" />);
   if (filterUpdating) items.push(<InProgress key="Progress" />);
   else items.push(<List key="List" />);
   return (

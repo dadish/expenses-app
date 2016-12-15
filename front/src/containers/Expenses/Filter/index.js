@@ -6,6 +6,7 @@ import { createStructuredSelector } from 'reselect';
 import { selectUserRole } from 'containers/App/selectors';
 import { selectColumnWidths } from 'containers/Expenses/selectors';
 import ExpensesItemRow from 'components/ExpensesItemRow';
+import { grey200 } from 'material-ui/styles/colors';
 import {
   ExpensesItemColumnId,
   ExpensesItemColumnUser,
@@ -76,7 +77,12 @@ export const ExpensesFilter = ({ role, widths }) => {
   );
 
   return (
-    <ExpensesItemRow>
+    <ExpensesItemRow
+      style={{
+        borderBottom: 'none',
+        borderTop: `1px solid ${grey200}`,
+      }}
+    >
       {columns}
     </ExpensesItemRow>
   );
