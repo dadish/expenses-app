@@ -39,7 +39,7 @@ describe('ExpensesReducer', () => {
     Object.keys(actions).forEach((methodName) => {
       it(`${methodName} action without errors`, () => {
         const method = actions[methodName];
-        const state = ExpensesReducer(undefined, method());
+        const state = ExpensesReducer(initialState, method());
         expect(state).toBeA(Map);
         expect(state.get('list')).toBeA(List);
       });

@@ -22,15 +22,18 @@ test('rootSelector selects the `expenses` from the root state', () => {
 
 describe('selectColumnWidths()', () => {
   it('selects object widths when role=300', () => {
-    expect(selectColumnWidths()(state)).toBeInstanceOf(Object);
+    const selector = selectColumnWidths();
+    expect(selector(state)).toBeInstanceOf(Object);
   });
   it('selects object of widths with user=18 when role=300', () => {
-    const widths = selectColumnWidths()(state);
+    const selector = selectColumnWidths();
+    const widths = selector(state);
     expect(widths).toBeInstanceOf(Object);
     expect(widths.user).toBe(18);
   });
   it('selects object of widths with user=0 when role!=300', () => {
-    const widths = selectColumnWidths()(state.setIn(['global', 'user', 'role'], 200));
+    const selector = selectColumnWidths();
+    const widths = selector(state.setIn(['global', 'user', 'role'], 200));
     expect(widths).toBeInstanceOf(Object);
     expect(widths.user).toBe(0);
   });
