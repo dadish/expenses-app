@@ -24,13 +24,16 @@ const state = fromJS({
 });
 
 test('selectFilter selects state.expenses.filter', () => {
-  expect(selectFilter()(state)).toBe(filter);
+  const selector = selectFilter();
+  expect(selector(state)).toBe(filter);
 });
 
 test('selectFilterOn selects state.expenses.filter.on', () => {
-  expect(selectFilterOn()(state)).toBe(on);
+  const selector = selectFilterOn();
+  expect(selector(state)).toBe(on);
 });
 
 test('selectFilterUpdating selects state.expenses.filter.updating', () => {
-  expect(selectFilterUpdating()(state)).toBe(updating);
+  const selector = selectFilterUpdating();
+  expect(selector(state)).toBe(updating);
 });
