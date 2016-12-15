@@ -117,6 +117,8 @@ describe('Expense Model', () => {
       comment: 'qu',
       amountMax: 20000,
       amountMin: 10000,
+      dateFrom: new Date(0),
+      dateTo: new Date(),
     }).then((items) => {
       expect(items).toBeAn(Array);
       expect(items.length).toBeGreaterThan(0);

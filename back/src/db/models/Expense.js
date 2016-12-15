@@ -54,11 +54,10 @@ const findFilter = (filters = {}) => co(function* gen() {
   const query = knex(tableName)
                   .select(`${tableName}.*`, `${User.tableName}.email AS userEmail`)
                   .leftJoin(`${User.tableName}`, `${tableName}.user`, `${User.tableName}.id`);
-  Object.keys(filters).forEach((key, index) => {
-    const whereMethod = index === 0 ? 'where' : 'andWhere';
+  Object.keys(filters).forEach((key) => {
     let field = `${tableName}.${key}`;
     let operator = 'like';
-    let value = `%${filters[key]}%`;
+    let value = `"%${filters[key]}%"`;
     if (key === 'user') field = `${User.tableName}.email`;
     if (key === 'amountMin' || key === 'amountMax') {
       field = `${tableName}.amount`;
@@ -66,7 +65,14 @@ const findFilter = (filters = {}) => co(function* gen() {
       if (key === 'amountMin') operator = '>=';
       value = filters[key];
     }
-    query[whereMethod](field, operator, value);
+    if (key === 'dateFrom' || key === 'dateTo') {
+      field = `${tableName}.date`;
+      if (key === 'dateFrom') operator = '>=';
+      if (key === 'dateTo') operator = '<=';
+      value = filters[key].toISOString().slice(0, -5);
+      value = `STR_TO_DATE("${value}", "%Y-%m-%dT%T")`;
+    }
+    query.whereRaw(`${field} ${operator} ${value}`);
   });
   const items = yield query;
   return items;
