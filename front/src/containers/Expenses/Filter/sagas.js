@@ -6,10 +6,11 @@ import trimEnd from 'lodash/trimEnd';
 import request from 'utils/request';
 import { api } from 'main/config';
 import { resetList } from 'containers/Expenses/List/actions';
+import { setTotal, setPage, setLimit } from 'containers/Expenses/actions';
 import { FORM_NAME } from './constants';
 import { startFiltering, endFiltering } from './actions';
 
-const url = `${api.url}${api.path.expensesFilter}`;
+const url = `${api.url}${api.path.expenses}`;
 
 const selectFormValue = formValueSelector(FORM_NAME);
 
@@ -52,7 +53,11 @@ export function* filterExpenses(action) {
     if (data.err.status === 400) yield call(alert, data.err.res.body);
     else yield call(alert, data.err.mesage);
   } else if (data.res) {
-    yield put(resetList(fromJS(data.res.body)));
+    const { page, list, total, limit } = data.res.body;
+    yield put(resetList(fromJS(list)));
+    yield put(setPage(page));
+    yield put(setLimit(limit));
+    yield put(setTotal(total));
   }
   yield put(endFiltering());
 }

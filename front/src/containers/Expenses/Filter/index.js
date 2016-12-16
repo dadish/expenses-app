@@ -35,7 +35,7 @@ export const ExpensesFilter = ({ role, widths }) => {
     columns.push(
       <ExpensesItemColumnUser key="user" width={widths.user} >
         <Field
-          name="user"
+          name="userEmail"
           component={InputText}
           style={fieldStyle}
           autofocus

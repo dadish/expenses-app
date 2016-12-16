@@ -1,5 +1,5 @@
 /**
- * Expenses actions
+ * Expenses List actions
  */
 
 import {

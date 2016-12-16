@@ -1,14 +1,9 @@
 import { fromJS } from 'immutable';
+import { SET_PAGE, SET_LIMIT } from './constants';
 import { RESET_LIST } from './List/constants';
 import listReducer from './List/reducer';
-import {
-  TOGGLE_FILTER,
-  START_FILTERING,
-  END_FILTERING,
-} from './Filter/constants';
-import filterReducer, {
-  initialState as initialFilterState,
-} from './Filter/reducer';
+import { TOGGLE_FILTER, START_FILTERING, END_FILTERING } from './Filter/constants';
+import filterReducer, { initialState as initialFilterState } from './Filter/reducer';
 import {
   EDIT_MODE_ON,
   EDIT_MODE_OFF,
@@ -24,10 +19,12 @@ import {
 export const initialState = fromJS({
   list: [],
   filter: initialFilterState(),
+  page: 1,
+  limit: 50,
 });
 
 const reducer = (state = initialState, action) => {
-  const { type } = action;
+  const { type, payload } = action;
   switch (type) {
     case RESET_LIST:
     case EDIT_MODE_ON:
@@ -44,6 +41,10 @@ const reducer = (state = initialState, action) => {
     case START_FILTERING:
     case END_FILTERING:
       return state.set('filter', filterReducer(state.get('filter'), action));
+    case SET_PAGE:
+      return state.set('page', payload);
+    case SET_LIMIT:
+      return state.set('limit', payload);
     default:
       return state;
   }
