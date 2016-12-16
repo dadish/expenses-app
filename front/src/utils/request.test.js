@@ -18,4 +18,9 @@ it('resolves even when error occurs', () => request(url, body)
   expect(data.err).toExist();
 }));
 
+it('appends a query string if fourth argument is provided', () => request('one', null, 'get', { foo: 'bar' })
+.then((data) => {
+  expect(data).toExist();
+}));
+
 it('figure out how to properly mock HTTP requests for superagent');
