@@ -4,7 +4,9 @@ import knex from '../knex';
 import User from './User';
 
 const tableName = 'expenses';
-
+const querySelectProps = knex.raw(`${tableName}.*, ${User.tableName}.email AS userEmail`);
+const queryJoinUsers = knex.raw(`${User.tableName} ON ${tableName}.user = ${User.tableName}.id`);
+const querySelectCount = knex.raw('COUNT(*) AS rows');
 const rules = Joi.object().keys({
   user: Joi.number().integer().required()
           .description('The id of the user.'),
@@ -31,51 +33,100 @@ const rules = Joi.object().keys({
  */
 const validate = (attributes = {}) => Promise.resolve(Joi.validate(attributes, rules));
 
-const normalizeSelector = selector => Object.keys(selector)
-  .reduce((memo, key) => ({
-    ...memo,
-    [`${tableName}.${key}`]: selector[key],
-  }), {});
+const normalizeSelectors = selector => Object.keys(selector)
+  .map((key) => {
+    let field = `${tableName}.${key}`;
+    let operator = '=';
+    let value = selector[key];
+
+    // userEmail
+    if (key === 'userEmail') {
+      field = `${User.tableName}.email`;
+      operator = 'LIKE';
+      value = `"%${value}%"`;
+    }
+
+    // amountMax
+    if (key === 'amountMax') {
+      field = `${tableName}.amount`;
+      operator = '<=';
+    }
+
+    // amountMin
+    if (key === 'amountMin') {
+      field = `${tableName}.amount`;
+      operator = '>=';
+    }
+
+    // dateFrom
+    if (key === 'dateFrom') {
+      field = `${tableName}.date`;
+      operator = '>=';
+      value = value.toISOString().slice(0, -5);
+      value = `STR_TO_DATE("${value}", "%Y-%m-%dT%T")`;
+    }
+
+    // dateTo
+    if (key === 'dateTo') {
+      field = `${tableName}.date`;
+      operator = '<=';
+      value = value.toISOString().slice(0, -5);
+      value = `STR_TO_DATE("${value}", "%Y-%m-%dT%T")`;
+    }
+
+    // comment
+    if (key === 'comment') {
+      operator = 'LIKE';
+      value = `"%${value}%"`;
+    }
+
+    // description
+    if (key === 'description') {
+      operator = 'LIKE';
+      value = `"%${value}%"`;
+    }
+
+    return { field, operator, value };
+  });
+
+const counTotal = q => co(function* get() {
+  const query = q.clone().first(querySelectCount);
+  const total = yield query;
+  return total.rows;
+});
 
 /**
  * Finds the expenses
  * @param  {Object} [selector={}] The rules for selecting the expenses
  * @return {Promise}              Resolves to an array of expenses found.
  */
-const find = (selector = {}) => co(function* gen() {
-  const items = yield knex(tableName)
-                  .select(`${tableName}.*`, `${User.tableName}.email AS userEmail`)
-                  .leftJoin(`${User.tableName}`, `${tableName}.user`, `${User.tableName}.id`)
-                  .where(normalizeSelector(selector));
-  return items;
-});
+const find = (selector = {}, page = 1, limit = 50) => co(function* gen() {
+  // calculate the offset
+  const offset = (page - 1) * limit;
 
-const findFilter = (filters = {}) => co(function* gen() {
-  const query = knex(tableName)
-                  .select(`${tableName}.*`, `${User.tableName}.email AS userEmail`)
-                  .leftJoin(`${User.tableName}`, `${tableName}.user`, `${User.tableName}.id`);
-  Object.keys(filters).forEach((key) => {
-    let field = `${tableName}.${key}`;
-    let operator = 'like';
-    let value = `"%${filters[key]}%"`;
-    if (key === 'user') field = `${User.tableName}.email`;
-    if (key === 'amountMin' || key === 'amountMax') {
-      field = `${tableName}.amount`;
-      if (key === 'amountMax') operator = '<=';
-      if (key === 'amountMin') operator = '>=';
-      value = filters[key];
-    }
-    if (key === 'dateFrom' || key === 'dateTo') {
-      field = `${tableName}.date`;
-      if (key === 'dateFrom') operator = '>=';
-      if (key === 'dateTo') operator = '<=';
-      value = filters[key].toISOString().slice(0, -5);
-      value = `STR_TO_DATE("${value}", "%Y-%m-%dT%T")`;
-    }
+  // create the query builder and set where from
+  // we are going to select the data
+  const query = knex(tableName).leftJoin(queryJoinUsers);
+
+  // set the selecting rules
+  normalizeSelectors(selector).forEach(({ field, operator, value }) => {
     query.whereRaw(`${field} ${operator} ${value}`);
   });
-  const items = yield query;
-  return items;
+
+  // count the total rows for this query
+  const total = yield counTotal(query);
+
+  // select the default properties
+  query.select(querySelectProps);
+
+  // set offset and limit
+  query.limit(limit).offset(offset);
+
+  // query the data
+  const list = yield query;
+
+  // return what we have
+  return { list, total, page, limit };
 });
 
 /**
@@ -84,9 +135,14 @@ const findFilter = (filters = {}) => co(function* gen() {
  * @return {object}     The expense json object.
  */
 const findById = id => co(function* gen() {
-  const items = yield find({ id });
-  if (!items.length) return null;
-  return items[0];
+  const query = knex(tableName)
+                  .first(querySelectProps)
+                  .leftJoin(queryJoinUsers);
+  const { field, value } = normalizeSelectors({ id })[0];
+  query.where(field, value);
+  const item = yield query;
+  if (!item) return null;
+  return item;
 });
 
 /**
@@ -182,8 +238,8 @@ export default {
   tableCreation,
   rules,
   validate,
+  normalizeSelectors,
   find,
-  findFilter,
   findById,
   create,
   update,

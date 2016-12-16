@@ -4,13 +4,14 @@ import 'babel-polyfill';
 
 import { sync as syncDB } from '../../table';
 import Expense from '../Expense';
+import User from '../User';
 
 const {
   validate,
   create,
   update,
   find,
-  findFilter,
+  normalizeSelectors,
   findById,
   del,
   delForUser,
@@ -81,48 +82,152 @@ describe('Expense Model', () => {
       expect(find()).toBeA(Promise);
       done();
     });
-    it('returns an empty array if nothing found', () => find({
+    it('resolves to an object with `page`, `limit`, `total` and `list` properties', () => find()
+    .then((result) => {
+      expect(result).toExist();
+      expect(result).toBeAn(Object);
+      expect(result.page).toExist();
+      expect(result.limit).toExist();
+      expect(result.total).toExist();
+      expect(result.list).toExist();
+    }));
+    it('accepts page and limit options', () => {
+      const page = 3;
+      const limit = 10;
+      return find({}, page, limit).then((result) => {
+        expect(result.page).toBe(page);
+        expect(result.limit).toBe(limit);
+      });
+    });
+    it('the list property is an empty array if nothing found', () => find({
       id: 1230,
-    }).then((items) => {
-      expect(items).toExist();
-      expect(items).toBeAn(Array);
-      expect(items.length).toBe(0);
+    }).then((result) => {
+      expect(result).toExist();
+      expect(result.list).toBeAn(Array);
+      expect(result.list.length).toBe(0);
     }));
   });
 
-  describe('findFilter()', () => {
-    it('returns propmise', (done) => {
-      expect(findFilter()).toBeA(Promise);
-      done();
+  describe('normalizeSelectors()', () => {
+    describe('for userEmail', () => {
+      const field = 'userEmail';
+      const value = 'foo';
+      const normalizedSelector = normalizeSelectors({ [field]: value })[0];
+      it('sets the field to User.tableName.email', (done) => {
+        expect(normalizedSelector.field).toBe(`${User.tableName}.email`);
+        done();
+      });
+      it('sets the operator to `LIKE`', (done) => {
+        expect(normalizedSelector.operator).toBe('LIKE');
+        done();
+      });
+      it('sets the value to `%value%`', (done) => {
+        expect(normalizedSelector.value).toBe(`"%${value}%"`);
+        done();
+      });
     });
-    it('resolves to an array of expense objects', () => findFilter()
-    .then((items) => {
-      expect(items).toBeAn(Array);
-      expect(items.length).toBeGreaterThan(0);
-    }));
-    it('can filter results by `user` field', () => findFilter({ user: 'man' })
-    .then((items) => {
-      expect(items).toBeAn(Array);
-      expect(items.length).toBeGreaterThan(0);
-    }));
-    it('can filter results by multiple fields', () => findFilter({
-      user: 'expense',
-      comment: 'qu',
-    }).then((items) => {
-      expect(items).toBeAn(Array);
-      expect(items.length).toBeGreaterThan(0);
-    }));
-    it('can filter results by amountMax & amountMin fields', () => findFilter({
-      user: 'expense',
-      comment: 'qu',
-      amountMax: 20000,
-      amountMin: 10000,
-      dateFrom: new Date(0),
-      dateTo: new Date(),
-    }).then((items) => {
-      expect(items).toBeAn(Array);
-      expect(items.length).toBeGreaterThan(0);
-    }));
+    describe('for amountMax', () => {
+      const field = 'amountMax';
+      const value = 120;
+      const normalizedSelector = normalizeSelectors({ [field]: value })[0];
+      it('sets the field to Expense.tableName.amount', (done) => {
+        expect(normalizedSelector.field).toBe(`${Expense.tableName}.amount`);
+        done();
+      });
+      it('sets the operator to `<=`', (done) => {
+        expect(normalizedSelector.operator).toBe('<=');
+        done();
+      });
+      it('sets the value to value', (done) => {
+        expect(normalizedSelector.value).toBe(value);
+        done();
+      });
+    });
+    describe('for amountMin', () => {
+      const field = 'amountMin';
+      const value = 120;
+      const normalizedSelector = normalizeSelectors({ [field]: value })[0];
+      it('sets the field to Expense.tableName.amount', (done) => {
+        expect(normalizedSelector.field).toBe(`${Expense.tableName}.amount`);
+        done();
+      });
+      it('sets the operator to `>=`', (done) => {
+        expect(normalizedSelector.operator).toBe('>=');
+        done();
+      });
+      it('sets the value to value', (done) => {
+        expect(normalizedSelector.value).toBe(value);
+        done();
+      });
+    });
+    describe('for dateFrom', () => {
+      const field = 'dateFrom';
+      const value = new Date();
+      const normalizedSelector = normalizeSelectors({ [field]: value })[0];
+      it('sets the field to Expense.tableName.date', (done) => {
+        expect(normalizedSelector.field).toBe(`${Expense.tableName}.date`);
+        done();
+      });
+      it('sets the operator to `>=`', (done) => {
+        expect(normalizedSelector.operator).toBe('>=');
+        done();
+      });
+      it('sets the value to STR_TO_DATE("value", "%Y-%m-%dT%T")', (done) => {
+        expect(normalizedSelector.value).toBe(`STR_TO_DATE("${value.toISOString().slice(0, -5)}", "%Y-%m-%dT%T")`);
+        done();
+      });
+    });
+    describe('for dateTo', () => {
+      const field = 'dateTo';
+      const value = new Date();
+      const normalizedSelector = normalizeSelectors({ [field]: value })[0];
+      it('sets the field to Expense.tableName.date', (done) => {
+        expect(normalizedSelector.field).toBe(`${Expense.tableName}.date`);
+        done();
+      });
+      it('sets the operator to `>=`', (done) => {
+        expect(normalizedSelector.operator).toBe('<=');
+        done();
+      });
+      it('sets the value to STR_TO_DATE("value", "%Y-%m-%dT%T")', (done) => {
+        expect(normalizedSelector.value).toBe(`STR_TO_DATE("${value.toISOString().slice(0, -5)}", "%Y-%m-%dT%T")`);
+        done();
+      });
+    });
+    describe('for comment', () => {
+      const field = 'comment';
+      const value = 'foo';
+      const normalizedSelector = normalizeSelectors({ [field]: value })[0];
+      it('sets the field to Expense.tableName.comment', (done) => {
+        expect(normalizedSelector.field).toBe(`${Expense.tableName}.comment`);
+        done();
+      });
+      it('sets the operator to `LIKE`', (done) => {
+        expect(normalizedSelector.operator).toBe('LIKE');
+        done();
+      });
+      it('sets the value to `%value%`', (done) => {
+        expect(normalizedSelector.value).toBe(`"%${value}%"`);
+        done();
+      });
+    });
+    describe('for description', () => {
+      const field = 'description';
+      const value = 'foo';
+      const normalizedSelector = normalizeSelectors({ [field]: value })[0];
+      it('sets the field to Expense.tableName.description', (done) => {
+        expect(normalizedSelector.field).toBe(`${Expense.tableName}.description`);
+        done();
+      });
+      it('sets the operator to `LIKE`', (done) => {
+        expect(normalizedSelector.operator).toBe('LIKE');
+        done();
+      });
+      it('sets the value to `%value%`', (done) => {
+        expect(normalizedSelector.value).toBe(`"%${value}%"`);
+        done();
+      });
+    });
   });
 
   describe('findById()', () => {
