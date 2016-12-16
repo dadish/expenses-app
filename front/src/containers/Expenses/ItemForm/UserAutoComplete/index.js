@@ -14,6 +14,7 @@ export const InputUserAutoComplete = (props) => {
     handleChange,
     dataSource,
     userEmail,
+    disabled,
   } = props;
   return (
     <AutoComplete
@@ -27,6 +28,7 @@ export const InputUserAutoComplete = (props) => {
       onUpdateInput={handleUpdateInput}
       style={style}
       onNewRequest={handleChange}
+      disabled={disabled}
     />
   );
 };
@@ -39,6 +41,7 @@ InputUserAutoComplete.propTypes = {
   userEmail: PropTypes.string.isRequired,
   handleUpdateInput: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
+  disabled: PropTypes.bool.isRequired,
 };
 
 export const mapStateToProps = createStructuredSelector({

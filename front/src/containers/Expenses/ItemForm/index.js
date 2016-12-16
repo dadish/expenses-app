@@ -48,6 +48,7 @@ const ExpensesItemForm = (props) => {
     </ExpensesItemColumnId>
   );
   if (userRole === 300) {
+    const userFieldIsDisabled = !!initialValues.get('id');
     fields.push(
       <ExpensesItemColumnUser key="user" width={widths.user} >
         <Field
@@ -55,6 +56,7 @@ const ExpensesItemForm = (props) => {
           formId={form}
           component={UserAutoComplete}
           style={fieldStyle}
+          disabled={userFieldIsDisabled}
         />
       </ExpensesItemColumnUser>
     );
