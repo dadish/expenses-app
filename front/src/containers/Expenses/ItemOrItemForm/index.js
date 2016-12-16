@@ -12,10 +12,15 @@ export class ItemOrItemForm extends PureComponent {
     const cid = expense.get('cid');
     let item;
     if (expense.get('edit')) {
-      const values = expense.merge({
-        user: user.get('id'),
-        userEmail: user.get('email'),
-      });
+      let values;
+      if (expense.get('id')) {
+        values = expense;
+      } else {
+        values = expense.merge({
+          user: user.get('id'),
+          userEmail: user.get('email'),
+        });
+      }
       const Form = createForm(cid);
       item = (<Form initialValues={values} cid={cid} />);
     } else {
