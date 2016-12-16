@@ -1,5 +1,5 @@
 import { fromJS } from 'immutable';
-import { SET_PAGE, SET_LIMIT } from './constants';
+import { SET_PAGE, SET_LIMIT, SET_TOTAL } from './constants';
 import { RESET_LIST } from './List/constants';
 import listReducer from './List/reducer';
 import { TOGGLE_FILTER, START_FILTERING, END_FILTERING } from './Filter/constants';
@@ -21,6 +21,7 @@ export const initialState = fromJS({
   filter: initialFilterState(),
   page: 1,
   limit: 50,
+  total: 120,
 });
 
 const reducer = (state = initialState, action) => {
@@ -45,6 +46,8 @@ const reducer = (state = initialState, action) => {
       return state.set('page', payload);
     case SET_LIMIT:
       return state.set('limit', payload);
+    case SET_TOTAL:
+      return state.set('total', payload);
     default:
       return state;
   }

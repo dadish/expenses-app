@@ -13,6 +13,7 @@ const props = {
   userEmail: 'string',
   handleUpdateInput: () => {},
   handleChange: () => {},
+  disabled: true,
 };
 
 const email = 'weasdukgjqnwa@wjajk.das';

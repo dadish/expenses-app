@@ -13,6 +13,7 @@ import {
   deleteSuccess,
   deleteError,
 } from 'containers/Expenses/Item/actions';
+import { setPage, setLimit, setTotal } from '../actions';
 import ExpensesReducer, { initialState } from '../reducer';
 
 describe('ExpensesReducer', () => {
@@ -20,7 +21,25 @@ describe('ExpensesReducer', () => {
     expect(ExpensesReducer(undefined, { type: 'adsfva' })).toBe(initialState);
   });
 
-  describe('ExpensesReducer handles', () => {
+  it('sets the limit for setLimit action', () => {
+    const limit = 32546;
+    const state = ExpensesReducer(undefined, setLimit(limit));
+    expect(state.get('limit')).toBe(limit);
+  });
+
+  it('sets the total for setTotal action', () => {
+    const total = 32546;
+    const state = ExpensesReducer(undefined, setTotal(total));
+    expect(state.get('total')).toBe(total);
+  });
+
+  it('sets the page for setPage action', () => {
+    const page = 32546;
+    const state = ExpensesReducer(undefined, setPage(page));
+    expect(state.get('page')).toBe(page);
+  });
+
+  describe('handles', () => {
     const actions = {
       resetList,
       editModeOn,
