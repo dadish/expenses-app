@@ -3,16 +3,13 @@ import { FORM_NAME } from '../constants';
 import {
   selectFilter,
   selectFilterOn,
-  selectFilterUpdating,
   selectFilteredQuery,
 } from '../selectors';
 
 const on = 'qalsdfjas,';
-const updating = 'aksdfgnqkal';
 const fields = fromJS({});
 const filter = fromJS({
   on,
-  updating,
   fields,
 });
 
@@ -63,11 +60,6 @@ test('selectFilter selects state.expenses.filter', () => {
 test('selectFilterOn selects state.expenses.filter.on', () => {
   const selector = selectFilterOn();
   expect(selector(state)).toBe(on);
-});
-
-test('selectFilterUpdating selects state.expenses.filter.updating', () => {
-  const selector = selectFilterUpdating();
-  expect(selector(state)).toBe(updating);
 });
 
 test('selectFilteredQuery builds the filtered query correctly', () => {

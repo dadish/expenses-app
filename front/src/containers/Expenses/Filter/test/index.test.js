@@ -16,7 +16,6 @@ const widths = {
 const props = {
   role,
   widths,
-  handleUpdate: () => {},
 };
 
 describe('ExpensesFilter', () => {

@@ -28,11 +28,6 @@ export const selectFilterOn = () => createSelector(
   filter => filter.get('on'),
 );
 
-export const selectFilterUpdating = () => createSelector(
-  selectFilter(),
-  filter => filter.get('updating'),
-);
-
 export const selectFilteredQuery = () => createSelector(
   selectCurrentPage(),
   selectItemsPerPage(),
