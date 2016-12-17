@@ -13,7 +13,7 @@ import {
   deleteSuccess,
   deleteError,
 } from 'containers/Expenses/Item/actions';
-import { setPage, setLimit, setTotal } from '../actions';
+import { setCurrentPage, setItemsPerPage, setTotalItems } from '../actions';
 import ExpensesReducer, { initialState } from '../reducer';
 
 describe('ExpensesReducer', () => {
@@ -21,22 +21,22 @@ describe('ExpensesReducer', () => {
     expect(ExpensesReducer(undefined, { type: 'adsfva' })).toBe(initialState);
   });
 
-  it('sets the limit for setLimit action', () => {
+  it('sets the limit for setItemsPerPage action', () => {
     const limit = 32546;
-    const state = ExpensesReducer(undefined, setLimit(limit));
-    expect(state.get('limit')).toBe(limit);
+    const state = ExpensesReducer(undefined, setItemsPerPage(limit));
+    expect(state.get('itemsPerPage')).toBe(limit);
   });
 
-  it('sets the total for setTotal action', () => {
+  it('sets the total for setTotalItems action', () => {
     const total = 32546;
-    const state = ExpensesReducer(undefined, setTotal(total));
-    expect(state.get('total')).toBe(total);
+    const state = ExpensesReducer(undefined, setTotalItems(total));
+    expect(state.get('totalItems')).toBe(total);
   });
 
-  it('sets the page for setPage action', () => {
+  it('sets the page for setCurrentPage action', () => {
     const page = 32546;
-    const state = ExpensesReducer(undefined, setPage(page));
-    expect(state.get('page')).toBe(page);
+    const state = ExpensesReducer(undefined, setCurrentPage(page));
+    expect(state.get('currentPage')).toBe(page);
   });
 
   describe('handles', () => {

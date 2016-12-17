@@ -5,7 +5,7 @@ import { formValueSelector } from 'redux-form/immutable';
 import request from 'utils/request';
 import { api } from 'main/config';
 import { resetList } from 'containers/Expenses/List/actions';
-import { setTotal, setPage, setLimit } from 'containers/Expenses/actions';
+import { setTotalItems, setCurrentPage, setItemsPerPage } from 'containers/Expenses/actions';
 import { FORM_NAME } from './constants';
 import { startFiltering, endFiltering } from './actions';
 
@@ -54,9 +54,9 @@ export function* filterExpenses(action) {
   } else if (data.res) {
     const { page, list, total, limit } = data.res.body;
     yield put(resetList(fromJS(list)));
-    yield put(setPage(page));
-    yield put(setLimit(limit));
-    yield put(setTotal(total));
+    yield put(setCurrentPage(page));
+    yield put(setItemsPerPage(limit));
+    yield put(setTotalItems(total));
   }
   yield put(endFiltering());
 }
