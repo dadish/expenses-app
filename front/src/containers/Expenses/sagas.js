@@ -7,7 +7,7 @@ import { saveItem, deleteItem } from './Item/sagas';
 import { loadList } from './List/sagas';
 import { updateMatches } from './ItemForm/UserAutoComplete/sagas';
 import { UPDATE_MATCHES } from './ItemForm/UserAutoComplete/constants';
-import { filterExpenses } from './Filter/sagas';
+import { filterExpenses, onFilterDestroy } from './Filter/sagas';
 import { LOAD_LIST } from './List/constants';
 
 let watcher = null;
@@ -24,6 +24,8 @@ function* actionsWatcher() {
   yield fork(takeLatest, DELETE, deleteItem);
   yield fork(takeLatest, UPDATE_MATCHES, updateMatches);
   yield fork(takeLatest, actionTypes.CHANGE, filterExpenses);
+  yield fork(takeLatest, actionTypes.RESET, filterExpenses);
+  yield fork(takeLatest, actionTypes.DESTROY, onFilterDestroy);
   yield fork(takeLatest, LOCATION_CHANGE, onLocationChange);
   yield fork(takeLatest, LOAD_LIST, loadList);
 }

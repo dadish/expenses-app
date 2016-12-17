@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { fromJS } from 'immutable';
 import { connect } from 'react-redux';
-import { reduxForm, Field } from 'redux-form/immutable';
+import { reduxForm, Field, reset } from 'redux-form/immutable';
 import { createStructuredSelector } from 'reselect';
 import { selectUserRole } from 'containers/App/selectors';
 import { selectColumnWidths } from 'containers/Expenses/selectors';
@@ -17,6 +17,7 @@ import {
   ExpensesItemColumnEdit,
 } from 'components/ExpensesItemColumn';
 import InputText from 'components/InputText';
+import CancelIcon from 'components/CancelIcon';
 import FilterAmount from './FilterAmount';
 import FilterDate from './FilterDate';
 import { FORM_NAME } from './constants';
@@ -25,8 +26,31 @@ const fieldStyle = {
   width: '100%',
 };
 
-export const ExpensesFilter = ({ role, widths }) => {
+export const ExpensesFilter = (props) => {
+  const {
+    role,
+    widths,
+    dirty,
+    handleCancelClick,
+  } = props;
+
+  const clearButton = (
+    <div
+      style={{
+        height: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <CancelIcon
+        onClick={handleCancelClick}
+      />
+    </div>
+  );
+
   const columns = [];
+
   columns.push(
     <ExpensesItemColumnId key="id" width={widths.id} />
   );
@@ -73,8 +97,10 @@ export const ExpensesFilter = ({ role, widths }) => {
     </ExpensesItemColumnDescription>
   );
   columns.push(
-    <ExpensesItemColumnEdit key="edit" width={widths.edit} />
-  );
+    <ExpensesItemColumnEdit key="edit" width={widths.edit}>
+      {dirty && clearButton}
+    </ExpensesItemColumnEdit>
+      );
 
   return (
     <ExpensesItemRow
@@ -93,12 +119,18 @@ export const mapStateToProps = createStructuredSelector({
   widths: selectColumnWidths(),
 });
 
+export const mapDispatchToProps = dispatch => ({
+  handleCancelClick: () => dispatch(reset(FORM_NAME)),
+});
+
 ExpensesFilter.propTypes = {
   role: PropTypes.number.isRequired,
+  dirty: PropTypes.bool.isRequired,
   widths: PropTypes.object.isRequired,
+  handleCancelClick: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(reduxForm({
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
   form: FORM_NAME,
   initialValues: fromJS({
     userEmail: null,

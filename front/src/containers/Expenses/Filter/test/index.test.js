@@ -1,6 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { ExpensesFilter } from '../';
+import { reset } from 'redux-form/immutable';
+import { ExpensesFilter, mapDispatchToProps } from '../';
+import { FORM_NAME } from '../constants';
 
 const role = 200;
 const widths = {
@@ -16,6 +18,8 @@ const widths = {
 const props = {
   role,
   widths,
+  dirty: false,
+  handleCancelClick: () => {},
 };
 
 describe('ExpensesFilter', () => {
@@ -28,5 +32,14 @@ describe('ExpensesFilter', () => {
       role: 300,
     };
     shallow(<ExpensesFilter {...newProps} />);
+  });
+});
+
+describe('mapDispatchToProps()', () => {
+  const dispatch = jest.fn();
+  const { handleCancelClick } = mapDispatchToProps(dispatch);
+  it('produces handleCancelClick that dispatches the redux-form.reset action with FORM_NAME', () => {
+    handleCancelClick();
+    expect(dispatch.mock.calls[0][0]).toEqual(reset(FORM_NAME));
   });
 });

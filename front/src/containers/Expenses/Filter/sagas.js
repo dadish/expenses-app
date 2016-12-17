@@ -12,3 +12,10 @@ export function* filterExpenses(action) {
   yield put(setCurrentPage(1));
   yield call(loadList);
 }
+
+export function* onFilterDestroy(action) {
+  const { meta } = action;
+  if (meta.form !== FORM_NAME) return;
+  yield put(setCurrentPage(1));
+  yield call(loadList);
+}
