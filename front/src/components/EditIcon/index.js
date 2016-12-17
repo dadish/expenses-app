@@ -1,13 +1,13 @@
 import React, { PropTypes } from 'react';
 import Icon from 'material-ui/svg-icons/editor/mode-edit';
-import { blue400, blue900 } from 'material-ui/styles/colors';
+import { blue300, blue700 } from 'material-ui/styles/colors';
 
 const EditIcon = (props) => {
   const { onClick } = props;
   return (
     <Icon
-      color={blue400}
-      hoverColor={blue900}
+      color={blue300}
+      hoverColor={blue700}
       onClick={onClick}
       style={{
         cursor: 'pointer',
