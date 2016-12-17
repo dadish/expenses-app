@@ -71,13 +71,13 @@ export default function createRoutes(store) {
       name: 'users',
       getComponent(nextState, cb) {
         require.ensure([
-          'containers/Users/sagas',
           'containers/Users/reducer',
+          'containers/Users/sagas',
           'containers/Users',
         ], (require) => {
           const renderRoute = loadModule(cb);
-          injectSagas(require('containers/Users/sagas').default);
           injectReducer('users', require('containers/Users/reducer').default);
+          injectSagas(require('containers/Users/sagas').default);
           renderRoute(require('containers/Users').default);
         });
       },
@@ -86,13 +86,13 @@ export default function createRoutes(store) {
       name: 'expenses',
       getComponent(nextState, cb) {
         require.ensure([
-          'containers/Expenses/sagas',
           'containers/Expenses/reducer',
+          'containers/Expenses/sagas',
           'containers/Expenses',
         ], (require) => {
           const renderRoute = loadModule(cb);
-          injectSagas(require('containers/Expenses/sagas').default);
           injectReducer('expenses', require('containers/Expenses/reducer').default);
+          injectSagas(require('containers/Expenses/sagas').default);
           renderRoute(require('containers/Expenses').default);
         });
       },
