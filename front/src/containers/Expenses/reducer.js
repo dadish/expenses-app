@@ -20,7 +20,7 @@ export const initialState = fromJS({
   list: [],
   filter: initialFilterState(),
   page: 1,
-  limit: 50,
+  limit: 25,
   total: 120,
 });
 
