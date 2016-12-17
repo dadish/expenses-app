@@ -1,12 +1,8 @@
 import {
   toggleFilter,
-  startFiltering,
-  endFiltering,
 } from '../actions';
 import {
   TOGGLE_FILTER,
-  START_FILTERING,
-  END_FILTERING,
 } from '../constants';
 
 const actionsMap = {
@@ -14,16 +10,6 @@ const actionsMap = {
     name: 'toggleFilter',
     method: toggleFilter,
     constant: TOGGLE_FILTER,
-  },
-  startFiltering: {
-    name: 'startFiltering',
-    method: startFiltering,
-    constant: START_FILTERING,
-  },
-  endFiltering: {
-    name: 'endFiltering',
-    method: endFiltering,
-    constant: END_FILTERING,
   },
 };
 
