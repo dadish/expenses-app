@@ -4920,7 +4920,7 @@ react-dev-utils@^0.4.0:
     sockjs-client "1.0.3"
     strip-ansi "3.0.1"
 
-react-dom@^15.4.1:
+react-dom@^15.0.1, react-dom@^15.4.1:
   version "15.4.1"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.4.1.tgz#d54c913261aaedb17adc20410d029dcc18a1344a"
   dependencies:
@@ -4971,7 +4971,21 @@ react-tap-event-plugin@^2.0.1:
   dependencies:
     fbjs "^0.8.6"
 
-react@^15.4.1:
+react-ultimate-pagination-material-ui@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/react-ultimate-pagination-material-ui/-/react-ultimate-pagination-material-ui-0.5.0.tgz#6a78397633689f701359d40d69c7017498adeeda"
+  dependencies:
+    react-ultimate-pagination "0.9.0"
+
+react-ultimate-pagination@0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/react-ultimate-pagination/-/react-ultimate-pagination-0.9.0.tgz#2523f578899011b2d376580e21a87139fd09cd5c"
+  dependencies:
+    react "^15.0.1"
+    react-dom "^15.0.1"
+    ultimate-pagination "0.8.0"
+
+react@^15.0.1, react@^15.4.1:
   version "15.4.1"
   resolved "https://registry.yarnpkg.com/react/-/react-15.4.1.tgz#498e918602677a3983cd0fd206dfe700389a0dd6"
   dependencies:
@@ -5823,6 +5837,10 @@ uglify-to-browserify@~1.0.0:
 uid-number@~0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/uid-number/-/uid-number-0.0.6.tgz#0ea10e8035e8eb5b8e4449f06da1c730663baa81"
+
+ultimate-pagination@0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/ultimate-pagination/-/ultimate-pagination-0.8.0.tgz#853fb5bcb120671ba95fcb4fc65512d2d5ea2d23"
 
 unc-path-regex@^0.1.0:
   version "0.1.2"

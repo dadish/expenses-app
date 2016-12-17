@@ -4,11 +4,11 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 import { actionTypes } from 'redux-form';
 import { SAVE, DELETE } from './Item/constants';
 import { saveItem, deleteItem } from './Item/sagas';
-import { initialLoad } from './List/sagas';
+import { loadList } from './List/sagas';
 import { updateMatches } from './ItemForm/UserAutoComplete/sagas';
 import { UPDATE_MATCHES } from './ItemForm/UserAutoComplete/constants';
 import { filterExpenses } from './Filter/sagas';
-// import { UPDATE_FILTER } from './Filter/constants';
+import { SET_CURRENT_PAGE } from './constants';
 
 let watcher = null;
 
@@ -25,6 +25,7 @@ function* actionsWatcher() {
   yield fork(takeLatest, UPDATE_MATCHES, updateMatches);
   yield fork(takeLatest, actionTypes.CHANGE, filterExpenses);
   yield fork(takeLatest, LOCATION_CHANGE, onLocationChange);
+  yield fork(takeLatest, SET_CURRENT_PAGE, loadList);
 }
 
 function* main() {
@@ -36,6 +37,6 @@ function* main() {
 }
 
 export default [
-  initialLoad,
+  loadList,
   main,
 ];

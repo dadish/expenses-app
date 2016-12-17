@@ -3,20 +3,22 @@ import { fromJS } from 'immutable';
 import { api } from 'main/config';
 import request from 'utils/request';
 import { resetList } from './actions';
-import { setCurrentPage, setItemsPerPage, setTotalItems } from '../actions';
-import { selectItemsPerPage } from '../selectors';
+import { setTotalItems } from '../actions';
+import { selectItemsPerPage, selectCurrentPage } from '../selectors';
 
 const url = `${api.url}${api.path.expenses}`;
 
-export function* initialLoad() {
-  const perPage = yield select(selectItemsPerPage());
-  const data = yield call(request, url, null, 'get', { limit: perPage });
+export function* loadList() {
+  const itemsPerPage = yield select(selectItemsPerPage());
+  const currentPage = yield select(selectCurrentPage());
+  const data = yield call(request, url, null, 'get', {
+    limit: itemsPerPage,
+    page: currentPage,
+  });
   if (data.err) {
     yield call(alert, data.err);
   } else if (data.res) {
-    const { page, total, limit, list } = data.res.body;
-    yield put(setCurrentPage(page));
-    yield put(setItemsPerPage(limit));
+    const { total, list } = data.res.body;
     yield put(setTotalItems(total));
     yield put(resetList(fromJS(list)));
   }

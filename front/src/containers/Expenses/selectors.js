@@ -5,6 +5,33 @@ const rootSelector = () => state => state.get('expenses');
 
 export default rootSelector;
 
+export const selectTotalItems = () => createSelector(
+  rootSelector(),
+  expenses => expenses.get('totalItems'),
+);
+
+export const selectCurrentPage = () => createSelector(
+  rootSelector(),
+  expenses => expenses.get('currentPage')
+);
+
+export const selectItemsPerPage = () => createSelector(
+  rootSelector(),
+  expenses => expenses.get('itemsPerPage')
+);
+
+export const selectTotalPages = () => createSelector(
+  selectTotalItems(),
+  selectItemsPerPage(),
+  (total, limit) => Math.ceil(total / limit)
+);
+
+export const selectPaginationData = () => createSelector(
+  selectTotalPages(),
+  selectCurrentPage(),
+  (totalPages, currentPage) => ({ totalPages, currentPage })
+);
+
 export const selectColumnWidths = () => createSelector(
   selectUserRole(),
   (role) => {
