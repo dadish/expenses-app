@@ -1,5 +1,11 @@
 import { fromJS } from 'immutable';
-import { SET_CURRENT_PAGE, SET_ITEMS_PER_PAGE, SET_TOTAL_ITEMS } from './constants';
+import {
+  SET_CURRENT_PAGE,
+  SET_ITEMS_PER_PAGE,
+  SET_TOTAL_ITEMS,
+  LIST_UPDATE_START,
+  LIST_UPDATE_STOP,
+} from './constants';
 import { RESET_LIST } from './List/constants';
 import listReducer from './List/reducer';
 import { TOGGLE_FILTER } from './Filter/constants';
@@ -22,6 +28,7 @@ export const initialState = fromJS({
   currentPage: 1,
   itemsPerPage: 25,
   totalItems: 120,
+  updating: false,
 });
 
 const reducer = (state = initialState, action) => {
@@ -46,6 +53,10 @@ const reducer = (state = initialState, action) => {
       return state.set('itemsPerPage', payload);
     case SET_TOTAL_ITEMS:
       return state.set('totalItems', payload);
+    case LIST_UPDATE_START:
+      return state.set('updating', true);
+    case LIST_UPDATE_STOP:
+      return state.set('updating', false);
     default:
       return state;
   }

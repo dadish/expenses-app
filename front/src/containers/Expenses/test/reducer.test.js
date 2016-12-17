@@ -13,7 +13,13 @@ import {
   deleteSuccess,
   deleteError,
 } from 'containers/Expenses/Item/actions';
-import { setCurrentPage, setItemsPerPage, setTotalItems } from '../actions';
+import {
+  setCurrentPage,
+  setItemsPerPage,
+  setTotalItems,
+  listUpdateStart,
+  listUpdateStop,
+} from '../actions';
 import ExpensesReducer, { initialState } from '../reducer';
 
 describe('ExpensesReducer', () => {
@@ -61,6 +67,28 @@ describe('ExpensesReducer', () => {
       const page = 32546;
       const state = ExpensesReducer(undefined, setCurrentPage(page));
       expect(state.get('currentPage')).toBe(page);
+    });
+  });
+
+  describe('sets the updating to true listUpdateStart action', () => {
+    it('with provided state', () => {
+      const state = ExpensesReducer(initialState, listUpdateStart());
+      expect(state.get('updating')).toBe(true);
+    });
+    it('without provided state', () => {
+      const state = ExpensesReducer(undefined, listUpdateStart());
+      expect(state.get('updating')).toBe(true);
+    });
+  });
+
+  describe('sets the updating to false listUpdateStop action', () => {
+    it('with provided state', () => {
+      const state = ExpensesReducer(initialState, listUpdateStop());
+      expect(state.get('updating')).toBe(false);
+    });
+    it('without provided state', () => {
+      const state = ExpensesReducer(undefined, listUpdateStop());
+      expect(state.get('updating')).toBe(false);
     });
   });
 
