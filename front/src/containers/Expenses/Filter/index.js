@@ -101,7 +101,7 @@ ExpensesFilter.propTypes = {
 export default connect(mapStateToProps)(reduxForm({
   form: FORM_NAME,
   initialValues: fromJS({
-    user: null,
+    userEmail: null,
     amount: {
       min: null,
       max: null,

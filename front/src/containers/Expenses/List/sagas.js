@@ -4,17 +4,13 @@ import { api } from 'main/config';
 import request from 'utils/request';
 import { resetList } from './actions';
 import { setTotalItems } from '../actions';
-import { selectItemsPerPage, selectCurrentPage } from '../selectors';
+import { selectFilteredQuery } from '../Filter/selectors';
 
 const url = `${api.url}${api.path.expenses}`;
 
 export function* loadList() {
-  const itemsPerPage = yield select(selectItemsPerPage());
-  const currentPage = yield select(selectCurrentPage());
-  const data = yield call(request, url, null, 'get', {
-    limit: itemsPerPage,
-    page: currentPage,
-  });
+  const query = yield select(selectFilteredQuery());
+  const data = yield call(request, url, null, 'get', query);
   if (data.err) {
     yield call(alert, data.err);
   } else if (data.res) {

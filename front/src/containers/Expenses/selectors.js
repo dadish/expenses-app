@@ -36,14 +36,25 @@ export const selectColumnWidths = () => createSelector(
   selectUserRole(),
   (role) => {
     const admin = Boolean(role === 300);
+    if (admin) {
+      return ({
+        id: 5,
+        user: 18,
+        amount: 7,
+        date: 20,
+        description: 20,
+        comment: 22,
+        edit: 8,
+      });
+    }
     return ({
-      id: admin ? 5 : 6,
-      user: admin ? 18 : 0,
-      amount: admin ? 7 : 8,
-      date: admin ? 20 : 24,
-      description: admin ? 20 : 24,
-      comment: admin ? 22 : 26,
-      edit: admin ? 8 : 12,
+      id: 6,
+      user: 0,
+      amount: 8,
+      date: 24,
+      description: 24,
+      comment: 26,
+      edit: 12,
     });
   },
 );

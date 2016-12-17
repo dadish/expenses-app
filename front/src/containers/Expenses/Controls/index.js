@@ -7,6 +7,7 @@ import Pagination from 'react-ultimate-pagination-material-ui';
 import { create } from '../Item/actions';
 import { selectPaginationData } from '../selectors';
 import { setCurrentPage } from '../actions';
+import { loadList } from '../List/actions';
 import { toggleFilter } from '../Filter/actions';
 
 export const ExpensesControls = ({ handleAdd, handleFilter, handlePageChange, paginationData }) => (
@@ -59,7 +60,10 @@ export const mapDispatchToProps = dispatch => ({
     edit: true,
   })),
   handleFilter: () => dispatch(toggleFilter()),
-  handlePageChange: pageNumber => dispatch(setCurrentPage(pageNumber)),
+  handlePageChange: (pageNumber) => {
+    dispatch(setCurrentPage(pageNumber));
+    dispatch(loadList());
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpensesControls);

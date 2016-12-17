@@ -8,7 +8,7 @@ import { loadList } from './List/sagas';
 import { updateMatches } from './ItemForm/UserAutoComplete/sagas';
 import { UPDATE_MATCHES } from './ItemForm/UserAutoComplete/constants';
 import { filterExpenses } from './Filter/sagas';
-import { SET_CURRENT_PAGE } from './constants';
+import { LOAD_LIST } from './List/constants';
 
 let watcher = null;
 
@@ -25,7 +25,7 @@ function* actionsWatcher() {
   yield fork(takeLatest, UPDATE_MATCHES, updateMatches);
   yield fork(takeLatest, actionTypes.CHANGE, filterExpenses);
   yield fork(takeLatest, LOCATION_CHANGE, onLocationChange);
-  yield fork(takeLatest, SET_CURRENT_PAGE, loadList);
+  yield fork(takeLatest, LOAD_LIST, loadList);
 }
 
 function* main() {
