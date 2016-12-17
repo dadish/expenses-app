@@ -20,6 +20,11 @@ export const selectItemsPerPage = () => createSelector(
   expenses => expenses.get('itemsPerPage')
 );
 
+export const selectUpdating = () => createSelector(
+  rootSelector(),
+  expenses => expenses.get('updating')
+);
+
 export const selectTotalPages = () => createSelector(
   selectTotalItems(),
   selectItemsPerPage(),

@@ -6,12 +6,14 @@ import rootSelector, {
   selectTotalPages,
   selectPaginationData,
   selectColumnWidths,
+  selectUpdating,
 } from '../selectors';
 
 const role = 300;
 const totalItems = 358319873;
 const currentPage = 54;
 const itemsPerPage = 373;
+const updating = '1324356rygdfds';
 const user = fromJS({
   role,
 });
@@ -22,6 +24,7 @@ const expenses = fromJS({
   totalItems,
   currentPage,
   itemsPerPage,
+  updating,
 });
 const state = fromJS({
   global: globalState,
@@ -46,6 +49,10 @@ test('selectItemsPerPage() selects state.expenses.', () => {
 
 test('selectTotalPages() calculates the totalPages number', () => {
   expect(selectTotalPages()(state)).toBe(Math.ceil(totalItems / itemsPerPage));
+});
+
+test('selectUpdating() calculates the totalPages number', () => {
+  expect(selectUpdating()(state)).toBe(updating);
 });
 
 test('selectPaginationData() return { totalPages, currentPage }.', () => {
