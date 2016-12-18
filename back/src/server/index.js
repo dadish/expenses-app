@@ -5,7 +5,7 @@ import config from '../config';
 const server = new Hapi.Server();
 
 server.connection({
-  port: config.port,
+  port: process.env.PORT || config.port,
   routes: {
     cors: {
       origin: ['http://localhost:3000'],
