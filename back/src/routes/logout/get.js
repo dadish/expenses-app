@@ -8,7 +8,7 @@ const route = {
       mode: 'try',
     },
     handler: (request, reply) => {
-      request.cookieAuth.clear();
+      request.cookieAuth.ttl(0);
       return reply('Logout Successful!');
     },
   },
