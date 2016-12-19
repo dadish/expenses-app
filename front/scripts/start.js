@@ -193,6 +193,7 @@ function addMiddleware(devServer) {
       onError: onProxyError(proxy),
       secure: false,
       changeOrigin: true,
+      pathRewrite: path => path.replace('/api', ''),
       ws: true
     });
     devServer.use(mayProxy, hpm);
