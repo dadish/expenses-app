@@ -1,6 +1,6 @@
 
 export const api = {
-  url: 'http://localhost:3001',
+  url: '/api',
   path: {
     login: '/login',
     logout: '/logout',
