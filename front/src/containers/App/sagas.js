@@ -10,8 +10,8 @@ const logoutUrl = `${api.url}${api.path.logout}`;
 
 export function* logoutSaga() {
   yield put(unsetUser());
-  yield put(push('/login'));
   yield call(request, logoutUrl);
+  yield put(push('/login'));
 }
 
 export function* watcherSaga() {
