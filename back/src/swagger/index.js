@@ -12,7 +12,6 @@ const options = {
       email: 'nurguly.ashyrov@gmail.com',
     },
   },
-  basePath: '/api/',
   documentationPath: '/docs',
 };
 

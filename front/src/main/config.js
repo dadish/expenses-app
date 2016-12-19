@@ -1,6 +1,6 @@
 
 export const api = {
-  url: '/api',
+  url: 'http://nurgulyashyrov.com:3010',
   path: {
     login: '/login',
     logout: '/logout',
