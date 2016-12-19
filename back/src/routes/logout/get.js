@@ -8,11 +8,7 @@ const route = {
       mode: 'try',
     },
     handler: (request, reply) => {
-      request.cookieAuth.set({
-        id: 0,
-        email: '',
-        role: 0,
-      });
+      request.cookieAuth.clear();
       return reply('Logout Successful!');
     },
   },
