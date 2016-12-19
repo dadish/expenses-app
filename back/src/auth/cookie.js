@@ -5,7 +5,7 @@ import { registerScheme } from './utils';
 const setupCookieStrategy = (server) => {
   server.auth.strategy('base', 'cookie', true, {
     password: 'zhg236tadgk@#GDjkq2}kawyd324w@$EW3pJSDGF2jsbcznow', // cookie secret
-    cookie: 'sid', // the cookie name
+    cookie: 'expenses-sid', // the cookie name
     ttl: 6 * 60 * 60 * 1000, // Set session to 1 day
     keepAlive: true,
     isSecure: false,
