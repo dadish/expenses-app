@@ -8,7 +8,7 @@ server.connection({
   port: config.port,
   routes: {
     cors: {
-      origin: ['http://localhost:3000'],
+      origin: ['http://localhost:3000', 'http://expenses.nurgulyashyrov.com'],
       credentials: true,
     },
     validate: {
