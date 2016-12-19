@@ -2,6 +2,8 @@ import Hapi from 'hapi';
 import Boom from 'boom';
 import config from '../config';
 
+const debug = Boolean(process.env.DEBUG);
+
 const server = new Hapi.Server();
 
 server.connection({
@@ -18,5 +20,11 @@ server.connection({
     },
   },
 });
+
+if (debug) {
+  server.on('response', (request) => {
+    console.log(`${request.info.remoteAddress}: ${request.method.toUpperCase()} ${request.url.path} --> ${request.response.statusCode}`);
+  });
+}
 
 export default server;
