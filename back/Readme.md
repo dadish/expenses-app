@@ -3,6 +3,7 @@ Expenses Back
 
 ## TODO
 - Log errors into disk file at `arc/db/utils.js`
+- Change database password
 
 ## Stack
 The main technology stack that are used in this app is:
