@@ -8,7 +8,11 @@ const route = {
       mode: 'try',
     },
     handler: (request, reply) => {
-      request.cookieAuth.ttl(0);
+      request.cookieAuth.set({
+        id: 0,
+        email: '',
+        role: 0,
+      });
       return reply('Logout Successful!');
     },
   },
