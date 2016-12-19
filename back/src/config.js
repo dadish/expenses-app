@@ -1,5 +1,5 @@
 const config = {
-  port: process.env.PORT || 3001,
+  port: process.env.PORT || 3010,
   debug: Boolean(process.env.DEBUG),
   db: {
     host: '127.0.0.1',
