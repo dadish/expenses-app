@@ -7,6 +7,8 @@ const tableName = 'expenses';
 const querySelectProps = knex.raw(`${tableName}.*, ${User.tableName}.email AS userEmail`);
 const queryJoinUsers = knex.raw(`${User.tableName} ON ${tableName}.user = ${User.tableName}.id`);
 const querySelectCount = knex.raw('COUNT(*) AS rows');
+const groupByWeek = 'STR_TO_DATE(CONCAT(YEARWEEK(date)," Monday"), "%X%V %W")';
+
 const rules = Joi.object().keys({
   user: Joi.number().integer().required()
           .description('The id of the user.'),
@@ -146,6 +148,37 @@ const findById = id => co(function* gen() {
 });
 
 /**
+ * buildQuery
+ * @return {object}
+ */
+const buildReport = (page, limit = 50) => co(function* gen() {
+  // calculate the offset
+  const offset = (page - 1) * limit;
+
+  // create the query
+  const query = knex(tableName);
+
+  // select and alias the start of the week as weekSart
+  query.select(knex.raw(`${groupByWeek} AS weekStart`));
+
+  // group the query by start of the week aliased as weekStart
+  query.groupBy('weekStart');
+
+  const { rows } = yield knex.first(querySelectCount).from(knex.raw(`(${query.toString()}) AS t1`));
+
+  // select and alias the total spent amount per selected group as totalSpent
+  query.select(knex.raw('SUM(amount) as totalSpent'));
+
+  // set offset and limit
+  query.limit(limit).offset(offset);
+
+  // execute the query
+  const list = yield query;
+
+  return { list, total: rows, page };
+});
+
+/**
  * Transforms attributes object into values that will be stored
  * in users table. For user the only thing that changes is the
  * password attribute. The password is hashed with bcrypt module.
@@ -241,6 +274,7 @@ export default {
   normalizeSelectors,
   find,
   findById,
+  buildReport,
   create,
   update,
   del,
