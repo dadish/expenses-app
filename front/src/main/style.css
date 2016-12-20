@@ -13,9 +13,20 @@ div[type=button] {
   -webkit-appearance: none;
 }
 
+.copy-w{
+  text-align: center;
+  font-size: 12px;
+  color: #555;
+  margin: 3rem auto 0rem;
+  padding: 1rem;
+  border-top: 1px solid #ddd;
+  max-width: 240px;
+}
+
 @media print {
   .header-w,
-  .controls-w {
+  .controls-w,
+  .copy-w {
     display: none !important;
   }
   .reports-w{

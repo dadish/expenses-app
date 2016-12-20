@@ -12,6 +12,9 @@ const App = ({ children }) => (
     <div>
       <Header />
       {React.Children.toArray(children)}
+      <div className="copy-w">
+        Copyright &copy; ExpensesLab
+      </div>
     </div>
   </MuiThemeProvider>
 );
