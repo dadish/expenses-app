@@ -23,8 +23,9 @@ const route = {
     },
 
     handler: (request, reply) => co(function* gen() {
+      const client = request.auth.credentials;
       const { page, limit } = request.query;
-      const items = yield Expense.buildReport(page, limit);
+      const items = yield Expense.buildReport({ user: client.id }, page, limit);
       reply(items);
     }).catch((err) => {
       handleInternalError(err);

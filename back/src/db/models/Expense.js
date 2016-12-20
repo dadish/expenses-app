@@ -151,7 +151,7 @@ const findById = id => co(function* gen() {
  * buildQuery
  * @return {object}
  */
-const buildReport = (page, limit = 50) => co(function* gen() {
+const buildReport = (selector = {}, page, limit = 50) => co(function* gen() {
   // calculate the offset
   const offset = (page - 1) * limit;
 
@@ -160,6 +160,12 @@ const buildReport = (page, limit = 50) => co(function* gen() {
 
   // select and alias the start of the week as weekSart
   query.select(knex.raw(`${groupByWeek} AS weekStart`));
+
+  // set the selecting rules
+  // for now this is used only for `user` field
+  normalizeSelectors(selector).forEach(({ field, operator, value }) => {
+    query.whereRaw(`${field} ${operator} ${value}`);
+  });
 
   // group the query by start of the week aliased as weekStart
   query.groupBy('weekStart');
