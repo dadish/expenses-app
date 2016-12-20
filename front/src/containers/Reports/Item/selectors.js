@@ -11,11 +11,20 @@ const selectWeekStart = () => createSelector(
 
 export const selectPeriod = () => createSelector(
   selectWeekStart(),
-  (weekStart) => {
+  (startDate) => {
     let period = '';
-    period += `${format(weekStart, 'YYYY MMM D')}`;
-    period += ' - ';
-    period += `${format(addDays(weekStart, 6), 'D')}`;
+    const startYear = format(startDate, 'YYYY');
+    const startMonth = format(startDate, 'MMM');
+    const startDay = format(startDate, 'D');
+    const endDate = addDays(startDate, 6);
+    const endYear = format(endDate, 'YYYY');
+    const endMonth = format(endDate, 'MMM');
+    const endDay = format(endDate, 'D');
+    period += `${startYear} ${startMonth} ${startDay}`;
+    period += ' -';
+    if (startYear !== endYear) period += ` ${endYear}`;
+    if (startMonth !== endMonth) period += ` ${endMonth}`;
+    period += ` ${endDay}`;
     return period;
   }
 );
