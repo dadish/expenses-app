@@ -4,6 +4,7 @@ import Paper from 'material-ui/Paper';
 import InProgress from 'components/InProgress';
 import { createStructuredSelector } from 'reselect';
 import { selectUpdating } from './selectors';
+import Controls from './Controls';
 import Header from './Header';
 import List from './List';
 
@@ -15,6 +16,7 @@ const style = {
 
 export const Reports = ({ listUpdating }) => {
   const items = [];
+  items.push(<Controls key="Controls" />);
   items.push(<Header key="Header" />);
   if (listUpdating) items.push(<InProgress key="Progress" />);
   else items.push(<List key="List" />);
