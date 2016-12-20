@@ -2,9 +2,9 @@ import React, { PropTypes } from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import { blue500, blue700 } from 'material-ui/styles/colors';
 
-const Expenses = ({ handleClick }) => (
+const HeaderButton = ({ handleClick, label }) => (
   <FlatButton
-    label="Expenses"
+    label={label}
     hoverColor={blue500}
     rippleColor={blue700}
     onClick={handleClick}
@@ -12,8 +12,9 @@ const Expenses = ({ handleClick }) => (
   />
 );
 
-Expenses.propTypes = {
+HeaderButton.propTypes = {
   handleClick: PropTypes.func.isRequired,
+  label: PropTypes.string.isRequired,
 };
 
-export default Expenses;
+export default HeaderButton;

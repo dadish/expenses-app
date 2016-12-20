@@ -97,6 +97,21 @@ export default function createRoutes(store) {
         });
       },
     }, {
+      path: '/reports',
+      name: 'reports',
+      getComponent(nextState, cb) {
+        require.ensure([
+          'containers/Reports/reducer',
+          'containers/Reports/sagas',
+          'containers/Reports',
+        ], (require) => {
+          const renderRoute = loadModule(cb);
+          injectReducer('reports', require('containers/Reports/reducer').default);
+          injectSagas(require('containers/Reports/sagas').default);
+          renderRoute(require('containers/Reports').default);
+        });
+      },
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {

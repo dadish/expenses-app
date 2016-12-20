@@ -7,9 +7,7 @@ import Logo from 'components/Logo';
 import { logout } from 'containers/App/actions';
 import { createStructuredSelector } from 'reselect';
 import { selectUserRole } from 'containers/App/selectors';
-import Expenses from './Middle/Expenses';
-import Users from './Middle/Users';
-import Logout from './Logout';
+import Button from './Button';
 
 const style = {
   backgroundColor: blue400,
@@ -24,6 +22,7 @@ export const Header = (props) => {
   const {
     handleLogout,
     goToExpenses,
+    goToReports,
     goToUsers,
     userRole,
   } = props;
@@ -35,26 +34,39 @@ export const Header = (props) => {
     />
   );
   const headerMiddleExpenses = (
-    <Expenses
+    <Button
+      label="Expenses"
       key="header-middle-expenses"
       handleClick={goToExpenses}
     />
   );
+  const headerMiddleReports = (
+    <Button
+      label="Reports"
+      key="header-middle-reports"
+      handleClick={goToReports}
+    />
+  );
   const headerMiddleUsers = (
-    <Users
+    <Button
+      label="Users"
       key="header-middle-users"
       handleClick={goToUsers}
     />
   );
   const headerLogout = (
-    <Logout
+    <Button
+      label="Logout"
       key="header-logout
       " handleClick={handleLogout}
     />
   );
 
   headerItems.push(headerLogo);
-  if (userRole >= 100) headerMiddleItems.push(headerMiddleExpenses);
+  if (userRole >= 100) {
+    headerMiddleItems.push(headerMiddleExpenses);
+    headerMiddleItems.push(headerMiddleReports);
+  }
   if (userRole >= 200) headerMiddleItems.push(headerMiddleUsers);
   headerItems.push(<div key="header-middle">{headerMiddleItems}</div>);
   if (userRole >= 100) headerItems.push(headerLogout);
@@ -69,6 +81,7 @@ export const Header = (props) => {
 Header.propTypes = {
   handleLogout: PropTypes.func.isRequired,
   goToExpenses: PropTypes.func.isRequired,
+  goToReports: PropTypes.func.isRequired,
   goToUsers: PropTypes.func.isRequired,
   userRole: PropTypes.number.isRequired,
 };
@@ -80,6 +93,7 @@ export const mapStateToProps = createStructuredSelector({
 export const mapDispatchToProps = dispatch => ({
   handleLogout: () => dispatch(logout()),
   goToExpenses: () => dispatch(push('/expenses')),
+  goToReports: () => dispatch(push('/reports')),
   goToUsers: () => dispatch(push('/users')),
 });
 
