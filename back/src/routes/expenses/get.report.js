@@ -16,7 +16,7 @@ const route = {
         limit: Joi.number().positive().max(500).min(1)
                 .default(50)
                 .optional()
-                .description('The number of items to return. Default 50.'),
+                .description('The number of items to return. Min 1 & max is 500. Default 50.'),
         page: Joi.number().positive().default(1).optional()
                 .description('The page of the items. Default 1.'),
       },
