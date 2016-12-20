@@ -12,3 +12,14 @@ div[type=button] {
   appearance: none;
   -webkit-appearance: none;
 }
+
+@media print {
+  .header-w,
+  .controls-w {
+    display: none !important;
+  }
+  .reports-w{
+    box-shadow: none !important;
+    border: none !important;
+  }
+}

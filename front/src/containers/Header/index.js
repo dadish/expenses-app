@@ -72,7 +72,7 @@ export const Header = (props) => {
   if (userRole >= 100) headerItems.push(headerLogout);
 
   return (
-    <Paper style={style} >
+    <Paper style={style} className="header-w">
       {headerItems}
     </Paper>
   );

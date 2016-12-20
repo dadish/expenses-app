@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import FlatButton from 'material-ui/FlatButton';
+import { blue400 } from 'material-ui/styles/colors';
 import { createStructuredSelector } from 'reselect';
 import Pagination from 'react-ultimate-pagination-material-ui';
 import { selectPaginationData } from '../selectors';
@@ -8,6 +10,7 @@ import { loadList } from '../List/actions';
 
 export const ExpensesControls = ({ handlePageChange, paginationData }) => (
   <div
+    className="controls-w"
     style={{
       display: 'flex',
       alignItems: 'center',
@@ -18,6 +21,14 @@ export const ExpensesControls = ({ handlePageChange, paginationData }) => (
     <Pagination
       {...paginationData}
       onChange={handlePageChange}
+    />
+    <FlatButton
+      primary
+      label="Print"
+      labelStyle={{
+        color: blue400,
+      }}
+      onClick={() => print()}
     />
   </div>
 );

@@ -21,7 +21,7 @@ export const Reports = ({ listUpdating }) => {
   if (listUpdating) items.push(<InProgress key="Progress" />);
   else items.push(<List key="List" />);
   return (
-    <Paper style={style} >
+    <Paper style={style} className="reports-w" >
       {items}
     </Paper>
   );
