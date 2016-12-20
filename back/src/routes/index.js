@@ -2,7 +2,7 @@
 
 export default [
   // hello world
-  require('./hello').default,
+  require('./hello/get.js').default,
 
   // authentication API
   require('./login/get.js').default,
