@@ -1,18 +1,19 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import { Map } from 'immutable';
-import format from 'date-fns/format';
-import addDays from 'date-fns/add_days';
 import ReportsItemRow from 'components/ReportsItemRow';
 import {
   ReportsItemColumnPeriod,
   ReportsItemColumnAvarageSpent,
   ReportsItemColumnTotalSpent,
 } from 'components/ReportsItemColumn';
+import { selectPeriod } from './selectors';
 
-export const ReportItem = ({ report }) => (
+export const ReportItem = ({ report, period }) => (
   <ReportsItemRow>
     <ReportsItemColumnPeriod>
-      {format(report.get('weekStart'), 'YYYY MMM D')} - {format(addDays(report.get('weekStart'), 6), 'D')}
+      {period}
     </ReportsItemColumnPeriod>
     <ReportsItemColumnAvarageSpent>
       ${Math.ceil(report.get('totalSpent') / 7) / 100}
@@ -25,6 +26,11 @@ export const ReportItem = ({ report }) => (
 
 ReportItem.propTypes = {
   report: PropTypes.instanceOf(Map).isRequired,
+  period: PropTypes.string.isRequired,
 };
 
-export default ReportItem;
+const mapStateToProps = createStructuredSelector({
+  period: selectPeriod(),
+});
+
+export default connect(mapStateToProps)(ReportItem);
