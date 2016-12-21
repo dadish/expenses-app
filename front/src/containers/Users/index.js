@@ -13,9 +13,9 @@ const style = {
 
 const Users = () => (
   <Paper style={style} >
+    <Controls />
     <Header />
     <List />
-    <Controls />
   </Paper>
 );
 

@@ -43,7 +43,7 @@ const reducer = (state = initialState, action) => {
       if (itemState.get('id')) return state.set(index, itemReducer(itemState, action));
       return state.remove(index);
     case CREATE:
-      return state.push(itemReducer(undefined, action));
+      return state.unshift(itemReducer(undefined, action));
     default:
       return state;
   }
