@@ -4,13 +4,19 @@ import debounce from 'lodash/debounce';
 import isNaN from 'lodash/isNaN';
 import toNumber from 'lodash/toNumber';
 import FlatButton from 'material-ui/FlatButton';
-import TextField from 'material-ui/TextField';
+import InputSelect from 'components/InputSelect';
 import { blue400 } from 'material-ui/styles/colors';
 import { createStructuredSelector } from 'reselect';
 import Pagination from 'react-ultimate-pagination-material-ui';
 import { selectPaginationData, selectItemsPerPage } from '../selectors';
 import { setCurrentPage, setItemsPerPage } from '../actions';
 import { loadList } from '../List/actions';
+
+const choices = [
+  [10], [15], [20], [25], [30], [35], [40], [45], [50],
+  [55], [60], [65], [70], [75], [80], [85], [90], [95],
+  [100], [200], [300], [400], [500],
+];
 
 export const ExpensesControls = (props) => {
   const {
@@ -36,28 +42,19 @@ export const ExpensesControls = (props) => {
       <div
         style={{
           display: 'flex',
+          alignItems: 'center',
         }}
       >
-        <span
-          style={{
-            position: 'relative',
-            top: '8px',
-            right: '8px',
+        <InputSelect
+          label="Limit"
+          input={{
+            onChange: handleLimitChange,
+            value: itemsPerPage,
           }}
-        >
-          Limit:
-        </span>
-        <TextField
-          name="itemsPerPage"
+          meta={{}}
+          choices={choices}
           style={{
-            width: '100px',
-            height: '40px',
-            marginRight: '16px',
-          }}
-          onChange={handleLimitChange}
-          hintText={itemsPerPage}
-          hintStyle={{
-            bottom: '8px',
+            marginRight: '32px',
           }}
         />
         <FlatButton
