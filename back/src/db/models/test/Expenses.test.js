@@ -13,6 +13,7 @@ const {
   find,
   normalizeSelectors,
   findById,
+  buildReport,
   del,
   delForUser,
 } = Expense;
@@ -248,6 +249,37 @@ describe('Expense Model', () => {
       foo: 'bar',
     }).catch((err) => {
       expect(err).toExist();
+    }));
+  });
+
+  describe('buildReport()', () => {
+    it('returns promise', (done) => {
+      expect(find()).toBeA(Promise);
+      done();
+    });
+    it('resolves to an object with `page`, `limit`, `total` and `list` properties', () => buildReport()
+    .then((result) => {
+      expect(result).toExist();
+      expect(result).toBeAn(Object);
+      expect(result.page).toExist();
+      expect(result.limit).toExist();
+      expect(result.total).toExist();
+      expect(result.list).toExist();
+    }));
+    it('accepts page and limit options', () => {
+      const page = 3;
+      const limit = 10;
+      return buildReport({}, page, limit).then((result) => {
+        expect(result.page).toBe(page);
+        expect(result.limit).toBe(limit);
+      });
+    });
+    it('the list property is an empty array if nothing found', () => buildReport({
+      user: 1230,
+    }).then((result) => {
+      expect(result).toExist();
+      expect(result.list).toBeAn(Array);
+      expect(result.list.length).toBe(0);
     }));
   });
 
