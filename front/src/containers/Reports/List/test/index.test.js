@@ -1,7 +1,7 @@
 import React from 'react';
 import { fromJS } from 'immutable';
 import { shallow } from 'enzyme';
-import { ExpensesList } from '../';
+import { ReportList } from '../';
 
 const props = {
   list: fromJS([
@@ -12,8 +12,8 @@ const props = {
   ]),
 };
 
-describe('ExpensesList', () => {
+describe('ReportList', () => {
   it('renders without errors', () => {
-    shallow(<ExpensesList {...props} />);
+    shallow(<ReportList {...props} />);
   });
 });

@@ -5,10 +5,14 @@ import { push } from 'react-router-redux';
 import { logout } from 'containers/App/actions';
 import { Header, mapDispatchToProps } from './';
 
+const pathname = 'string';
+
 const props = {
   handleLogout: () => {},
   goToExpenses: () => {},
   goToUsers: () => {},
+  goToReports: () => {},
+  location: { pathname },
   userRole: 200,
 };
 
@@ -26,7 +30,7 @@ describe('Header', () => {
 
 describe('mapDispatchToProps()', () => {
   const dispatch = createSpy();
-  const { handleLogout, goToExpenses, goToUsers } = mapDispatchToProps(dispatch);
+  const { handleLogout, goToExpenses, goToUsers, goToReports } = mapDispatchToProps(dispatch);
 
   it('handleLogout() dispatches a logout action', () => {
     handleLogout();
@@ -41,5 +45,9 @@ describe('mapDispatchToProps()', () => {
   it('goToUsers() dispatches a react-router-redux`s push with `/users`', () => {
     goToUsers();
     expect(dispatch).toHaveBeenCalledWith(push('/users'));
+  });
+  it('goToReports() dispatches a react-router-redux`s push with `/users`', () => {
+    goToReports();
+    expect(dispatch).toHaveBeenCalledWith(push('/reports'));
   });
 });

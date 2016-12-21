@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
-import ExpensesItemForm, { createForm } from './';
+import ExpensesItemForm, { createForm, parseAmount } from './';
 
 const userRole = 100;
 
@@ -41,5 +41,14 @@ describe('ExpensesItemForm', () => {
 describe('createForm()', () => {
   it('returns without errors', () => {
     createForm('formName');
+  });
+});
+
+describe('parseAmount()', () => {
+  it('returns number without leading zero if there is not precision point', () => {
+    expect(parseAmount('034')).toBe('34');
+  });
+  it('returns the string if no error', () => {
+    expect(parseAmount('45')).toBe('45');
   });
 });

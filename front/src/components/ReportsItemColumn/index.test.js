@@ -1,25 +1,17 @@
 import React from 'react';
 import expect from 'expect';
 import { shallow } from 'enzyme';
-import ExpenseItemColumn, {
-  ReportsItemColumnId,
-  ReportsItemColumnUser,
-  ReportsItemColumnAmount,
-  ReportsItemColumnDate,
-  ReportsItemColumnDescription,
-  ReportsItemColumnComment,
-  ReportsItemColumnEdit,
+import ReportsItemColumn, {
+  ReportsItemColumnPeriod,
+  ReportsItemColumnAvarageSpent,
+  ReportsItemColumnTotalSpent,
 } from './';
 
 const components = {
-  ExpenseItemColumn,
-  ReportsItemColumnId,
-  ReportsItemColumnUser,
-  ReportsItemColumnAmount,
-  ReportsItemColumnDate,
-  ReportsItemColumnDescription,
-  ReportsItemColumnComment,
-  ReportsItemColumnEdit,
+  ReportsItemColumn,
+  ReportsItemColumnPeriod,
+  ReportsItemColumnAvarageSpent,
+  ReportsItemColumnTotalSpent,
 };
 
 Object.keys(components).forEach((key) => {

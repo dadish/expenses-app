@@ -1,16 +1,30 @@
 import expect from 'expect';
 import {
-  CREATE,
+  SET_TOTAL_ITEMS,
+  SET_CURRENT_PAGE,
+  SET_ITEMS_PER_PAGE,
 } from '../constants';
 import {
-  create,
+  setTotalItems,
+  setItemsPerPage,
+  setCurrentPage,
 } from '../actions';
 
 const actionsMap = {
-  create: {
-    name: 'create',
-    method: create,
-    constant: CREATE,
+  setTotalItems: {
+    name: 'setTotalItems',
+    method: setTotalItems,
+    constant: SET_TOTAL_ITEMS,
+  },
+  setItemsPerPage: {
+    name: 'setItemsPerPage',
+    method: setItemsPerPage,
+    constant: SET_ITEMS_PER_PAGE,
+  },
+  setCurrentPage: {
+    name: 'setCurrentPage',
+    method: setCurrentPage,
+    constant: SET_CURRENT_PAGE,
   },
 };
 

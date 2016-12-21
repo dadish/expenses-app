@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import debounce from 'lodash/debounce';
 import isNaN from 'lodash/isNaN';
 import toNumber from 'lodash/toNumber';
 import FlatButton from 'material-ui/FlatButton';
@@ -17,6 +16,8 @@ const choices = [
   [55], [60], [65], [70], [75], [80], [85], [90], [95],
   [100], [200], [300], [400], [500],
 ];
+
+export const printOnClick = () => print();
 
 export const ExpensesControls = (props) => {
   const {
@@ -63,7 +64,7 @@ export const ExpensesControls = (props) => {
           labelStyle={{
             color: blue400,
           }}
-          onClick={() => print()}
+          onClick={printOnClick}
         />
       </div>
     </div>
@@ -87,13 +88,13 @@ export const mapDispatchToProps = dispatch => ({
     dispatch(setCurrentPage(pageNumber));
     dispatch(loadList());
   },
-  handleLimitChange: debounce((limit) => {
+  handleLimitChange: (limit) => {
     let value = toNumber(limit);
     if (isNaN(value)) value = 25;
     value = value > 500 ? 500 : value;
     dispatch(setItemsPerPage(value));
     dispatch(loadList());
-  }, 500),
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpensesControls);

@@ -28,6 +28,13 @@ const fieldStyle = {
   width: '100%',
 };
 
+export const parseAmount = (value) => {
+  if (value.indexOf('.') === -1 && value[0] === '0' && value.length > 1) {
+    return trimStart(value, '0');
+  }
+  return value;
+};
+
 const ExpensesItemForm = (props) => {
   const {
     handleSubmit,
@@ -68,12 +75,7 @@ const ExpensesItemForm = (props) => {
         name="amount"
         component={InputText}
         style={fieldStyle}
-        parse={(value) => {
-          if (value.indexOf('.') === -1 && value[0] === '0' && value.length > 1) {
-            return trimStart(value, '0');
-          }
-          return value;
-        }}
+        parse={parseAmount}
       />
     </ExpensesItemColumnAmount>
   );

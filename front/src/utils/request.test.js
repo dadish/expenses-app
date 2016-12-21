@@ -22,5 +22,3 @@ it('appends a query string if fourth argument is provided', () => request('one',
 .then((data) => {
   expect(data).toExist();
 }));
-
-it('figure out how to properly mock HTTP requests for superagent');
