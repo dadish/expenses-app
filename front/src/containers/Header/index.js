@@ -25,6 +25,7 @@ export const Header = (props) => {
     goToReports,
     goToUsers,
     userRole,
+    location: { pathname },
   } = props;
   const headerItems = [];
   const headerMiddleItems = [];
@@ -35,6 +36,7 @@ export const Header = (props) => {
   );
   const headerMiddleExpenses = (
     <Button
+      active={pathname === '/expenses'}
       label="Expenses"
       key="header-middle-expenses"
       handleClick={goToExpenses}
@@ -42,6 +44,7 @@ export const Header = (props) => {
   );
   const headerMiddleReports = (
     <Button
+      active={pathname === '/reports'}
       label="Reports"
       key="header-middle-reports"
       handleClick={goToReports}
@@ -49,6 +52,7 @@ export const Header = (props) => {
   );
   const headerMiddleUsers = (
     <Button
+      active={pathname === '/users'}
       label="Users"
       key="header-middle-users"
       handleClick={goToUsers}
@@ -56,6 +60,7 @@ export const Header = (props) => {
   );
   const headerLogout = (
     <Button
+      active={false}
       label="Logout"
       key="header-logout
       " handleClick={handleLogout}
@@ -84,6 +89,7 @@ Header.propTypes = {
   goToReports: PropTypes.func.isRequired,
   goToUsers: PropTypes.func.isRequired,
   userRole: PropTypes.number.isRequired,
+  location: PropTypes.object.isRequired,
 };
 
 export const mapStateToProps = createStructuredSelector({

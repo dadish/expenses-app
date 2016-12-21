@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Header from 'containers/Header';
@@ -7,10 +7,10 @@ import Header from 'containers/Header';
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
-const App = ({ children }) => (
+const App = ({ children, location }) => (
   <MuiThemeProvider>
     <div>
-      <Header />
+      <Header location={location} />
       {React.Children.toArray(children)}
       <div className="copy-w">
         Copyright &copy; ExpensesLab
@@ -18,5 +18,9 @@ const App = ({ children }) => (
     </div>
   </MuiThemeProvider>
 );
+
+App.propTypes = {
+  location: PropTypes.object.isRequired,
+};
 
 export default App;
