@@ -10,5 +10,5 @@
 ✔ REST API. Make it possible to perform all user actions via the API, including authentication (If a mobile application and you don’t know how to create your own backend you can use Firebase.com or similar services to create the API).
 ✔ You need to be able to pass credentials to both the webpage and the API.
 ✔ In any case you should be able to explain how a REST API works and demonstrate that by creating functional tests that use the REST Layer directly. Please be prepared to use REST clients like Postman, cURL, etc. for this purpose.
-❌ Bonus: unit and e2e tests!
+✔❌ Bonus: unit and e2e tests! (e2e tests are not implemented yet)
 ✔ You will not be marked on graphic design, however, do try to keep it as tidy as possible.
