@@ -4,9 +4,9 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "test": "lab --pattern 'test' src",
-    "test:target": "lab --pattern 'test'",
-    "test:watch": "nodemon -x 'npm test'",
+    "test": "env TEST=true lab --pattern 'test' src",
+    "test:target": "env TEST=true lab --pattern 'test'",
+    "test:watch": "env TEST=true nodemon -x 'npm test'",
     "start": "babel-node src",
     "start:watch": "nodemon src -x 'npm start'",
     "start:production": "node build",
