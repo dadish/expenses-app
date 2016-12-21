@@ -21,6 +21,7 @@ export class ItemOrItemForm extends PureComponent {
           userEmail: user.get('email'),
         });
       }
+      values = values.set('amount', values.get('amount') / 100);
       const Form = createForm(cid);
       item = (<Form initialValues={values} cid={cid} />);
     } else {

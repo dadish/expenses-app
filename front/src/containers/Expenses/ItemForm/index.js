@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import trimStart from 'lodash/trimStart';
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
 import { reduxForm, Field } from 'redux-form/immutable';
@@ -67,6 +68,12 @@ const ExpensesItemForm = (props) => {
         name="amount"
         component={InputText}
         style={fieldStyle}
+        parse={(value) => {
+          if (value.indexOf('.') === -1 && value[0] === '0' && value.length > 1) {
+            return trimStart(value, '0');
+          }
+          return value;
+        }}
       />
     </ExpensesItemColumnAmount>
   );

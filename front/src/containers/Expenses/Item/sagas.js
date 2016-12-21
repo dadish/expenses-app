@@ -1,5 +1,7 @@
 import { call, put } from 'redux-saga/effects';
 import { SubmissionError } from 'redux-form/immutable';
+import toNumber from 'lodash/toNumber';
+import isNaN from 'lodash/isNaN';
 import { api } from 'main/config';
 import request from 'utils/request';
 import boomToReduxForm from 'utils/boomToReduxForm';
@@ -13,6 +15,12 @@ import {
 
 const url = `${api.url}${api.path.expenses}`;
 
+const parseAmount = (value) => {
+  const result = toNumber(value);
+  if (!result || isNaN(result)) return 0;
+  return result * 100;
+};
+
 export function* saveItem(action) {
   const { payload } = action;
   const resolve = payload.get('res');
@@ -20,7 +28,7 @@ export function* saveItem(action) {
   let expense = payload;
   const body = {
     user: expense.get('user'),
-    amount: expense.get('amount'),
+    amount: parseAmount(expense.get('amount')),
     date: expense.get('date'),
     description: expense.get('description'),
     comment: expense.get('comment'),
