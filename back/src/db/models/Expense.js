@@ -151,7 +151,7 @@ const findById = id => co(function* gen() {
  * buildQuery
  * @return {object}
  */
-const buildReport = (selector = {}, page, limit = 50) => co(function* gen() {
+const buildReport = (selector = {}, page = 1, limit = 50) => co(function* gen() {
   // calculate the offset
   const offset = (page - 1) * limit;
 
@@ -181,7 +181,7 @@ const buildReport = (selector = {}, page, limit = 50) => co(function* gen() {
   // execute the query
   const list = yield query;
 
-  return { list, total: rows, page };
+  return { list, total: rows, page, limit };
 });
 
 /**
