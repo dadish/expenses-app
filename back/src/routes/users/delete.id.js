@@ -1,7 +1,7 @@
 import co from 'co';
 import Joi from 'joi';
 import Boom from 'boom';
-import { User } from '../../db';
+import { User, Expense } from '../../db';
 import { handleInternalError } from '../utils';
 
 const route = {
@@ -31,6 +31,9 @@ const route = {
       reply(Boom.unauthorized());
       return;
     }
+
+    // first we need to delete victim user`s expenses
+    yield Expense.delForUser(id);
 
     const deletedItemId = yield User.del(id);
     if (deletedItemId) reply(deletedItemId);
