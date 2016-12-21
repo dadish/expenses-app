@@ -20,7 +20,7 @@ import InputTime from 'components/InputTime';
 import { selectUserRole } from 'containers/App/selectors';
 import { selectColumnWidths } from 'containers/Expenses/selectors';
 import { createStructuredSelector } from 'reselect';
-
+import validate from './validate';
 import UserAutoComplete from './UserAutoComplete';
 import ActionIcons from './ActionIcons';
 
@@ -144,6 +144,6 @@ ExpensesItemForm.propTypes = {
 
 export const createForm = form => connect(
   mapStateToProps,
-)(reduxForm({ form })(ExpensesItemForm));
+)(reduxForm({ form, validate })(ExpensesItemForm));
 
 export default ExpensesItemForm;
