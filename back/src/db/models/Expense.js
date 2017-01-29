@@ -36,6 +36,7 @@ const rules = Joi.object().keys({
 const validate = (attributes = {}) => Promise.resolve(Joi.validate(attributes, rules));
 
 const normalizeSelectors = selector => Object.keys(selector)
+  .filter(key => ['sortDirection', 'sortField'].indexOf(key) === -1)
   .map((key) => {
     let field = `${tableName}.${key}`;
     let operator = '=';
@@ -123,6 +124,9 @@ const find = (selector = {}, page = 1, limit = 50) => co(function* gen() {
 
   // set offset and limit
   query.limit(limit).offset(offset);
+
+  // set the sorting
+  query.orderBy(selector.sortField || 'date', selector.sortDirection || 'desc');
 
   // query the data
   const list = yield query;

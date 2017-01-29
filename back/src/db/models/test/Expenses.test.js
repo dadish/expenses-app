@@ -35,6 +35,8 @@ describe('Expense Model', () => {
   const description = 'Description';
   const comment = 'Comment';
   const date = '2016-11-13 23:23';
+  const sortField = 'date';
+  const sortDirection = 'desc';
   const attributes = {
     user,
     amount,
@@ -106,6 +108,18 @@ describe('Expense Model', () => {
       expect(result).toExist();
       expect(result.list).toBeAn(Array);
       expect(result.list.length).toBe(0);
+    }));
+    it('it accepts sortField property', () => find({
+      sortField: 'userEmail',
+    }).then((result) => {
+      expect(result).toExist();
+      expect(result.list).toBeAn(Array);
+    }));
+    it('it accepts sortDirection property', () => find({
+      sortDirection: 'asc',
+    }).then((result) => {
+      expect(result).toExist();
+      expect(result.list).toBeAn(Array);
     }));
   });
 
