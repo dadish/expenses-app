@@ -29,6 +29,8 @@ export const initialState = fromJS({
   itemsPerPage: 25,
   totalItems: 120,
   updating: false,
+  sortDirection: 'desc',
+  sortField: 'date',
 });
 
 const reducer = (state = initialState, action) => {

@@ -43,9 +43,9 @@ export const selectColumnWidths = () => createSelector(
     const admin = Boolean(role === 300);
     if (admin) {
       return ({
-        id: 5,
+        id: 3,
         user: 18,
-        amount: 7,
+        amount: 9,
         date: 20,
         description: 20,
         comment: 22,
@@ -62,4 +62,14 @@ export const selectColumnWidths = () => createSelector(
       edit: 12,
     });
   },
+);
+
+export const selectSortField = () => createSelector(
+  rootSelector(),
+  expenses => expenses.get('sortField')
+);
+
+export const selectSortDirection = () => createSelector(
+  rootSelector(),
+  expenses => expenses.get('sortDirection')
 );

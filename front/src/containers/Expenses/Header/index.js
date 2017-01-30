@@ -14,6 +14,7 @@ import {
   ExpensesItemColumnDescription,
   ExpensesItemColumnEdit,
 } from 'components/ExpensesItemColumn';
+import SortableLabel from './SortableLabel';
 
 export const ExpensesHeader = ({ role, widths }) => {
   const columns = [];
@@ -26,29 +27,29 @@ export const ExpensesHeader = ({ role, widths }) => {
   if (role === 300) {
     columns.push(
       <ExpensesItemColumnUser key="user" width={widths.user} >
-        User
+        <SortableLabel field="user">User</SortableLabel>
       </ExpensesItemColumnUser>
     );
   }
 
   columns.push(
     <ExpensesItemColumnAmount key="amount" width={widths.amount} >
-      Amount
+      <SortableLabel field="amount">Amount</SortableLabel>
     </ExpensesItemColumnAmount>
   );
   columns.push(
     <ExpensesItemColumnDate key="date" width={widths.date} >
-      Date
+      <SortableLabel field="date">Date</SortableLabel>
     </ExpensesItemColumnDate>
   );
   columns.push(
     <ExpensesItemColumnComment key="comment" width={widths.comment} >
-      Comment
+      <SortableLabel field="comment">Comment</SortableLabel>
     </ExpensesItemColumnComment>
   );
   columns.push(
     <ExpensesItemColumnDescription key="description" width={widths.description} >
-      Description
+      <SortableLabel field="description">Description</SortableLabel>
     </ExpensesItemColumnDescription>
   );
   columns.push(
