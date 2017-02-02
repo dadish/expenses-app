@@ -80,7 +80,7 @@ const attributesToSleep = attributes => co(function* gen() {
  * @return {array}           An array of user json objects
  */
 const find = (selector = {}, clean = true) => co(function* gen() {
-  const items = yield knex(tableName).where(selector);
+  const items = yield knex(tableName).where(selector).orderBy(`${tableName}.created_at`, 'desc');
   if (clean) return items.map(cleanUser);
   return items;
 });

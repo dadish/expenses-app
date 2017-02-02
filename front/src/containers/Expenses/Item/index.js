@@ -37,7 +37,7 @@ export const ExpensesItem = (props) => {
 
   columns.push(
     <ExpensesItemColumnAmount key="amount" width={widths.amount} >
-      {expense.get('amount') / 100}
+      ${expense.get('amount') / 100}
     </ExpensesItemColumnAmount>
   );
 

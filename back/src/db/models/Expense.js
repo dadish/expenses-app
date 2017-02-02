@@ -171,6 +171,9 @@ const buildReport = (selector = {}, page = 1, limit = 50) => co(function* gen() 
     query.whereRaw(`${field} ${operator} ${value}`);
   });
 
+  // sort the query by weekStart
+  query.orderBy('weekStart', 'desc');
+
   // group the query by start of the week aliased as weekStart
   query.groupBy('weekStart');
 
