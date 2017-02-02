@@ -9,6 +9,7 @@ import { updateMatches } from './ItemForm/UserAutoComplete/sagas';
 import { UPDATE_MATCHES } from './ItemForm/UserAutoComplete/constants';
 import { filterExpenses, onFilterDestroy } from './Filter/sagas';
 import { LOAD_LIST } from './List/constants';
+import { SET_SORT_FIELD, SET_SORT_DIRECTION } from './Header/constants';
 
 let watcher = null;
 
@@ -28,6 +29,8 @@ function* actionsWatcher() {
   yield fork(takeLatest, actionTypes.DESTROY, onFilterDestroy);
   yield fork(takeLatest, LOCATION_CHANGE, onLocationChange);
   yield fork(takeLatest, LOAD_LIST, loadList);
+  yield fork(takeLatest, SET_SORT_FIELD, loadList);
+  yield fork(takeLatest, SET_SORT_DIRECTION, loadList);
 }
 
 function* main() {

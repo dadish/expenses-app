@@ -4,12 +4,12 @@ import { api } from 'main/config';
 import request from 'utils/request';
 import { resetList } from './actions';
 import { setTotalItems, listUpdateStart, listUpdateStop } from '../actions';
-import { selectFilteredQuery } from '../Filter/selectors';
+import { selectQuery } from './selectors';
 
 const url = `${api.url}${api.path.expenses}`;
 
 export function* loadList() {
-  const query = yield select(selectFilteredQuery());
+  const query = yield select(selectQuery());
   yield put(listUpdateStart());
   const data = yield call(request, url, null, 'get', query);
   if (data.err) {
