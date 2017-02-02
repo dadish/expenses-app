@@ -21,6 +21,7 @@ import {
   DELETE_SUCCESS,
   DELETE_ERROR,
 } from './Item/constants';
+import { SET_SORT_FIELD, SET_SORT_DIRECTION, SORT_DIRECTION_DESC } from './Header/constants';
 
 export const initialState = fromJS({
   list: [],
@@ -29,7 +30,7 @@ export const initialState = fromJS({
   itemsPerPage: 25,
   totalItems: 120,
   updating: false,
-  sortDirection: 'desc',
+  sortDirection: SORT_DIRECTION_DESC,
   sortField: 'date',
 });
 
@@ -59,6 +60,10 @@ const reducer = (state = initialState, action) => {
       return state.set('updating', true);
     case LIST_UPDATE_STOP:
       return state.set('updating', false);
+    case SET_SORT_FIELD:
+      return state.set('sortField', payload);
+    case SET_SORT_DIRECTION:
+      return state.set('sortDirection', payload);
     default:
       return state;
   }

@@ -1,8 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import DescendingIcon from 'material-ui/svg-icons/navigation/arrow-drop-down';
-import AscendingIcon from 'material-ui/svg-icons/navigation/arrow-drop-up';
 import {
   selectSortField,
   selectSortDirection,
@@ -11,6 +9,8 @@ import {
   setSortField,
   setSortDirection,
 } from './actions';
+import SortIcon from './SortIcon';
+import { SORT_DIRECTION_ASC, SORT_DIRECTION_DESC } from './constants';
 
 const style = {
   display: 'flex',
@@ -18,26 +18,48 @@ const style = {
   cursor: 'pointer',
 };
 
-const Icon = ({ direction }) => (direction === 'desc' ? <DescendingIcon /> : <AscendingIcon />);
-Icon.propTypes = {
-  direction: PropTypes.string.isRequired,
+const createClickHandler = (props, dispatch) => (ev) => {
+  ev.preventDefault();
+  const {
+      field,
+      sortField,
+      direction,
+    } = props;
+  if (field === sortField) {
+    let newDirection;
+    if (direction === SORT_DIRECTION_ASC) newDirection = SORT_DIRECTION_DESC;
+    else newDirection = SORT_DIRECTION_ASC;
+    dispatch(setSortDirection(newDirection));
+  } else {
+    dispatch(setSortField(field));
+  }
 };
 
-export const Label = ({ children, sortField, field, direction }) => (
-  <div style={style}>
-    <div>
+export const Label = (props) => {
+  const {
+    children,
+    sortField,
+    field,
+    direction,
+    handleClick,
+  } = props;
+  return (
+    <a
+      style={style}
+      onClick={handleClick(props)}
+      tabIndex="-1"
+    >
       {children}
-    </div>
-    <Icon direction={direction} isActive={field === sortField} />
-  </div>
-);
+      <SortIcon direction={direction} isActive={field === sortField} />
+    </a>
+  );
+};
 
 Label.propTypes = {
   direction: PropTypes.string.isRequired,
   field: PropTypes.string.isRequired,
   sortField: PropTypes.string.isRequired,
-  // handleSortField: PropTypes.func.isRequired,
-  // handleSortDirection: PropTypes.func.isRequired,
+  handleClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -46,8 +68,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleSortField: field => dispatch(setSortField(field)),
-  handleSortDirection: direction => dispatch(setSortDirection(direction)),
+  handleClick: props => createClickHandler(props, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Label);
