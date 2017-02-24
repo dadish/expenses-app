@@ -10,5 +10,4 @@ us to serve the static front end files from any static CDN
 like github-pages. While the back-end API could be served
 from your own servers.
 
-The front-end logic of the app is located in the `front`
-directory while back-end of the app is located in `back`.
+Please consult with the Readme files for [front-end](https://github.com/dadish/expenses-app/tree/master/front) and [back-end](https://github.com/dadish/expenses-app/tree/master/back) in their respective folders.
