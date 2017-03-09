@@ -30,6 +30,7 @@ export default function createRoutes(store) {
     {
       path: '/',
       name: 'home',
+      onEnter: redirectToLogin,
       getComponent(nextState, cb) {
         require.ensure([
           'containers/HomePage/reducer',
