@@ -69,6 +69,7 @@ export default function createRoutes(store) {
     }, {
       path: '/users',
       name: 'users',
+      onEnter: redirectToLogin,
       getComponent(nextState, cb) {
         require.ensure([
           'containers/Users/reducer',
@@ -84,6 +85,7 @@ export default function createRoutes(store) {
     }, {
       path: '/expenses',
       name: 'expenses',
+      onEnter: redirectToLogin,
       getComponent(nextState, cb) {
         require.ensure([
           'containers/Expenses/reducer',

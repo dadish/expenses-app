@@ -21,7 +21,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import { useScroll } from 'react-router-scroll';
 import configureStore from 'main/store';
 import App from 'containers/App';
-import createRoutes, { redirectToLogin } from 'main/routes';
+import createRoutes from 'main/routes';
 import { selectLocationState } from 'containers/App/selectors';
 import auth from 'auth';
 
@@ -49,7 +49,6 @@ const history = syncHistoryWithStore(browserHistory, store, {
 // Set up the router, wrapping all Routes in the App component
 const rootRoute = {
   component: App,
-  onEnter: redirectToLogin,
   childRoutes: createRoutes(store),
 };
 
