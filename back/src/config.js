@@ -1,3 +1,7 @@
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 const db = {
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
