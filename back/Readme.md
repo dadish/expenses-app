@@ -20,7 +20,7 @@ your system follow the next steps.
 
 Clone the main repo.
 ```
-~$ git clone git@git.toptal.com:Nurguly-Ashyrov/nurguly-ashyrov-2nd-attempt.git
+~$ git clone git@github.com:dadish/expenses-app.git
 ```
 Go to `back` directory.
 ```
