@@ -13,7 +13,8 @@ const options = {
     },
   },
   documentationPath: '/docs',
-  basePath: '/api',
+  basePath: '/',
+  schemes: ['https'],
 };
 
 const swagger = server => new Promise((resolve, reject) => {
