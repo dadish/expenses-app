@@ -13,7 +13,7 @@ const options = {
     },
   },
   documentationPath: '/docs',
-  basePath: '/',
+  basePath: '/api',
   schemes: ['https'],
 };
 
